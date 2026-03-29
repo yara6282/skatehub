@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <title>community</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #001f3f; /* خلفية كحلي */
+            color: white;
+        }
+
+        /* الشريط */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #222;
+            height: 70px;
+            padding: 0 20px;
+            border-bottom: 2px solid #8B0000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .logo-link:hover {
+            transform: scale(1.1); /* يكبروا مع بعض */
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+
+        .site-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px #8B0000;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 3px black;
+        }
+        .nav-links a:hover {
+            color: #8B0000;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-icons a {
+            color: white;
+            font-size: 22px;
+        }
+        .nav-icons a:hover {
+            color: #8B0000;
+        }
+    </style>
+</head>
+<body>
+<!-- الشريط -->
+<div class="navbar">
+
+    <div class="logo">
+        <a href="home.html" class="logo-link">
+            <img src="9037278.png" alt="SkateHub Logo">
+            <span class="site-title">SkateHub</span>
+        </a>
+    </div>
+
+
+    <!-- الروابط بالنص -->
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="community.html">Community</a>
+        <a href="shop.html">Shop</a>
+        <a href="tutorials.html">Tutorials</a>
+    </div>
+
+    <!-- أيقونات على اليمين -->
+    <div class="nav-icons">
+        <a href="login.html"><i class="fas fa-user"></i></a>
+        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    </div>
+</div>
+
+</body>
+</html>

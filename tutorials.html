@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #001f3f;
+            color: white;
+        }
+
+        /* الشريط */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #222;
+            height: 70px;
+            padding: 0 20px;
+            border-bottom: 2px solid #8B0000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; }
+        .logo-link {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; transition: transform 0.3s ease;
+        }
+        .logo-link:hover { transform: scale(1.1); }
+        .logo img { width: 70px; height: 70px; border-radius: 50%; }
+        .site-title { font-size: 32px; font-weight: bold; color: white; text-shadow: 2px 2px 4px #8B0000; }
+
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 3px black; }
+        .nav-links a:hover { color: #8B0000; }
+
+        .nav-icons { display: flex; gap: 20px; }
+        .nav-icons a { color: white; font-size: 22px; }
+        .nav-icons a:hover { color: #8B0000; }
+        .hero-message {
+            margin-top: 90px; /* مسافة تحت الشريط */
+            text-align: center;
+            background: linear-gradient(90deg, #8B0000, #001f3f);
+            padding: 40px 20px;
+            border-bottom: 2px solid #444;
+        }
+        .hero-message h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+        }
+        .hero-message p {
+            font-size: 20px;
+            color: #ddd;
+        }
+        /* قسم الفيديوهات */
+        .tutorials-section {
+            margin-top: 30px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 50px;
+        }
+        .tutorials-section h2 {
+            font-size: 32px;
+            margin: 40px 0 20px;
+            text-shadow: 2px 2px 5px #8B0000;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* ثنتين جنب بعض */
+            gap: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<!-- الشريط -->
+<div class="navbar">
+    <div class="logo">
+        <a href="home.html" class="logo-link">
+            <img src="9037278.png" alt="SkateHub Logo">
+            <span class="site-title">SkateHub</span>
+        </a>
+    </div>
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="community.html">Community</a>
+        <a href="shop.html">Shop</a>
+        <a href="tutorials.html">Tutorials</a>
+    </div>
+    <div class="nav-icons">
+        <a href="login.html"><i class="fas fa-user"></i></a>
+        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    </div>
+</div>
+<!-- جملة ترحيبية تحت الشريط -->
+<div class="hero-message">
+    <h1>Your Journey to Skating Mastery Starts Here</h1>
+    <p>Explore tutorials, tips, and skills to level up your ride.</p>
+</div>
+<!-- قسم الفيديوهات -->
+<div class="tutorials-section">
+    <h2>Skateboard Basics</h2>
+    <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/I6VnsvDYR60" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/P3T_znRTZMQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/rLSdt-cuCUI" allowfullscreen></iframe>
+    </div>
+
+    <h2>Skateboard Skills</h2>
+    <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/JNmUK9fvrAs" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/hPcP9V_g3gQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/MFvkDE_uYq8" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/bxSEaW8TnCk" allowfullscreen></iframe>
+    </div>
+
+    <h2>Skateroller Basics</h2>
+    <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/0wepmbVVgYQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/dz7mNOr2ySs" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/tEuMF_tb1nI" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/CzNqdnitT5o" allowfullscreen></iframe>
+    </div>
+
+    <h2>Skateroller Skills</h2>
+    <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/8yLTfIRyltg" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/9A_u3C2kWds" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/rsWt20-MkkE" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/VYmHAuypFXM" allowfullscreen></iframe>
+    </div>
+</div>
+
+</body>
+</html>

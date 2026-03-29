@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <title>SkateHub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #001f3f; /* خلفية كحلي */
+            color: white;
+        }
+
+        /* الشريط */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #222;
+            height: 70px;
+            padding: 0 20px;
+            border-bottom: 2px solid #8B0000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .logo-link:hover {
+            transform: scale(1.1); /* يكبروا مع بعض */
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+
+        .site-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px #8B0000;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 3px black;
+        }
+        .nav-links a:hover {
+            color: #8B0000;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-icons a {
+            color: white;
+            font-size: 22px;
+        }
+        .nav-icons a:hover {
+            color: #8B0000;
+        }
+
+        .slider {
+            width: 100%;
+            height: 400px; /* ارتفاع أصغر */
+            margin-top: 70px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6); /* ظل يدمج السلايدر مع الصفحة */
+           /* حواف ناعمة */
+        }
+        .slides {
+            display: flex;
+            width: 100%;
+            transition: transform 1s ease;
+        }
+        .slides a {
+            flex: 0 0 100%; /* كل صورة تغطي العرض بالكامل */
+        }
+        .slides img {
+            width: 100%;
+            height: 400px; /* نفس ارتفاع السلايدر */
+            object-fit: cover; /* يخلي الصورة تغطي كامل المساحة بدون تشويه */
+            display: block;
+        }
+
+        .slider-title {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 70px; /* ممكن نصغر الخط شوي إذا بدك */
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px 6px #8B0000;
+        }
+
+        /* قسم الشوب */
+        .shop-preview {
+            width: 90%;
+            margin: 40px auto;
+            text-align: center;
+        }
+        .shop-preview h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #8B0000;
+        }
+        .products {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            background-color: #222;
+            border-radius: 15px;
+            width: 250px;
+            margin: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px black;
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            font-size: 22px;
+        }
+        .product-card p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #ddd;
+        }
+        .product-card button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .product-card button:hover {
+            background-color: #666;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- الشريط -->
+<div class="navbar">
+
+    <div class="logo">
+        <a href="home.html" class="logo-link">
+            <img src="9037278.png" alt="SkateHub Logo">
+            <span class="site-title">SkateHub</span>
+        </a>
+    </div>
+
+
+    <!-- الروابط بالنص -->
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="community.html">Community</a>
+        <a href="shop.html">Shop</a>
+        <a href="tutorials.html">Tutorials</a>
+    </div>
+
+    <!-- أيقونات على اليمين -->
+    <div class="nav-icons">
+        <a href="login.html"><i class="fas fa-user"></i></a>
+        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    </div>
+</div>
+
+<!-- السلايدر مع العنوان -->
+<div class="slider">
+    <div class="slides" id="slides">
+        <a href="event1.html"><img src="wallpaperflare.com_wallpaper.jpg" alt="Event 1"></a>
+        <a href="event2.html"><img src="pexels-jvbncncj-2719301.jpg" alt="Event 2"></a>
+        <a href="event3.html"><img src="pexels-minan1398-1406866.jpg" alt="Event 3"></a>
+    </div>
+</div>
+
+<!-- قسم الشوب -->
+<div class="shop-preview">
+    <h2>Skater’s Choice</h2>
+    <div class="products">
+        <div class="product-card">
+            <img src="47_007c3a40-5a29-4b2f-bd90-e7462162897d.png" alt="Skateboard">
+            <h3>Pro Skateboard</h3>
+            <p>$120</p>
+            <button>View</button>
+        </div>
+        <div class="product-card">
+            <img src="skate-t-shirt-bigflip-grey-men.webp" alt="T-shirt">
+            <h3>Skate T-Shirt</h3>
+            <p>$25</p>
+            <button>View</button>
+        </div>
+        <div class="product-card">
+            <img src="2000015_CLASSIC_SKATE_MATBLK_F_R_1500x.jpg" alt="Helmet">
+            <h3>Safety Helmet</h3>
+            <p>$45</p>
+            <button>View</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- قسم الفيديوهات التعليمية -->
+<div class="tutorial-section" style="width:90%; margin:40px auto; text-align:center;">
+    <h2 style="font-size:40px; margin-bottom:20px; text-shadow:2px 2px 4px #8B0000;">
+        Learn Skating Basics
+    </h2>
+
+    <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px;">
+        <!-- فيديو 1 -->
+        <div style="width:30%; min-width:280px;">
+            <iframe width="100%" height="180"
+                    src="https://www.youtube.com/embed/p3NXd3DhH08?start=22"
+                    title="Skating Tutorial 1"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="border-radius:10px; box-shadow:0 0 8px black;">
+            </iframe>
+        </div>
+
+        <!-- فيديو 2 -->
+        <div style="width:30%; min-width:280px;">
+            <iframe width="100%" height="180"
+                    src="https://www.youtube.com/embed/0wepmbVVgYQ"
+                    title="Skating Tutorial 2"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="border-radius:10px; box-shadow:0 0 8px black;">
+            </iframe>
+        </div>
+
+        <!-- فيديو 3 -->
+        <div style="width:30%; min-width:280px;">
+            <iframe width="100%" height="180"
+                    src="https://www.youtube.com/embed/JwEfq-OafFA"
+                    title="Skating Tutorial 3"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="border-radius:10px; box-shadow:0 0 8px black;">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- النص تحت الفيديوهات -->
+    <p style="margin-top:20px; font-size:20px; color:#ddd;">
+        Your journey to pro skating starts here.<br>
+        <a href="tutorials.html" target="_blank"
+           style="color:#00aced; font-weight:bold; text-decoration:none;">
+            Click here
+        </a> for more tutorials!
+    </p>
+
+</div>
+<!-- قسم الكوميونيتي -->
+<div class="community-section" style="width:90%; margin:60px auto; text-align:center;">
+    <h2 style="font-size:40px; margin-bottom:20px; text-shadow:2px 2px 4px #8B0000;">
+        Our Community
+    </h2>
+    <p style="font-size:20px; color:#ddd; margin-bottom:30px;">
+        Join a vibrant community of skaters sharing tricks, events, and stories.
+        Your journey is part of something bigger!
+    </p>
+
+    <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px;">
+        <div style="width:250px; background-color:#222; border-radius:15px; padding:15px; box-shadow:0 0 10px black;">
+            <img src="community1.jpg" alt="Community Event" style="width:100%; border-radius:10px;">
+            <h3 style="margin-top:10px;">Local Events</h3>
+        </div>
+        <div style="width:250px; background-color:#222; border-radius:15px; padding:15px; box-shadow:0 0 10px black;">
+            <img src="community2.jpg" alt="Skater Group" style="width:100%; border-radius:10px;">
+            <h3 style="margin-top:10px;">Skater Groups</h3>
+        </div>
+        <div style="width:250px; background-color:#222; border-radius:15px; padding:15px; box-shadow:0 0 10px black;">
+            <img src="community3.jpg" alt="Success Story" style="width:100%; border-radius:10px;">
+            <h3 style="margin-top:10px;">Success Stories</h3>
+        </div>
+    </div>
+</div>
+<!-- فقرة تعريفية عن الموقع -->
+<div style="width:90%; margin:60px auto; text-align:center;">
+    <h2 style="font-size:32px; color:#8B0000; margin-bottom:15px; text-shadow:2px 2px 4px black;">
+        About SkateHub
+    </h2>
+    <p style="font-size:18px; color:#ddd; line-height:1.6;">
+        SkateHub is more than just a website — it’s a space where skaters connect, learn, and grow.
+        Here you’ll find tutorials, events, and a vibrant community sharing their skills and stories.
+        Our mission is to make skating accessible, inspiring, and fun for everyone.
+    </p>
+</div>
+<script>
+    let currentIndex = 0;
+    const slides = document.getElementById("slides");
+    const totalSlides = slides.children.length;
+
+    function showSlide(index) {
+        slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        showSlide(currentIndex);
+    }
+
+    // غير الصورة كل 4 ثواني
+    setInterval(nextSlide, 4000);
+</script>
+</body>
+</html>
