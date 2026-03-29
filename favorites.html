@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Favorites - SkateHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/global.css">
+    <link rel="stylesheet" href="./style/shop.css">
+</head>
+<body>
+    <div class="navbar"> </div>
+
+    <div class="main-section">
+        <h1>My Favorites ⭐</h1>
+        <div id="fav-items" class="products"></div>
+    </div>
+
+    <script src="js/shop.js"></script>
+    <script>
+        const container = document.getElementById('fav-items');
+        favorites.forEach((item, index) => {
+            container.innerHTML += `
+                <div class="product-card">
+                    <img src="${item.image}">
+                    <h3>${item.name}</h3>
+                    <p>$${item.price}</p>
+                    <button onclick="removeFavItem(${index})" class="add-to-fav-btn">Unfavorite</button>
+                </div>`;
+        });
+
+        function removeFavItem(index) {
+            favorites.splice(index, 1);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            location.reload();
+        }
+    </script>
+</body>
+</html>
