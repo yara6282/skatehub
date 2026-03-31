@@ -1,3 +1,69 @@
+/* الإعدادات العامة */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #001f3f;
+    color: white;
+}
+
+/* النافبار */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #222;
+    height: 70px;
+    padding: 0 20px;
+    border-bottom: 2px solid #8B0000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover { transform: scale(1.1); }
+
+.logo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.site-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px #8B0000;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 10px;
+    text-shadow: 2px 2px 3px black;
+}
+
+.nav-links a:hover { color: #8B0000; }
+
+.nav-icons a {
+    color: white;
+    font-size: 22px;
+    margin-left: 15px;
+}
+
+.nav-icons a:hover { color: #8B0000; }
+
 /* السلايدر */
 .slider {
     width: 100%;
@@ -14,61 +80,47 @@
     transition: transform 1s ease;
 }
 
-.slides a {
-    flex: 0 0 100%;
-}
+.slides a { flex: 0 0 100%; }
 
 .slides img {
     width: 100%;
     height: 400px;
     object-fit: cover;
-    display: block;
 }
 
-/* قسم الشوب */
-.shop-preview {
+/* الكروت (Shop, Community) */
+.shop-preview, .tutorial-section, .community-section, .about-section {
     width: 90%;
     margin: 40px auto;
     text-align: center;
 }
 
-.shop-preview h2 {
+.shop-preview h2, .tutorial-section h2, .community-section h2, .about-section h2 {
     font-size: 40px;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px #8B0000;
 }
 
-.products {
+.products, .video-container, .community-grid {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
-.product-card {
+.product-card, .comm-card {
     background-color: #222;
     border-radius: 15px;
     width: 250px;
-    margin: 10px;
     padding: 15px;
     box-shadow: 0 0 10px black;
 }
 
-.product-card img {
+.product-card img, .comm-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
     border-radius: 10px;
-}
-
-.product-card h3 {
-    margin: 10px 0;
-    font-size: 22px;
-}
-
-.product-card p {
-    margin: 5px 0;
-    font-size: 18px;
-    color: #ddd;
 }
 
 .product-card button {
@@ -82,6 +134,103 @@
     font-weight: bold;
 }
 
-.product-card button:hover {
-    background-color: #666;
+/* الفيديوهات */
+.video-box { width: 30%; min-width: 280px; }
+.video-box iframe {
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px black;
+}
+
+/* نصوص إضافية */
+p { font-size: 18px; color: #ddd; line-height: 1.6; }
+a { color: #00aced; text-decoration: none; }
+/* ================== تصميم قسم الصور المتحركة (Slider) ================== */
+.hero-slider {
+    position: relative; /* عشان نقدر نحط الصور والنصوص فوق بعض جوا هذا الصندوق */
+    width: 100%; /* العرض بوخذ الشاشة كلها 100% */
+    height: 500px; /* طول قسم الصور (بتقدر تزيده أو تنقصه حسب رغبتك مثلاً 600px) */
+    overflow: hidden; /* أي شي بيطلع برا هذا الصندوق رح ينقص ويختفي عشان ما يخرب الشكل */
+    background-color: #0f172a; /* لون خلفية احتياطي كحلي غامق في حال الصورة تأخرت بالتحميل */
+}
+
+/* ================== تصميم كل صورة (Slide) ================== */
+.slide {
+    position: absolute; /* بخلي كل الصور تتكدس (تترتب) فوق بعضها في نفس المكان */
+    top: 0; /* يبدأ من أعلى الصندوق */
+    left: 0; /* يبدأ من يسار الصندوق */
+    width: 100%; /* يعبي العرض كامل */
+    height: 100%; /* يعبي الطول كامل */
+    opacity: 0; /* الشفافية صفر (يعني الصورة مخفية بالوضع الطبيعي) */
+    transition: opacity 1s ease-in-out; /* تأثير انتقال ناعم بياخذ ثانية وحدة لما تظهر الصورة أو تختفي */
+    text-decoration: none; /* إخفاء الخط اللي بيجي تحت الروابط (لأن الصورة كلها عبارة عن رابط) */
+}
+
+/* الكلاس اللي بينضاف للصورة الفعالة (اللي دورها تنعرض) */
+.slide.active {
+    opacity: 1; /* الشفافية 1 (يعني الصورة واضحة 100%) */
+    z-index: 10; /* بنرفع الصورة عشان تصير فوق باقي الصور المخفية */
+}
+
+/* ================== تصميم الصورة نفسها جوا السلايد ================== */
+.slide img {
+    width: 100%; /* عرض الصورة يعبي الشاشة */
+    height: 100%; /* طول الصورة يعبي الشاشة */
+    object-fit: cover; /* بخلي الصورة تقص حالها بذكاء عشان تعبي المكان بدون ما تتمطط وتخرب */
+    filter: brightness(0.4); /* تعتيم الصورة بنسبة 60% عشان النص الأبيض فوقها يبين بوضوح، حيلة احترافية! */
+    transition: transform 4s linear; /* تأثير زووم بطيء جداً عالصورة طول فترة عرضها */
+}
+
+/* لما الصورة تكون معروضة، بنعملها زووم خفيف لجمالية الحركة */
+.slide.active img {
+    transform: scale(1.05); /* تكبير الصورة بنسبة 5% */
+}
+
+/* ================== تصميم النص اللي فوق الصورة ================== */
+.slide-content {
+    position: absolute; /* عشان نقدر نحركه بحرية فوق الصورة */
+    top: 50%; /* ننزله لنص الشاشة من فوق */
+    left: 50%; /* نزيحه لنص الشاشة من اليسار */
+    transform: translate(-50%, -50%); /* هاي معادلة سحرية بتخلي النص بنص الشاشة بالضبط (سنترة 100%) */
+    text-align: center; /* توسيط الكلام (العنوان والنص الفرعي) */
+    color: #ffffff; /* لون الخط أبيض */
+    width: 80%; /* عشان لو الشاشة صغيرة النص ما يلزق بالحواف */
+}
+
+.slide-content h2 {
+    font-size: 48px; /* حجم العنوان الكبير */
+    font-weight: 900; /* خط عريض جداً */
+    margin-bottom: 15px; /* مسافة بين العنوان والنص الفرعي اللي تحته */
+    text-transform: uppercase; /* تحويل كل الحروف لـ Capital Letters بيعطي طابع قوي للموقع */
+    letter-spacing: 2px; /* تباعد خفيف بين الحروف */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* ظل أسود تحت الكلمة عشان تبرز أكثر */
+}
+
+.slide-content p {
+    font-size: 20px; /* حجم النص الفرعي */
+    font-weight: 400; /* سماكة الخط عادية */
+    color: #cbd5e1; /* لون سكني فاتح جداً (مائل للأزرق) بيليق مع ثيم الموقع */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* ظل خفيف للنص الفرعي */
+}
+.slide-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يضمن أن الفيديو يغطي المساحة بالكامل بدون تشويه */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* ليكون خلف النص */
+}
+
+/* تأكدي أن الـ slide نفسه له position: relative */
+.slide {
+    position: relative;
+    display: none; /* أو التنسيق الذي تستخدمينه في slider.js */
+    width: 100%;
+    height: 100%;
+}
+
+.slide.active {
+    display: block;
 }
