@@ -3,91 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkateHub - Home</title>
-    
+    <title>SkateHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/home.css">
 </head>
 <body>
 
-    <div class="navbar">
-        <div class="logo">
-            <a href="home.html" class="logo-link">
-                <img src="./image/9037278.png" alt="SkateHub Logo">
-                <span class="site-title">SkateHub</span>
-            </a>
-        </div>
-
-        <div class="nav-links">
-            <a href="home.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="community.html">Community</a>
-            <a href="shop.html">Shop</a>
-            <a href="tutorials.html">Tutorials</a>
-        </div>
-
-        <div class="nav-icons">
-            <a href="login.html"><i class="fas fa-user"></i></a>
-            <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-            <a href="notifications.html"><i class="fas fa-bell"></i></a>
-        </div>
+<div class="navbar">
+    <div class="logo">
+        <a href="home.html" class="logo-link">
+            <img src="./image/9037278.png" alt="SkateHub Logo">
+            <span class="site-title">SkateHub</span>
+        </a>
     </div>
 
-    <div class="slider">
-        <div class="slides" id="slides">
-            <a href="event1.html"><img src="./image/wallpaperflare.com_wallpaper.jpg" alt="Event 1"></a>
-            <a href="event2.html"><img src="./image/pexels-minan1398-1406866.jpg" alt="Event 2"></a>
-            <a href="event3.html"><img src="./image/pexels-jvbncncj-2719301.jpg" alt="Event 3"></a>
-        </div>
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="community.html">Community</a>
+        <a href="shop.html">Shop</a>
+        <a href="tutorials.html">Tutorials</a>
     </div>
 
-    <div class="shop-preview">
-        <h2>Skater’s Choice</h2>
-        <div class="products">
-            <div class="product-card">
-                <img src="./image/47_007c3a40-5a29-4b2f-bd90-e7462162897d.png" alt="Skateboard">
-                <h3>Pro Skateboard</h3>
-                <p>$120</p>
-                <button>View</button>
+    <div class="nav-icons">
+        <a href="login.html"><i class="fas fa-user"></i></a>
+        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    </div>
+</div>
+
+<div class="hero-slider">
+        
+        <!-- الصورة الأولى: ترحيبية للموقع (بتروح عالهوم) -->
+        <a href="#home" class="slide active"> <!-- الكلاس active يعني هاي الصورة اللي رح تظهر أول شي -->
+            <img src="./image/aad2b0b869c579a1acfefd9d4a25459c.jpg" alt="Welcome to SkateHub"> <!-- اسم صورتك الأولى هون -->
+            <div class="slide-content"> <!-- البوكس اللي جواته النص -->
+                <h2>Welcome to SkateHub</h2> <!-- العنوان الرئيسي -->
+                <p>Your ultimate skating destination</p> <!-- نص فرعي -->
             </div>
-            <div class="product-card">
-                <img src="./image/skate-t-shirt-bigflip-grey-men.webp " alt="T-shirt">
-                <h3>Skate T-Shirt</h3>
-                <p>$25</p>
-                <button>View</button>
+        </a>
+
+        <!-- الصورة الثانية: إعلان لحدث (بتروح عالايفينتس) -->
+        <a href="#events" class="slide">
+            <img src="./image/5b6a1251775b9646dfb19d30e20bb3c9.jpg" alt="Skate Events"> <!-- اسم صورتك الثانية هون -->
+            <div class="slide-content">
+                <h2>Join the Next Epic Event</h2> <!-- العنوان -->
+                <p>Don't miss out on the biggest skate competitions</p> <!-- نص فرعي -->
             </div>
-            <div class="product-card">
-                <img src="./image/2000015_CLASSIC_SKATE_MATBLK_F_R_1500x.jpg" alt="Helmet">
-                <h3>Safety Helmet</h3>
-                <p>$45</p>
-                <button>View</button>
+        </a>
+
+        <!-- الصورة الثالثة: إعلان لمنتج (بتروح عالشوب) -->
+        <a href="#shop" class="slide">
+            <img src="./image/d8d9d8abfc0f0648752767595eaca305.jpg" alt="Skate Shop"> <!-- اسم صورتك الثالثة هون -->
+            <div class="slide-content">
+                <h2>Upgrade Your Gear</h2> <!-- العنوان -->
+                <p>Check out the latest boards, wheels, and street wear</p> <!-- نص فرعي -->
             </div>
-        </div>
+        </a>
+
+        <!-- الصورة الرابعة: تعلم التزلج (بتروح عالتتوريالز) -->
+        <a href="tutorials.html" class="slide">
+    <video autoplay muted loop playsinline class="slide-video">
+        <source src="./videos/fff.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="slide-content">
+        <h2>Learn to Skate Like a Pro</h2>
+        <p>Master new tricks with our step-by-step tutorials</p>
+    </div>
+</a>
+
+        <!-- الصورة الخامسة: شارك فعالياتك (بتروح عالكوميونيتي) -->
+        <a href="#community" class="slide">
+            <img src="./image/d7e32d111eedf27ccd145984fb9b328c.jpg" alt="Skate Community"> <!-- اسم صورتك الخامسة هون -->
+            <div class="slide-content">
+                <h2>Share Your Best Tricks</h2> <!-- العنوان -->
+                <p>Connect with skaters and show off your moves</p> <!-- نص فرعي -->
+            </div>
+        </a>
+
     </div>
 
-    <div class="tutorial-section" style="width:90%; margin:40px auto; text-align:center;">
-        <h2 style="font-size:40px; margin-bottom:20px; text-shadow:2px 2px 4px #8B0000;">Learn Skating Basics</h2>
-        <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px;">
-            <iframe width="30%" height="180" src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" style="border-radius:10px; min-width:280px;"></iframe>
-            <iframe width="30%" height="180" src="https://www.youtube.com/embed/0wepmbVVgYQ" style="border-radius:10px; min-width:280px;"></iframe>
-            <iframe width="30%" height="180" src="https://www.youtube.com/embed/JwEfq-OafFA" style="border-radius:10px; min-width:280px;"></iframe>
+<div class="shop-preview">
+    <h2>Skater’s Choice</h2>
+    <div class="products">
+        <div class="product-card">
+            <img src="./image/47_007c3a40-5a29-4b2f-bd90-e7462162897d.png" alt="Skateboard">
+            <h3>Pro Skateboard</h3>
+            <p>$120</p>
+            <button>View</button>
         </div>
-        <p style="margin-top:20px; font-size:20px; color:#ddd;">
-            Your journey starts here. <a href="tutorials.html" style="color:#00aced; font-weight:bold;">Click here</a> for more!
-        </p>
-    </div>
-
-    <div class="community-section" style="width:90%; margin:60px auto; text-align:center;">
-        <h2 style="font-size:40px; margin-bottom:20px; text-shadow:2px 2px 4px #8B0000;">Our Community</h2>
-        <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px;">
-            <div class="product-card"><img src="community1.jpg" alt="Events"><h3>Local Events</h3></div>
-            <div class="product-card"><img src="community2.jpg" alt="Groups"><h3>Skater Groups</h3></div>
-            <div class="product-card"><img src="community3.jpg" alt="Stories"><h3>Success Stories</h3></div>
+        <div class="product-card">
+            <img src="./image/skate-t-shirt-bigflip-grey-men.webp" alt="T-shirt">
+            <h3>Skate T-Shirt</h3>
+            <p>$25</p>
+            <button>View</button>
+        </div>
+        <div class="product-card">
+            <img src="./image/2000015_CLASSIC_SKATE_MATBLK_F_R_1500x.jpg" alt="Helmet">
+            <h3>Safety Helmet</h3>
+            <p>$45</p>
+            <button>View</button>
         </div>
     </div>
+</div>
 
-    <script src="./java/slider.js"></script>
+<div class="tutorial-section">
+    <h2>Learn Skating Basics</h2>
+    <div class="video-container">
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/0wepmbVVgYQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/JwEfq-OafFA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <p>
+        Your journey to pro skating starts here.<br>
+        <a href="tutorials.html">Click here</a> for more tutorials!
+    </p>
+</div>
+
+<div class="community-section">
+    <h2>Our Community</h2>
+    <p>Join a vibrant community of skaters sharing tricks, events, and stories.</p>
+    <div class="community-grid">
+        <div class="comm-card">
+            <img src="community1.jpg" alt="Local Events">
+            <h3>Local Events</h3>
+        </div>
+        <div class="comm-card">
+            <img src="community2.jpg" alt="Skater Groups">
+            <h3>Skater Groups</h3>
+        </div>
+        <div class="comm-card">
+            <img src="community3.jpg" alt="Stories">
+            <h3>Success Stories</h3>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
+    <h2>About SkateHub</h2>
+    <p>
+        SkateHub is more than just a website — it’s a space where skaters connect, learn, and grow.
+        Our mission is to make skating accessible, inspiring, and fun for everyone.
+    </p>
+</div>
+
+<script src="./java/slider.js"></script>
+
 </body>
 </html>
