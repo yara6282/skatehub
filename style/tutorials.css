@@ -8,6 +8,7 @@
 }
 
 .hero-message h1 {
+    font-family: 'Black Ops One', cursive;
     font-size: 42px;
     margin-bottom: 15px;
     color: white;
@@ -15,8 +16,10 @@
 }
 
 .hero-message p {
+    font-family: 'Black Ops One', cursive;
     font-size: 20px;
-    color: #ddd;
+    color: #f8f8f8;
+    text-shadow: 1px 1px 3px #000000;
 }
 
 /* قسم الفيديوهات */
@@ -25,12 +28,25 @@
     margin: 30px auto 50px auto;
 }
 
-.tutorials-section h2 {
+/* .tutorials-section h2 {
+    font-family: 'Black Ops One', cursive;
     font-size: 32px;
     margin: 40px 0 20px;
-    text-shadow: 2px 2px 5px #8B0000;
-    border-left: 5px solid #8B0000;
+    text-shadow: 2px 2px 5px #000000, -3px -3px 7px rgb(200, 0, 0);
+    border-left: 5px solid #7a0a0a;
     padding-left: 15px;
+} */
+
+.tutorials-section h2 {
+    font-family: 'Black Ops One', cursive;
+    font-size: 32px;
+    margin: 40px 0 20px;
+    text-shadow: 2px 2px 5px #000000, -3px -3px 7px rgb(200, 0, 0);
+    padding-left: 40px; 
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12 3 19l4-7-4-7 18 7z" fill="%23900000"/></svg>');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 33px;
 }
 
 /* شبكة الفيديوهات (Grid) */
@@ -59,4 +75,8 @@ iframe {
 iframe:hover {
     transform: scale(1.02);
     border-color: #8B0000;
+}
+
+.site-title{
+    font-family: 'Black Ops One', cursive;
 }

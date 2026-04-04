@@ -1,27 +1,3 @@
-/* الإعدادات العامة */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #001f3f;
-    color: white;
-}
-
-/* النافبار */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #222;
-    height: 70px;
-    padding: 0 20px;
-    border-bottom: 2px solid #8B0000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
 .logo-link {
     display: flex;
     align-items: center;
@@ -30,7 +6,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.logo-link:hover { transform: scale(1.1); }
+.logo-link:hover { transform: scale(0.6); }
 
 .logo img {
     width: 70px;
@@ -38,33 +14,7 @@ body {
     border-radius: 50%;
 }
 
-.site-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px #8B0000;
-}
 
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 10px;
-    text-shadow: 2px 2px 3px black;
-}
-
-.nav-links a:hover { color: #8B0000; }
-
-.nav-icons a {
-    color: white;
-    font-size: 22px;
-    margin-left: 15px;
-}
-
-.nav-icons a:hover { color: #8B0000; }
-
-/* السلايدر */
 .slider {
     width: 100%;
     height: 400px;
@@ -88,7 +38,7 @@ body {
     object-fit: cover;
 }
 
-/* الكروت (Shop, Community) */
+
 .shop-preview, .tutorial-section, .community-section, .about-section {
     width: 90%;
     margin: 40px auto;
@@ -96,10 +46,21 @@ body {
 }
 
 .shop-preview h2, .tutorial-section h2, .community-section h2, .about-section h2 {
+    font-family: 'Black Ops One', cursive;
     font-size: 40px;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px #8B0000;
+    text-shadow: 2px 2px 4px #000000, 3px 3px 5px rgb(248, 117, 117);
 }
+
+.shop-preview h2:hover,
+.about-section h2:hover,
+.community-section h2:hover,
+.tutorial-section h2:hover {
+    color: rgb(155, 158, 188);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 
 .products, .video-container, .community-grid {
     display: flex;
@@ -157,13 +118,15 @@ a { color: #00aced; text-decoration: none; }
 
 /* ================== تصميم كل صورة (Slide) ================== */
 .slide {
-    position: absolute; /* بخلي كل الصور تتكدس (تترتب) فوق بعضها في نفس المكان */
+    position: absolute; 
     top: 0; /* يبدأ من أعلى الصندوق */
     left: 0; /* يبدأ من يسار الصندوق */
-    width: 100%; /* يعبي العرض كامل */
-    height: 100%; /* يعبي الطول كامل */
+    width: 100%; 
+    height: 100%; 
     opacity: 0; /* الشفافية صفر (يعني الصورة مخفية بالوضع الطبيعي) */
-    transition: opacity 1s ease-in-out; /* تأثير انتقال ناعم بياخذ ثانية وحدة لما تظهر الصورة أو تختفي */
+    transition: opacity 1s ease-in-out; 
+    /* transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in-out; */
     text-decoration: none; /* إخفاء الخط اللي بيجي تحت الروابط (لأن الصورة كلها عبارة عن رابط) */
 }
 
@@ -179,7 +142,7 @@ a { color: #00aced; text-decoration: none; }
     height: 100%; /* طول الصورة يعبي الشاشة */
     object-fit: cover; /* بخلي الصورة تقص حالها بذكاء عشان تعبي المكان بدون ما تتمطط وتخرب */
     filter: brightness(0.4); /* تعتيم الصورة بنسبة 60% عشان النص الأبيض فوقها يبين بوضوح، حيلة احترافية! */
-    transition: transform 4s linear; /* تأثير زووم بطيء جداً عالصورة طول فترة عرضها */
+    transition: transform 3s linear; /* تأثير زووم بطيء جداً عالصورة طول فترة عرضها */
 }
 
 /* لما الصورة تكون معروضة، بنعملها زووم خفيف لجمالية الحركة */
@@ -187,31 +150,33 @@ a { color: #00aced; text-decoration: none; }
     transform: scale(1.05); /* تكبير الصورة بنسبة 5% */
 }
 
-/* ================== تصميم النص اللي فوق الصورة ================== */
+
 .slide-content {
     position: absolute; /* عشان نقدر نحركه بحرية فوق الصورة */
-    top: 50%; /* ننزله لنص الشاشة من فوق */
-    left: 50%; /* نزيحه لنص الشاشة من اليسار */
+    top: 53%; 
+    left: 50%; 
     transform: translate(-50%, -50%); /* هاي معادلة سحرية بتخلي النص بنص الشاشة بالضبط (سنترة 100%) */
-    text-align: center; /* توسيط الكلام (العنوان والنص الفرعي) */
-    color: #ffffff; /* لون الخط أبيض */
-    width: 80%; /* عشان لو الشاشة صغيرة النص ما يلزق بالحواف */
+    text-align: center; 
+    color: #ffffff; 
+    width: 80%; 
 }
 
 .slide-content h2 {
-    font-size: 48px; /* حجم العنوان الكبير */
-    font-weight: 900; /* خط عريض جداً */
-    margin-bottom: 15px; /* مسافة بين العنوان والنص الفرعي اللي تحته */
-    text-transform: uppercase; /* تحويل كل الحروف لـ Capital Letters بيعطي طابع قوي للموقع */
-    letter-spacing: 2px; /* تباعد خفيف بين الحروف */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* ظل أسود تحت الكلمة عشان تبرز أكثر */
+    font-size: 48px; 
+    font-family: 'Black Ops One', cursive;
+    font-weight: 900; 
+    margin-bottom: 8px; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    text-shadow: 2px 2px 4px rgb(0, 0, 0), 3px 3px 7px rgb(172, 30, 30); 
 }
 
 .slide-content p {
-    font-size: 20px; /* حجم النص الفرعي */
-    font-weight: 400; /* سماكة الخط عادية */
-    color: #cbd5e1; /* لون سكني فاتح جداً (مائل للأزرق) بيليق مع ثيم الموقع */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* ظل خفيف للنص الفرعي */
+    font-size: 22px; 
+    font-family: 'Black Ops One', cursive;
+    font-weight: 400; 
+    color: #ffffff; 
+    text-shadow: 1px 1px 4px rgb(0, 0, 0), 2px 2px 6px rgb(28, 28, 170); 
 }
 .slide-video {
     width: 100%;
@@ -220,7 +185,7 @@ a { color: #00aced; text-decoration: none; }
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1; /* ليكون خلف النص */
+    z-index: -1; 
 }
 
 /* تأكدي أن الـ slide نفسه له position: relative */
@@ -234,3 +199,4 @@ a { color: #00aced; text-decoration: none; }
 .slide.active {
     display: block;
 }
+

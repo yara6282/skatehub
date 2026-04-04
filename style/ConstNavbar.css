@@ -1,0 +1,59 @@
+.site-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px #8B0000;
+}
+
+.nav-links a {
+    font-family: 'Black Ops One', cursive;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0.5px;
+    text-shadow: 3px 3px 5px rgb(0, 0, 0), 4px 4px 6px rgba(190, 190, 190, 0.438);
+    background-color: #913535;  /* 561313 913535 */
+    border: 3px dotted #561313;
+    border-radius: 17px;
+    padding: 2px 5px;
+}
+
+.nav-links a:hover { 
+    color: #7d1212;  /* b42b2b */
+    transform: scale(1.1);
+    /* transition: 0.3s; */
+    cursor: pointer;
+}
+
+.nav-icons a {
+    color: white;
+    font-size: 22px;
+    margin-left:23px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #373739;    /* 0a0b43 283148 000B49  283148*/ 
+    height: 70px;
+    padding: 0 20px;
+    border-bottom: 2px solid #101217;  /* 050535 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #252525;    /*#001f3f*/
+    color: white;
+}
+
+.logo-link:hover { transform: scale(0.9); }
