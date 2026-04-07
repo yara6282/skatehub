@@ -1,82 +1,80 @@
-/* رسالة الترحيب (Hero Message) */
-.hero-message {
-    margin-top: 90px; /* مسافة تحت الشريط الثابت */
-    text-align: center;
-    background: linear-gradient(90deg, #8B0000, #001f3f);
-    padding: 60px 20px;
-    border-bottom: 2px solid #444;
+/* الألوان الأساسية */
+:root {
+    --main-red: #8B0000;
+    --bright-red: #ff1a1a;
+    --navy-blue: #001f3f;
+    --dark-bg: #0f172a;
+    --glass: rgba(255, 255, 255, 0.05);
 }
 
-.hero-message h1 {
-    font-family: 'Black Ops One', cursive;
-    font-size: 42px;
-    margin-bottom: 15px;
-    color: white;
-    text-shadow: 2px 2px 5px black;
+* { margin: 0; padding: 0; box-sizing: border-box;  font-family: 'Inter', sans-serif;, sans-serif; }
+
+body { background-color: var(--navy-blue); color: white; overflow-x: hidden; padding-top: 70px; }
+
+/* --- الـ Navbar المطور --- */
+.navbar {
+    display: flex; align-items: center; justify-content: space-between;
+    background-color: #111; height: 80px; padding: 0 50px;
+    border-bottom: 3px solid var(--main-red); position: fixed; top: 0; width: 100%; z-index: 1000;
 }
 
-.hero-message p {
-    font-family: 'Black Ops One', cursive;
-    font-size: 20px;
-    color: #f8f8f8;
-    text-shadow: 1px 1px 3px #000000;
+.logo-link { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+.logo img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--main-red); }
+.site-title { font-size: 32px; color: white; text-shadow: 0 0 10px var(--bright-red); }
+
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { 
+    color: white; text-decoration: none; font-size: 18px; padding: 8px 20px;
+    background: #222; border-radius: 50px; border: 1px dashed rgba(255,255,255,0.2);
+    transition: 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { background: var(--main-red); box-shadow: 0 0 15px var(--bright-red); transform: scale(1.05); }
+
+.nav-icons { display: flex; gap: 20px; font-size: 22px; }
+.nav-icons a { color: white; transition: 0.3s; }
+.nav-icons a:hover { color: var(--bright-red); }
+
+/* --- قسم الهيرو والبانر --- */
+.hero {
+    height: 70vh; display: flex; align-items: center; justify-content: center;
+    position: relative; background: linear-gradient(to right, #6e0000, var(--navy-blue));
+    overflow: hidden; border-bottom: 2px solid var(--main-red);
 }
 
-/* قسم الفيديوهات */
-.tutorials-section {
-    width: 90%;
-    margin: 30px auto 50px auto;
-}
+.floating-elements { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.float-obj { position: absolute; border-radius: 50%; opacity: 0.6; }
+.img-1 { width: 180px; top: 10%; left: 5%; border: 4px solid var(--bright-red); }
+.img-2 { width: 220px; bottom: 10%; right: 5%; border: 4px solid white; }
+.icon-1 { color: yellow; font-size: 40px; top: 30%; right: 20%; }
+.icon-2 { color: var(--bright-red); font-size: 50px; bottom: 20%; left: 15%; }
 
-/* .tutorials-section h2 {
-    font-family: 'Black Ops One', cursive;
-    font-size: 32px;
-    margin: 40px 0 20px;
-    text-shadow: 2px 2px 5px #000000, -3px -3px 7px rgb(200, 0, 0);
-    border-left: 5px solid #7a0a0a;
-    padding-left: 15px;
-} */
+.mastery-banner { text-align: center; z-index: 10; padding: 20px; }
+.mastery-banner h1 { font-size: 4.5rem; text-transform: uppercase; text-shadow: 4px 4px 0px var(--main-red); margin-bottom: 15px; }
+.mastery-banner p { font-size: 1.4rem; font-family: 'Arial'; opacity: 0.9; letter-spacing: 2px; }
 
-.tutorials-section h2 {
-    font-family: 'Black Ops One', cursive;
-    font-size: 32px;
-    margin: 40px 0 20px;
-    text-shadow: 2px 2px 5px #000000, -3px -3px 7px rgb(200, 0, 0);
-    padding-left: 40px; 
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12 3 19l4-7-4-7 18 7z" fill="%23900000"/></svg>');
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 33px;
+/* --- التصفية (Filter) --- */
+.filter-section { padding: 40px 0; background: rgba(0,0,0,0.3); display: flex; justify-content: center; }
+.filter-bar { display: flex; gap: 15px; }
+.filter-btn {
+    background: transparent; border: 2px solid white; color: white; padding: 10px 30px;
+    border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;
 }
+.filter-btn.active, .filter-btn:hover { background: var(--main-red); border-color: var(--main-red); box-shadow: 0 0 10px var(--main-red); }
 
-/* شبكة الفيديوهات (Grid) */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* فيديوهين في كل صف */
-    gap: 25px;
-}
+/* --- شبكة الفيديوهات (Video Grid) --- */
+.tutorials-grid-container { padding: 60px 8%; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
 
-/* استجابة الشاشات الصغيرة */
-@media (max-width: 768px) {
-    .video-grid {
-        grid-template-columns: 1fr; /* فيديو واحد في الصف للشاشات الصغيرة */
-    }
+.video-card {
+    background: #111; border-radius: 15px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
 }
+.video-card:hover { transform: translateY(-15px); border-color: var(--bright-red); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4); }
 
-iframe {
-    width: 100%;
-    height: 300px;
-    border-radius: 15px;
-    border: 2px solid #222;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-}
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-iframe:hover {
-    transform: scale(1.02);
-    border-color: #8B0000;
-}
-
-.site-title{
-    font-family: 'Black Ops One', cursive;
-}
+.video-info { padding: 25px; }
+.category-tag { color: var(--bright-red); font-size: 14px; text-transform: uppercase; font-weight: bold; }
+.video-info h3 { margin: 10px 0; font-size: 22px; }
+.video-info p { font-family: 'Arial'; font-size: 15px; opacity: 0.7; line-height: 1.6; }

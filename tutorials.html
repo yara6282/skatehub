@@ -3,66 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkateHub - Tutorials</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="./style/global.css">
+    <title>SkateHub | Professional Tutorials</title>
+    <!-- الأيقونات والخطوط الخارجية -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./style/tutorials.css">
-    <link rel="stylesheet" href="./style/ConstNavbar.css">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/global.css">
 </head>
 <body>
 
-<div class="navbar">
-    <div class="logo">
-        <a href="home.html" class="logo-link">
-            <img src="./image/9037278.png" alt="SkateHub Logo">
+    <!-- 1. الشريط العلوي (Navbar) - حسب كودك وصورتك -->
+    <nav class="navbar">
+        <a href="./index.html" class="logo-link">
+            <div class="logo">
+                <img src="./image/9037278.png" alt="SkateHub Logo">
+            </div>
             <span class="site-title">SkateHub</span>
         </a>
+
+        <div class="nav-links">
+            <a href="./home.html" class="nav-item">Home</a>
+            <a href="./events.html" class="nav-item">Events</a>
+            <a href="./community.html" class="nav-item">Community</a>
+            <a href="./shop.html" class="nav-item">Shop</a>
+            <a href="./tutorials.html" class="nav-item active">Tutorials</a>
+        </div>
+
+        <div class="nav-icons">
+            <a href="#"><i class="fas fa-user"></i></a>
+            <a href="#"><i class="fas fa-user-plus"></i></a>
+            <a href="#"><i class="fas fa-bell"></i></a>
+        </div>
+    </nav>
+
+    <!-- 2. قسم الهيرو (Hero) مع البانر والصور الطائرة -->
+    <header class="hero">
+        <div class="floating-elements">
+            <!-- أضفت صور أكثر لحركة أقوى -->
+            <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=300" class="float-obj img-1" data-speed="6">
+            <img src="https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=300" class="float-obj img-2" data-speed="-4">
+            <i class="fas fa-bolt float-obj icon-1" data-speed="10"></i>
+            <i class="fas fa-skating float-obj icon-2" data-speed="-8"></i>
+        </div>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+        <div class="mastery-banner" data-aos="zoom-in" data-aos-duration="1200">
+            <h1>Your Journey to Skating Mastery Starts Here</h1>
+            <p>Explore tutorials, tips, and skills to level up your ride.</p>
+        </div>
+    </header>
+
+    <!-- 3. قسم تصفية المحتوى (Filter) -->
+    <div class="filter-section">
+        <div class="filter-bar" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">All Styles</button>
+            <button class="filter-btn" data-filter="skateboard">Skateboard</button>
+            <button class="filter-btn" data-filter="roller">Roller Skate</button>
+            <button class="filter-btn" data-filter="inline">Inline/Aggressive</button>
+             <button class="filter-btn" data-filter="snowboard">Snowboarding</button>
+    <button class="filter-btn" data-filter="ski">Alpine Skiing</button>
+    <button class="filter-btn" data-filter="freestyle-snow">Snow Freestyle</button>
+        </div>
     </div>
-    <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="events.html">Events</a>
-        <a href="community.html">Community</a>
-        <a href="shop.html">Shop</a>
-        <a href="tutorials.html">Tutorials</a>
+
+    <!-- 4. شبكة فيديوهات اليوتيوب (Video Grid) -->
+    <section class="tutorials-grid-container">
+        <div class="video-grid">
+            
+            <!-- فيديو 1: Skateboard -->
+            <div class="video-card skateboard" data-aos="fade-up">
+                <div class="video-wrapper">
+                    <!-- استبدل ID الفيديو (tH0guP38zUw) بأي فيديو تريده من يوتيوب -->
+                   <iframe 
+    src="https://www.youtube.com/embed/JNmUK9fvrAs" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Skateboard</span>
+                    <h3>Basic Ollie Tutorial</h3>
+                    <p>Learn the foundation of all skateboard tricks.</p>
+                </div>
+            </div>
+
+
+
+
+            
+            <!-- فيديو 2: Roller Skate -->
+            <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-wrapper">
+                    <iframe 
+    src="https://www.youtube.com/embed/JtQiufi5fGM"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Roller Skate</span>
+                    <h3>Mastering Balance & Forward Stride</h3>
+                    <p>The first step to freedom on wheels. Find your center and glide like a pro.</p>
+                </div>
+            </div>
+           
+             <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-wrapper">
+                    <iframe 
+    src="https://www.youtube.com/embed/PgGpaX32BWA"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Roller Skate</span>
+                    <h3>The Bubble Drill for Leg Power</h3>
+                    <p>Build the muscle and precision needed for advanced maneuvers.</p>
+                </div>
+            </div>
+              <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-wrapper">
+                   <iframe 
+    src="https://www.youtube.com/embed/iuk-Iuogdio"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Roller Skate</span>
+                    <h3>How to Stop Safely</h3>
+                    <p>Essential braking techniques for beginners.</p>
+                </div>
+            </div>
+            
+
+
+            <!-- فيديو 3: Inline -->
+            <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+                <div class="video-wrapper">
+                   <iframe 
+    src="https://www.youtube.com/embed/UAblYvh-TNY"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Inline</span>
+                    <h3>Parallel Slide Guide</h3>
+                    <p>Master the most stylish way to stop on inline skates.</p>
+                </div>
+            </div>
+            <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+                <div class="video-wrapper">
+                   <iframe 
+    src="https://www.youtube.com/embed/Exf3WLA_xEo"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Inline</span>
+                    <h3>Dynamic Crossovers & Sharp Turns</h3>
+                    <p>Flow like water. Lean into the turns and weave through the city with effortless agility and grace.</p>
+                </div>
+            </div>
+            <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+                <div class="video-wrapper">
+                   <iframe 
+    src="https://www.youtube.com/embed/zqDtkXXHlGQ"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Inline</span>
+                    <h3>Seamless Transitions & Fakie Mastery</h3>
+                    <p>Switch your perspective. Unlock the full potential of your skates by mastering the art of backward flow.</p>
+                </div>
+            </div>
+
+            <!-- يمكنك تكرار هذه الخانات وإضافة فيديوهات أكثر -->
+             <!-- فيديو 4 -->
+            <div class="video-card skateboard" data-aos="fade-up">
+                <div class="video-wrapper">
+                    <iframe 
+    src="https://www.youtube.com/embed/jC47GDAPyOs"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Skateboard</span>
+                    <h3>Kickflip Masterclass</h3>
+                    <p>Level up your flip game with these pro tips.</p>
+                </div>
+            </div>
+            <div class="video-card skateboard" data-aos="fade-up">
+                <div class="video-wrapper">
+                   <iframe 
+    src="https://www.youtube.com/embed/bvdfBnmqjbk"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+                </div>
+                <div class="video-info">
+                    <span class="category-tag">Skateboard</span>
+                    <h3>Dropping In the Halfpipe</h3>
+                    <p>Mind over matter. Lean forward, trust your board, and feel the rush of the drop.</p>
+                </div>
+            </div>
+            <!-- فيديو 5: Snowboarding Basics -->
+
+
+
+
+<div class="video-card snowboard" data-aos="fade-up">
+   <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/qshP5_X_M8I" frameborder="0" allowfullscreen></iframe>
     </div>
-    <div class="nav-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
-        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    <div class="video-info">
+        <span class="category-tag">Snowboarding</span>
+        <h3>Beginner Guide: First Turns</h3>
+        <p>                    </p>
     </div>
 </div>
 
-<div class="hero-message">
-    <h1>Your Journey to Skating Mastery Starts Here</h1>
-    <p>Explore tutorials, tips, and skills to level up your ride.</p>
+<div class="video-card snowboard" data-aos="fade-up">
+   <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/qshP5_X_M8I" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+        <span class="category-tag">Snowboarding</span>
+        <h3>Beginner Guide: First Turns</h3>
+        <p>                    </p>
+    </div>
 </div>
 
-<div class="tutorials-section">
-    
-    <h2>Skateboard Basics</h2>
-    <div class="video-grid">
-        <iframe src="https://www.youtube.com/embed/I6VnsvDYR60" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" allowfullscreen></iframe>
-    </div>
 
-    <h2>Skateboard Skills</h2>
-    <div class="video-grid">
-        <iframe src="https://www.youtube.com/embed/JNmUK9fvrAs" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/hPcP9V_g3gQ" allowfullscreen></iframe>
-    </div>
 
-    <h2>Skateroller Basics</h2>
-    <div class="video-grid">
-        <iframe src="https://www.youtube.com/embed/0wepmbVVgYQ" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/dz7mNOr2ySs" allowfullscreen></iframe>
+<div class="video-card snowboard" data-aos="fade-up">
+   <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/qshP5_X_M8I" frameborder="0" allowfullscreen></iframe>
     </div>
-
+    <div class="video-info">
+        <span class="category-tag">Snowboarding</span>
+        <h3>Beginner Guide: First Turns</h3>
+        <p>                    </p>
+    </div>
 </div>
 
+
+
+<!-- فيديو 6: Alpine Skiing -->
+<div class="video-card ski" data-aos="fade-up" >
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/S_8SNDVf_M4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div  class="video-info">
+         <span class="category-tag">Skiing</span>
+        <h3>Parallel Skiing Mastery</h3>
+        <p>        </p>
+    </div>
+</div>
+
+
+
+<div class="video-card ski" data-aos="fade-up" >
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/S_8SNDVf_M4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div  class="video-info">
+         <span class="category-tag">Skiing</span>
+        <h3>Parallel Skiing Mastery</h3>
+        <p>        </p>
+    </div>
+</div>
+
+
+
+
+<div class="video-card ski" data-aos="fade-up" >
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/S_8SNDVf_M4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div  class="video-info">
+         <span class="category-tag">Skiing</span>
+        <h3>Parallel Skiing Mastery</h3>
+        <p>        </p>
+    </div>
+</div>
+
+<!-- فيديو 7: Snowboard Park/Freestyle -->
+<div class="video-card freestyle-snow" data-aos="fade-up" data-aos-delay="200">
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/LzF6W6T-uCg" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+        <span class="category-tag">Snow Freestyle</span>
+        <h3>Jumps & Rails in Snowpark</h3>
+        <p>        </p>
+    </div>
+</div>
+
+
+
+<div class="video-card freestyle-snow" data-aos="fade-up" data-aos-delay="200">
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/LzF6W6T-uCg" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+        <span class="category-tag">Snow Freestyle</span>
+        <h3>Jumps & Rails in Snowpark</h3>
+        <p>        </p>
+    </div>
+</div>
+
+
+
+
+<div class="video-card freestyle-snow" data-aos="fade-up" data-aos-delay="200">
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/LzF6W6T-uCg" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+        <span class="category-tag">Snow Freestyle</span>
+        <h3>Jumps & Rails in Snowpark</h3>
+        <p>        </p>
+    </div>
+</div>
+
+
+
+
+
+
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./java/tutorials.js"></script>
 </body>
 </html>
