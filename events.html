@@ -1,100 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkateHub - Events</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+    <title>Skate Events | Discover Your Ride</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/events.css">
-    <link rel="stylesheet" href="./style/ConstNavbar.css">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="navbar">
-    <div class="logo">
-        <a href="home.html" class="logo-link">
+    <!-- Hero Section (Navbar Removed) -->
+    <header class="hero">
+        <!-- Floating Images for Skate Vibe -->
+        <nav class="navbar">
+    <!-- جهة اليسار: اللوجو والاسم -->
+    <a href="index.html" class="logo-link">
+        <div class="logo">
+            <!-- استبدل logo.png برابط صورة الذئب لديك -->
             <img src="./image/9037278.png" alt="SkateHub Logo">
-            <span class="site-title">SkateHub</span>
-        </a>
-    </div>
+        </div>
+        <span class="site-title">SkateHub</span>
+    </a>
+
+    <!-- جهة المنتصف: الروابط الأساسية -->
     <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="events.html">Events</a>
-        <a href="community.html">Community</a>
-        <a href="shop.html">Shop</a>
-        <a href="tutorials.html">Tutorials</a>
-    </div>
+    <a href="./home.html" class="nav-item">Home</a>
+    <a href="./events.html" class="nav-item">Events</a>
+    <a href="./community.html" class="nav-item">Community</a>
+    <a href="./shop.html" class="nav-item">Shop</a>
+    <a href="./tutorials.html" class="nav-item">Tutorials</a>
+</div>
+
+    <!-- جهة اليمين: الأيقونات -->
     <div class="nav-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
-        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="#"><i class="fas fa-user-plus"></i></a>
+        <a href="#"><i class="fas fa-bell"></i></a>
     </div>
+</nav>
+        <!-- ضع هذا داخل وسم الـ <header class="hero"> -->
+<div class="floating-container">
+    <!-- الصور الرئيسية -->
+    <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=300" class="float-item img-main-1" data-speed="4">
+    <img src="https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=300" class="float-item img-main-2" data-speed="-5">
+    
+    <!-- أيقونات طائرة إضافية (اختياري لكنها تزيد الاحترافية) -->
+    <i class="fas fa-compact-disc float-item icon-1" data-speed="8"></i>
+    <i class="fas fa-skating float-item icon-2" data-speed="-10"></i>
+    <i class="fas fa-bolt float-item icon-3" data-speed="12"></i>
 </div>
 
-<div class="events-section">
-    <div class="event-card">
-        <img src="./image/wallpaperflare.com_wallpaper.jpg" alt="Skate Jam">
-        <h2>Skate Jam 2026</h2>
-        <p>أكبر تجمع للسكيت في المدينة مع عروض ومسابقات.</p>
-        <button onclick="toggleDetails(this)">تفاصيل</button>
-        <div class="event-details">
-            <p>📍 الموقع: Skate Park Tulkarm</p>
-            <p>📅 التاريخ: 5 أبريل 2026</p>
-            <p>🕒 الساعة: 4:00 مساءً</p>
-            <button class="join-btn" onclick="handleJoin(this)">Join</button>
+        <div class="hero-content" data-aos="zoom-out-up">
+            <p class="subtitle">Find Your Next Experience</p>
+            <h1 class="main-title">Discover & Join <br> <span>Skate Events</span></h1>
+            
+            <!-- Professional Search Bar -->
+            <div class="search-box" data-aos="fade-up" data-aos-delay="400">
+                <div class="search-field">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search Event (Skateboard, Roller...)">
+                </div>
+                <div class="search-field">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select>
+                        <option>Search Location</option>
+                        <option>New York</option>
+                        <option>London</option>
+                        <option>Dubai</option>
+                    </select>
+                </div>
+                <button class="search-btn">Search Now</button>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="event-card">
-        <img src="./image/pexels-jvbncncj-2719301.jpg" alt="Night Ride">
-        <h2>Night Ride</h2>
-        <p>جولة ليلية مع موسيقى وإضاءة مميزة.</p>
-        <button onclick="toggleDetails(this)">تفاصيل</button>
-        <div class="event-details">
-            <p>📍 الموقع: Downtown Skate Plaza</p>
-            <p>📅 التاريخ: 12 أبريل 2026</p>
-            <p>🕒 الساعة: 8:00 مساءً</p>
-            <button class="join-btn" onclick="handleJoin(this)">Join</button>
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="section-header">
+            <h2 data-aos="fade-right">Featured Events</h2>
+            <p>Explore the best skating workshops and competitions</p>
         </div>
-    </div>
 
-    <div class="event-card">
-        <img src="./image/pexels-minan1398-1406866.jpg" alt="Beginner Workshop">
-        <h2>Beginner Workshop</h2>
-        <p>ورشة تدريبية للمبتدئين مع مدربين محترفين.</p>
-        <button onclick="toggleDetails(this)">تفاصيل</button>
-        <div class="event-details">
-            <p>📍 الموقع: Community Center</p>
-            <p>📅 التاريخ: 20 أبريل 2026</p>
-            <p>🕒 الساعة: 2:00 مساءً</p>
-            <button class="join-btn" onclick="handleJoin(this)">Join</button>
+        <div class="events-grid">
+            <!-- Event 1 -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1541416592233-0bb695958611?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">SKATEBOARD</span>
+                    <h3>Street King Championship</h3>
+                    <p><i class="far fa-calendar-alt"></i> Sept 15, 2024</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">ROLLER SKATE</span>
+                    <h3>Retro Disco Night</h3>
+                    <p><i class="far fa-calendar-alt"></i> Oct 20, 2024</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571507025807-6f76c72e90f2?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">INLINE</span>
+                    <h3>City Speed Marathon</h3>
+                    <p><i class="far fa-calendar-alt"></i> Nov 05, 2024</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
+
+            <!-- Event 4 -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">LONGBOARD</span>
+                    <h3>Downhill Race Pro</h3>
+                    <p><i class="far fa-calendar-alt"></i> Dec 12, 2024</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
+
+            <!-- Event 5 -->
+            <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">WORKSHOP</span>
+                    <h3>Beginners Skate School</h3>
+                    <p><i class="far fa-calendar-alt"></i> Jan 05, 2025</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
+
+            <!-- Event 6 -->
+            <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519060126759-fe97a7837890?q=80&w=600');"></div>
+                <div class="card-info">
+                    <span class="category">CULTURE</span>
+                    <h3>Skate Art & Music Fest</h3>
+                    <p><i class="far fa-calendar-alt"></i> Feb 14, 2025</p>
+                    <button class="btn-card">BUY TICKET</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        
+        <div class="see-more">
+            <button class="see-more-btn">SEE MORE EVENTS <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
 
-<div class="modal" id="joinModal">
-    <div class="modal-content">
-        <h3>شكراً على انضمامك 🎉</h3>
-        <p>نحن بانتظارك في الفعالية!</p>
-        <button class="close-btn" onclick="closeModal()">إغلاق</button>
-    </div>
-</div>
-
-<div class="modal" id="cancelModal">
-    <div class="modal-content">
-        <h3>تم إلغاء انضمامك ❌</h3>
-        <p>ننتظرك في فعاليات أخرى قريباً!</p>
-        <button class="close-btn" onclick="closeCancelModal()">إغلاق</button>
-    </div>
-</div>
-
-<script src="./java/events.js"></script>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./java/events.js"></script>
 </body>
 </html>
