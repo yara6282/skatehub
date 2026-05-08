@@ -3,43 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkateHub - Community</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="./style/global.css">
-    <link rel="stylesheet" href="./style/community.css">
-    
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+    <title>SkateHub | Ultimate Community</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/global.css">
+    <link rel="stylesheet" href="/style/community.css">
 </head>
 <body>
 
-    <div class="navbar">
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
 
-        <div class="logo">
-            <a href="home.html" class="logo-link">
-                <img src="./image/9037278.png" alt="SkateHub Logo">
-                <span class="site-title">SkateHub</span>
-            </a>
-        </div>
-
-        <div class="nav-links">
-            <a href="home.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="community.html">Community</a>
-            <a href="shop.html">Shop</a>
-            <a href="tutorials.html">Tutorials</a>
-        </div>
-
-        <div class="nav-icons">
-            <a href="login.html" title="Login"><i class="fas fa-user"></i></a>
-            <a href="signup.html" title="Sign Up"><i class="fas fa-user-plus"></i></a>
-            <a href="notifications.html" title="Notifications"><i class="fas fa-bell"></i></a>
-        </div>
-        
+<nav class="navbar">
+    <div class="logo-link">
+        <div class="logo"><img src="/image/9037278.png" alt="Logo"></div>
+        <span class="site-title">SkateHub</span>
     </div>
 
-    </body>
+    <div class="nav-links">
+        <a href="/home.html">Home</a>
+        <a href="/events.html">Events</a>
+        <a href="/community.html" class="active-nav">Community</a>
+        <a href="/shop.html">Shop</a>
+        <a href="/tutorials.html">Tutorials</a>
+    </div>
+
+    <div class="nav-icons">
+        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="#"><i class="fas fa-user-plus"></i></a>
+        <a href="#"><i class="fas fa-bell"></i></a>
+    </div>
+</nav>
+
+<div class="ultimate-wrapper">
+    <div class="main-grid">
+
+        <aside class="sidebar-left">
+            <div class="profile-card-v3">
+                <div class="banner"></div>
+                <div class="user-data">
+                    <div class="pfp-holder">
+                        <img src="https://i.pravatar.cc/150?u=me" alt="me">
+                    </div>
+                    <h3>Reinhard Van Zry</h3>
+                    <p>@Skater_Pro_99</p>
+
+                    <div class="user-stats">
+                        <div><strong>250</strong><span>Posts</span></div>
+                        <div><strong>2022</strong><span>Followers</span></div>
+                    </div>
+
+                    <a href="/profile.html" class="btn-profile-neon">My Profile</a>
+                </div>
+            </div>
+
+            <nav class="glass-nav-side">
+                <h5>EXPLORE HUB</h5>
+                <a href="#" class="side-link active">
+                    <i class="fa-solid fa-house-chimney-window"></i>
+                    Discover Feed
+                </a>
+                <a href="#" class="side-link">
+                    <i class="fa-solid fa-users"></i>
+                    Skate Crews
+                </a>
+                <a href="/events.html" class="side-link">
+                    <i class="fa-solid fa-fire"></i>
+                    Challenges
+                </a>
+            </nav>
+        </aside>
+
+        <main class="feed-area">
+
+            <div class="stories-scroll">
+                <div class="story-item add">
+                    <div class="plus-icon"><i class="fa-solid fa-plus"></i></div>
+                    <span>Add Story</span>
+                </div>
+                <div class="story-item"><img src="https://i.pravatar.cc/150?u=1"><span>Tony</span></div>
+                <div class="story-item"><img src="https://i.pravatar.cc/150?u=2"><span>Sarah</span></div>
+                <div class="story-item"><img src="https://i.pravatar.cc/150?u=3"><span>Alex</span></div>
+                <div class="story-item"><img src="https://i.pravatar.cc/150?u=4"><span>Mike</span></div>
+            </div>
+
+            <div class="glass-card create-post-v4">
+                <div class="post-write-row">
+                    <img src="https://i.pravatar.cc/150?u=me" class="post-avatar">
+                    <textarea placeholder="Share your trick today, Legend..."></textarea>
+                </div>
+
+                
+
+                <div class="post-divider"></div>
+
+                <div class="post-actions-v4">
+                    <div class="media-pickers">
+                        <button><i class="fa-solid fa-video"></i> Video</button>
+                        <button><i class="fa-solid fa-image"></i> Photo</button>
+                    </div>
+                    <button class="drop-btn">DROP IT 🔥</button>
+                </div>
+            </div>
+
+            <article class="glass-card post-v3 tilt-target">
+                <div class="post-head">
+                    <img src="https://i.pravatar.cc/150?u=skater4" class="mini-pfp">
+                    <div class="info">
+                        <h4>Briansky <i class="fa-solid fa-circle-check verify"></i></h4>
+                        <span>12 minutes ago • Amman</span>
+                    </div>
+                </div>
+
+                <p class="post-text">Beautiful day for some street skating! #SkateLife #KickflipGap</p>
+
+                <div class="post-media-v3">
+                    <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                    <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?auto=format&fit=crop&w=1200" alt="Skate Media">
+                </div>
+
+                <div class="post-foot">
+                    <button class="interact-btn like" onclick="animateLike(this)">
+                        <i class="fa-regular fa-heart"></i> 320k
+                    </button>
+                    <button class="interact-btn">
+                        <i class="fa-regular fa-comment"></i> 120
+                    </button>
+                    <button class="interact-btn">
+                        <i class="fa-solid fa-share"></i>
+                    </button>
+                </div>
+            </article>
+        </main>
+
+        <aside class="sidebar-right">
+            <div class="glass-card widget-v3">
+                <h3 class="w-title">Leaderboard 🏆</h3>
+                <div class="rank-list">
+                    <div class="rank-user"><span>01</span> <strong>Yousef Tony</strong> <small>4.5k XP</small></div>
+                    <div class="rank-user"><span>02</span> <strong>Sara Roller</strong> <small>3.2k XP</small></div>
+                </div>
+            </div>
+
+            <div class="glass-card chat-widget-v4">
+                <div class="chat-header-v4">
+                    <h3>Messages</h3>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <div class="chat-body-v4">
+                    <div class="chat-users">
+                        <div class="chat-user active" onclick="selectChat(this, 'Tony')">
+                            <img src="https://i.pravatar.cc/150?u=tony">
+                            <span></span>
+                        </div>
+                        <div class="chat-user" onclick="selectChat(this, 'Alex')">
+                            <img src="https://i.pravatar.cc/150?u=alex">
+                        </div>
+                        <div class="chat-user" onclick="selectChat(this, 'Sarah')">
+                            <img src="https://i.pravatar.cc/150?u=sarah">
+                        </div>
+                    </div>
+
+                    <div class="chat-panel">
+                        <div class="chat-with">Chatting with <strong id="chatName">Tony</strong></div>
+
+                        <div class="chat-messages" id="chatContainer">
+                            <div class="msg received">Yo! That flip was sick!</div>
+                            <div class="msg sent">Thanks bro! Appreciate it.</div>
+                        </div>
+
+                        <div class="chat-input-v4">
+                            <input type="text" placeholder="Type message...">
+                            <button><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</div>
+
+<script src="/java/community.js"></script>
+</body>
 </html>

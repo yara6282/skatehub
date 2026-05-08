@@ -3,160 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skate Events | Discover Your Ride</title>
+    <title>Skate Events | Pro Ride</title>
+    <!-- Icons & Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,800;0,900;1,900&display=swap" rel="stylesheet">
+    
+    <!-- CSS Link -->
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/events.css">
 </head>
 <body>
 
-    <!-- Hero Section (Navbar Removed) -->
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Hero Section -->
     <header class="hero">
-        <!-- Floating Images for Skate Vibe -->
-        <nav class="navbar">
-    <!-- جهة اليسار: اللوجو والاسم -->
-    <a href="index.html" class="logo-link">
-        <div class="logo">
-            <!-- استبدل logo.png برابط صورة الذئب لديك -->
-            <img src="./image/9037278.png" alt="SkateHub Logo">
+        <!-- نص خلفية عملاق لستايل الشوارع -->
+        <div class="massive-bg-text">SKATE</div>
+
+       <!-- الشريط المتحرك (Seamless Marquee Tape) -->
+        <div class="skate-tape">
+            <div class="tape-track">
+                <!-- المقطع الأول -->
+                <div class="tape-content">
+                    <i class="fas fa-bolt"></i> <span>KICKFLIP YOUR REALITY</span> 
+                    <i class="fas fa-skull"></i> <span>GRIND THE STREETS</span> 
+                    <i class="fas fa-fire"></i> <span>GRAVITY IS A SUGGESTION</span> 
+                    <i class="fas fa-wind"></i> <span>CONCRETE SURFERS</span> 
+                    <i class="fas fa-radiation"></i> <span>THRASH & BURN</span>
+                </div>
+                <!-- المقطع الثاني (نسخة مطابقة لضمان الاستمرارية) -->
+                <div class="tape-content">
+                    <i class="fas fa-bolt"></i> <span>KICKFLIP YOUR REALITY</span> 
+                    <i class="fas fa-skull"></i> <span>GRIND THE STREETS</span> 
+                    <i class="fas fa-fire"></i> <span>GRAVITY IS A SUGGESTION</span> 
+                    <i class="fas fa-wind"></i> <span>CONCRETE SURFERS</span> 
+                    <i class="fas fa-radiation"></i> <span>THRASH & BURN</span>
+                </div>
+                <!-- المقطع الثالث (للشاشات العريضة جداً 4K) -->
+                <div class="tape-content">
+                    <i class="fas fa-bolt"></i> <span>KICKFLIP YOUR REALITY</span> 
+                    <i class="fas fa-skull"></i> <span>GRIND THE STREETS</span> 
+                    <i class="fas fa-fire"></i> <span>GRAVITY IS A SUGGESTION</span> 
+                    <i class="fas fa-wind"></i> <span>CONCRETE SURFERS</span> 
+                    <i class="fas fa-radiation"></i> <span>THRASH & BURN</span>
+                </div>
+            </div>
         </div>
-        <span class="site-title">SkateHub</span>
-    </a>
 
-    <!-- جهة المنتصف: الروابط الأساسية -->
-    <div class="nav-links">
-    <a href="./home.html" class="nav-item">Home</a>
-    <a href="./events.html" class="nav-item">Events</a>
-    <a href="./community.html" class="nav-item">Community</a>
-    <a href="./shop.html" class="nav-item">Shop</a>
-    <a href="./tutorials.html" class="nav-item">Tutorials</a>
-</div>
+        <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+                </div>
+                <span class="site-title">SkateHub</span>
+            </a>
 
-    <!-- جهة اليمين: الأيقونات -->
-    <div class="nav-icons">
-        <a href="#"><i class="fas fa-user"></i></a>
-        <a href="#"><i class="fas fa-user-plus"></i></a>
-        <a href="#"><i class="fas fa-bell"></i></a>
-    </div>
-</nav>
-        <!-- ضع هذا داخل وسم الـ <header class="hero"> -->
-<div class="floating-container">
-    <!-- الصور الرئيسية -->
-    <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=300" class="float-item img-main-1" data-speed="4">
-    <img src="https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=300" class="float-item img-main-2" data-speed="-5">
-    
-    <!-- أيقونات طائرة إضافية (اختياري لكنها تزيد الاحترافية) -->
-    <i class="fas fa-compact-disc float-item icon-1" data-speed="8"></i>
-    <i class="fas fa-skating float-item icon-2" data-speed="-10"></i>
-    <i class="fas fa-bolt float-item icon-3" data-speed="12"></i>
-</div>
+            <div class="nav-links">
+                <a href="./home.html" class="nav-item">Home</a>
+                <a href="./events.html" class="nav-item active-link">Events</a>
+                <a href="./community.html" class="nav-item">Community</a>
+                <a href="./shop.html" class="nav-item">Shop</a>
+                <a href="./tutorials.html" class="nav-item">Tutorials</a>
+            </div>
 
-        <div class="hero-content" data-aos="zoom-out-up">
-            <p class="subtitle">Find Your Next Experience</p>
-            <h1 class="main-title">Discover & Join <br> <span>Skate Events</span></h1>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#"><i class="fas fa-bell"></i></a>
+            </div>
+        </nav>
+
+        <!-- العناصر الطائرة (Stickers/Images) -->
+        <div class="floating-container">
+            <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=300" class="float-item img-main-1" data-speed="4">
+            <img src="https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=300" class="float-item img-main-2" data-speed="-5">
+            <i class="fas fa-compact-disc float-item icon-1" data-speed="8"></i>
+            <i class="fas fa-skull float-item icon-2" data-speed="-10"></i>
+        </div>
+
+        <div class="hero-content">
+            <p class="subtitle gsap-reveal">Find Your Next Experience</p>
+            <h1 class="main-title gsap-reveal">DISCOVER & JOIN <br> <span>SKATE EVENTS</span></h1>
             
-            <!-- Professional Search Bar -->
-            <div class="search-box" data-aos="fade-up" data-aos-delay="400">
+            <!-- Professional Edgy Search Bar -->
+            <div class="search-box gsap-reveal">
                 <div class="search-field">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search Event (Skateboard, Roller...)">
+                    <input type="text" placeholder="Event (e.g. Skateboard...)">
                 </div>
                 <div class="search-field">
                     <i class="fas fa-map-marker-alt"></i>
                     <select>
-                        <option>Search Location</option>
+                        <option>Location</option>
                         <option>New York</option>
                         <option>London</option>
                         <option>Dubai</option>
                     </select>
                 </div>
-                <button class="search-btn">Search Now</button>
+                <button class="search-btn">SEARCH <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- Events Section -->
+    <!-- Events Section (Supercharged Expanding Cards) -->
     <section class="events-section">
         <div class="section-header">
-            <h2 data-aos="fade-right">Featured Events</h2>
-            <p>Explore the best skating workshops and competitions</p>
+            <h2 class="gsap-scroll">Featured Battles</h2>
+            <p class="gsap-scroll">Explore the best skating workshops and competitions</p>
         </div>
 
-        <div class="events-grid">
-            <!-- Event 1 -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1541416592233-0bb695958611?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">SKATEBOARD</span>
-                    <h3>Street King Championship</h3>
-                    <p><i class="far fa-calendar-alt"></i> Sept 15, 2024</p>
-                    <button class="btn-card">BUY TICKET</button>
+        <div class="expanding-slider gsap-scroll">
+            <!-- Event 1 (Active by default) -->
+            <div class="skate-panel active" style="background-image: url('https://images.unsplash.com/photo-1541416592233-0bb695958611?q=80&w=800');">
+                <div class="panel-shadow"></div>
+                <div class="panel-content">
+                    <div class="icon-box"><i class="fas fa-skateboard"></i></div>
+                    <div class="info">
+                        <span class="category">SKATEBOARD</span>
+                        <h3>Street King</h3>
+                        <p><i class="far fa-calendar-alt"></i> Sept 15, 2024</p>
+                        <button class="btn-card">GET TICKET</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Event 2 -->
-            <div class="event-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">ROLLER SKATE</span>
-                    <h3>Retro Disco Night</h3>
-                    <p><i class="far fa-calendar-alt"></i> Oct 20, 2024</p>
-                    <button class="btn-card">BUY TICKET</button>
+            <div class="skate-panel" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=800');">
+                <div class="panel-shadow"></div>
+                <div class="panel-content">
+                    <div class="icon-box"><i class="fas fa-roller-camp"></i></div>
+                    <div class="info">
+                        <span class="category">ROLLER SKATE</span>
+                        <h3>Disco Night</h3>
+                        <p><i class="far fa-calendar-alt"></i> Oct 20, 2024</p>
+                        <button class="btn-card">GET TICKET</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Event 3 -->
-            <div class="event-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571507025807-6f76c72e90f2?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">INLINE</span>
-                    <h3>City Speed Marathon</h3>
-                    <p><i class="far fa-calendar-alt"></i> Nov 05, 2024</p>
-                    <button class="btn-card">BUY TICKET</button>
+            <div class="skate-panel" style="background-image: url('https://images.unsplash.com/photo-1571507025807-6f76c72e90f2?q=80&w=800');">
+                <div class="panel-shadow"></div>
+                <div class="panel-content">
+                    <div class="icon-box"><i class="fas fa-shoe-prints"></i></div>
+                    <div class="info">
+                        <span class="category">INLINE</span>
+                        <h3>City Speed</h3>
+                        <p><i class="far fa-calendar-alt"></i> Nov 05, 2024</p>
+                        <button class="btn-card">GET TICKET</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Event 4 -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">LONGBOARD</span>
-                    <h3>Downhill Race Pro</h3>
-                    <p><i class="far fa-calendar-alt"></i> Dec 12, 2024</p>
-                    <button class="btn-card">BUY TICKET</button>
+            <div class="skate-panel" style="background-image: url('https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=800');">
+                <div class="panel-shadow"></div>
+                <div class="panel-content">
+                    <div class="icon-box"><i class="fas fa-wind"></i></div>
+                    <div class="info">
+                        <span class="category">LONGBOARD</span>
+                        <h3>Downhill Pro</h3>
+                        <p><i class="far fa-calendar-alt"></i> Dec 12, 2024</p>
+                        <button class="btn-card">GET TICKET</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Event 5 -->
-            <div class="event-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">WORKSHOP</span>
-                    <h3>Beginners Skate School</h3>
-                    <p><i class="far fa-calendar-alt"></i> Jan 05, 2025</p>
-                    <button class="btn-card">BUY TICKET</button>
-                </div>
-            </div>
-
-            <!-- Event 6 -->
-            <div class="event-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519060126759-fe97a7837890?q=80&w=600');"></div>
-                <div class="card-info">
-                    <span class="category">CULTURE</span>
-                    <h3>Skate Art & Music Fest</h3>
-                    <p><i class="far fa-calendar-alt"></i> Feb 14, 2025</p>
-                    <button class="btn-card">BUY TICKET</button>
+            <div class="skate-panel" style="background-image: url('https://images.unsplash.com/photo-1519060126759-fe97a7837890?q=80&w=800');">
+                <div class="panel-shadow"></div>
+                <div class="panel-content">
+                    <div class="icon-box"><i class="fas fa-music"></i></div>
+                    <div class="info">
+                        <span class="category">CULTURE</span>
+                        <h3>Skate Fest</h3>
+                        <p><i class="far fa-calendar-alt"></i> Feb 14, 2025</p>
+                        <button class="btn-card">GET TICKET</button>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="see-more">
-            <button class="see-more-btn">SEE MORE EVENTS <i class="fas fa-arrow-right"></i></button>
+        <div class="see-more gsap-scroll">
+            <button class="see-more-btn">LOAD MORE <i class="fas fa-bolt"></i></button>
         </div>
     </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- GSAP Libraries (السر في الاحترافية) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- ملف الماوس المخصص الخاص بك -->
+    <script src="./java/cursor.js"></script>
     <script src="./java/events.js"></script>
 </body>
 </html>
