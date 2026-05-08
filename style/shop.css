@@ -1,111 +1,237 @@
-.sidebar {
-  height: 100%;
-  width: 250px; /* دايمًا مفتوح */
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #222;
-  overflow-x: hidden;
-  padding-top: 70px; /* تحت الشريط */
-  z-index: 999;
+/* إعدادات عامة */
+body {
+    background-color: #050505;
+    color: white;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
-.sidebar a {
-  padding: 12px 20px;
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-  border-bottom: 1px solid #333;
+/* قسم الهيرو السينمائي */
+.hero-shop {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+    background: #000;
 }
 
-.sidebar a:hover {
-  background-color: #8B0000;
-}
-.filters-section {
-  margin-left: 280px;
-  margin-top: 100px;
-  padding: 20px; /* قللنا البادينغ */
-  background-color: #222;
-  color: white;
-  border-radius: 10px;
-  width: 65%; /* قللنا العرض شوي */
-  display: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.7); /* ظل أسود متوسط */
+.image-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
-.filters-section h3 {
-  margin-bottom: 15px;
-  font-size: 22px; /* أصغر من قبل */
-  color: white;
-  text-shadow: 2px 2px 5px #8B0000; /* ظل أحمر للنص */
+.zoom-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: kenBurns 20s infinite alternate linear;
 }
 
-.filters-section label {
-  font-size: 16px; /* أصغر شوي */
-  margin-right: 10px;
+@keyframes kenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.15) translate(-1%, -2%); }
 }
 
-.filters-section select {
-  margin: 10px;
-  padding: 8px; /* أصغر من قبل */
-  font-size: 16px; /* أصغر من قبل */
-  border-radius: 6px;
-  border: none;
-  min-width: 150px; /* عرض مناسب بدون ما يكون ضخم */
-}
-.products-section {
-  margin-left: 280px;
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* بطاقتين جنب بعض */
-  gap: 20px;
-  width: calc(100% - 300px); /* يغطي باقي الصفحة */
+/* تأثيرات VHS و Scanlines */
+.vhs-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 2px 100%;
+    z-index: 2;
+    pointer-events: none;
 }
 
+.scanline {
+    width: 100%;
+    height: 5px;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: -5px;
+    animation: scanMove 4s linear infinite;
+}
 
+@keyframes scanMove {
+    0% { top: -5px; }
+    100% { top: 100%; }
+}
+
+/* العنوان بنمط Glitch */
+.hero-title-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    text-align: center;
+    width: 100%;
+}
+
+.glitch {
+    font-family: 'Bangers', cursive;
+    font-size: 8vw;
+    color: white;
+    text-shadow: 3px 3px 0px #ff0055, -3px -3px 0px #00ff99;
+    letter-spacing: 10px;
+    margin: 0;
+    animation: textFlicker 2s infinite;
+}
+
+.neon-text {
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff99;
+}
+
+/* أزرار الملصقات (Stickers) */
+.sticker-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: -50px;
+    position: relative;
+    z-index: 100;
+    padding: 0 20px;
+}
+
+.sticker {
+    padding: 15px 35px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem;
+    border: 3px solid #000;
+    cursor: pointer;
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 8px 8px 0px #000;
+}
+
+.s1 { background: #fff; transform: rotate(-3deg); }
+.s2 { background: #ffde59; transform: rotate(2deg); }
+.s3 { background: #ff0055; color: white; transform: rotate(-1deg); }
+.s4 { background: #00ccff; transform: rotate(4deg); }
+.s5 { background: #00ff99; transform: rotate(-4deg); }
+
+.sticker:hover {
+    transform: scale(1.15) rotate(0deg);
+    box-shadow: 0px 0px 20px #fff;
+    z-index: 101;
+}
+
+.sticker.active {
+    background: #000;
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 5px 5px 20px #ff0055;
+}
+
+/* شبكة المنتجات */
+.shop-main {
+    padding: 80px 5%;
+}
+
+.section-header h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    color: #fff;
+    border-left: 10px solid #ff0055;
+    padding-left: 20px;
+    margin-bottom: 40px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+/* تصميم كرت المنتج الاحترافي */
 .product-card {
-  background-color: #333;
-  color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #111;
+    border: 1px solid #222;
+    padding: 20px;
+    border-radius: 0px; /* ستايل حاد للسكيت */
+    transition: 0.3s;
+    position: relative;
 }
 
 .product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.9);
+    border-color: #ff0055;
+    transform: translateY(-10px);
 }
 
 .product-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 8px;
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
 }
 
-.product-btns {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
-.product-btns button {
-  background-color: #8B0000;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+.product-card .price {
+    color: #00ff99;
+    font-weight: 900;
+    font-size: 1.5rem;
 }
 
-.product-btns button:hover {
-  background-color: #a30000;
-  transform: scale(1.05);
+.add-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff0055;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.add-btn:hover { background: #ff3377; }
+/* إعدادات السلايدر */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; /* الصور مخفية في البداية */
+    transition: opacity 1.5s ease-in-out; /* سرعة التلاشي */
+    z-index: 1;
+}
+
+/* الصورة النشطة */
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+    animation: kenBurns 10s infinite alternate linear; /* تأثير الزوم يعمل فقط على الصورة النشطة */
+}
+
+/* تأثير الزوم (Ken Burns) */
+@keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* تأكد من بقاء العناصر الأخرى فوق الصور */
+.vhs-overlay, .scanline, .hero-title-area {
+    z-index: 10;
 }

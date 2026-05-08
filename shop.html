@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkateHub - Shop</title>
+  <title>SkateHub | Pro Shop</title>
+  
+  <!-- الروابط والخطوط -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="./style/global.css">
- 
   <link rel="stylesheet" href="./style/shop.css">
-  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- الشريط -->
+<!-- الناف بار الخاص بك -->
 <div class="navbar">
   <div class="logo">
     <a href="home.html" class="logo-link">
@@ -33,22 +34,52 @@
     <a href="login.html"><i class="fas fa-user"></i></a>
     <a href="signup.html"><i class="fas fa-user-plus"></i></a>
     <a href="notifications.html"><i class="fas fa-bell"></i></a>
+    <div class="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+    </div>
   </div>
 </div>
 
-<!-- السايدبار دايمًا مفتوح -->
-<div id="mySidebar" class="sidebar">
-  <a href="#" onclick="showFilters('skates')">Skates</a>
-  <a href="#" onclick="showFilters('tshirts')">T-Shirts</a>
-  <a href="#" onclick="showFilters('shoes')">Shoes</a>
-  <a href="#" onclick="showFilters('accessories')">Accessories</a>
+<!-- قسم الهيرو السينمائي مع 3 صور -->
+<section class="hero-shop">
+    <div class="vhs-overlay"></div>
+    <div class="scanline"></div>
+    
+    <div class="image-wrapper" id="hero-slider">
+        <!-- الصورة الأولى (تكون نشطة في البداية) -->
+        <img src="./image/pexels-introspectivedsgn-5880093.jpg" class="slide active" alt="Store 1">
+        <!-- الصورة الثانية (ضع مسار صورتك الثانية هنا) -->
+        <img src="./image/pexels-aedrian-8117154.jpg" class="slide" alt="Store 2">
+        <!-- الصورة الثالثة (ضع مسار صورتك الثالثة هنا) -->
+        <img src="./image/pexels-badhon-35750806.jpg" class="slide" alt="Store 3">
+    </div>
+
+    <div class="hero-title-area">
+        <h1 class="glitch" data-text="SKATE HUB">SKATE HUB</h1>
+        <p class="neon-text">EST. 2024 // PREMIUM SKATE GOODS</p>
+    </div>
+</section>
+
+<!-- أزرار التصنيفات على شكل ملصقات (Stickers) -->
+<div class="sticker-nav">
+    <button onclick="filterProducts('all')" class="sticker s1 active">#ALL_STUFF</button>
+    <button onclick="filterProducts('skates')" class="sticker s2">SKATES</button>
+    <button onclick="filterProducts('tshirts')" class="sticker s3">CLOTHING</button>
+    <button onclick="filterProducts('shoes')" class="sticker s4">KICKS</button>
+    <button onclick="filterProducts('accessories')" class="sticker s5">GEAR</button>
 </div>
 
-<!-- مكان عرض الفلاتر -->
-<div id="filters" class="filters-section"></div>
+<!-- معرض المنتجات -->
+<main class="shop-main">
+    <div class="section-header">
+        <h2 id="category-title">FEATURED_ITEMS</h2>
+    </div>
 
-<!-- مكان عرض المنتجات -->
-<div id="products" class="products-section"></div>
+    <div class="products-grid" id="products-grid">
+        <!-- المنتجات تظهر هنا عبر JS -->
+    </div>
+</main>
 
 <script src="./js/shop.js"></script>
 </body>
