@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>login</title>
+    <link rel="stylesheet" href="./login.css">
 </head>
 <body>
-
+    <!-- Custom Cursor (Global) -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="container">
+        <!-- الأشكال المتحركة في الخلفية -->
+        <div class="blob"></div>
+        
+        <div class="login-box">
+            <h2>تسجيل الدخول</h2>
+            <form>
+                <input type="text" placeholder="اسم المستخدم">
+                <input type="password" placeholder="كلمة المرور">
+                <button type="submit">دخول</button>
+            </form>
+            <div class="footer">
+                <a href="#">نسيت كلمة السر؟</a>
+                <a href="#">حساب جديد</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- ملف الماوس المخصص الخاص بك -->
+    <script src="./java/cursor.js"></script>
 </body>
 </html>

@@ -1,9 +1,12 @@
-/* Fonts and Basics */
+/* --- Original Root Colors --- */
 :root {
     --neon-blue: #00f2ff;
     --neon-pink: #ff007a;
     --text-color: #ffffff;
     --card-bg: rgba(255, 255, 255, 0.05);
+    
+    /* اللون الكحلي الغامق المأخوذ من صورتك بالضبط */
+    --bg-dark: #081e36; 
 }
 
 * {
@@ -11,114 +14,209 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    cursor: none; /* إخفاء الماوس العادي لأننا صنعنا واحداً احترافياً */
 }
 
-/* Background REMOVED as requested. You can add yours here */
 body {
+    background-color: var(--bg-dark);
     color: var(--text-color);
     overflow-x: hidden;
 }
 
-/* Hero Section (Background REMOVED) */
-.hero {
-    height: 90vh;
+/* --- Custom Cursor --- */
+.cursor {
+    width: 8px; height: 8px; background: var(--neon-blue);
+    border-radius: 50%; position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+}
+.cursor-follower {
+    width: 30px; height: 30px; border: 2px solid var(--neon-pink);
+    border-radius: 50%; position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998; transform: translate(-50%, -50%);
+    transition: 0.1s ease-out;
+}
+.cursor.active { width: 40px; height: 40px; background: rgba(0, 242, 255, 0.2); border: 1px solid var(--neon-blue); }
+
+/* --- Navbar --- */
+.navbar {
+    position: absolute; top: 0; width: 100%; padding: 25px 5%;
+    display: flex; justify-content: space-between; align-items: center; z-index: 10;
+}
+.logo-link { display: flex; align-items: center; text-decoration: none; color: white; gap: 10px; }
+.site-title { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-style: italic; }
+.nav-links { display: flex; gap: 40px; }
+.nav-item { text-decoration: none; color: white; font-weight: 800; font-size: 14px; text-transform: uppercase; transition: 0.3s; position: relative; }
+.nav-item:hover, .active-link { color: var(--neon-blue); }
+.nav-icons { display: flex; gap: 25px; }
+.nav-icons a { color: white; font-size: 1.2rem; transition: 0.3s; }
+.nav-icons a:hover { color: var(--neon-pink); transform: scale(1.2); }
+
+/* --- Massive Background Text --- */
+.massive-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 20vw; font-weight: 900; color: rgba(255,255,255,0.02);
+    white-space: nowrap; pointer-events: none; z-index: 0;
+}
+
+/* --- Scrolling Marquee Tape (Skate Vibe) --- */
+/* --- Scrolling Marquee Tape (Professional & Seamless) --- */
+.skate-tape {
+    position: absolute;
+    top: 25%; /* رفعناه قليلاً ليتناسق مع النصوص بشكل أجمل */
+    left: -5%;
+    width: 110%; /* عرض أكبر من الشاشة لضمان عدم وجود حواف مقطوعة */
+    background: var(--neon-pink);
+    color: black;
+    padding: 12px 0;
+    transform: rotate(-3deg);
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(255, 0, 122, 0.4);
+    /* إضافة حدود سوداء أعلى وأسفل ليعطي شكل شريط احترافي */
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+/* المسار الذي يحمل النصوص */
+.tape-track {
+    display: flex;
+    width: max-content; /* ضروري جداً لكي لا ينطوي النص للأسفل */
+    /* الحركة تستغرق 25 ثانية بشكل خطي ومستمر للما لا نهاية */
+    animation: seamlessScroll 25s linear infinite;
+}
+
+/* المحتوى نفسه */
+.tape-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    white-space: nowrap;
+    font-weight: 900;
+    font-size: 1.4rem;
+    font-style: italic;
+    padding-right: 40px; /* مسافة بين النسخ المتكررة */
+}
+
+.tape-content span {
+    margin: 0 15px;
+    letter-spacing: 2px;
+}
+
+/* ستايل الأيقونات داخل الشريط */
+.tape-content i {
+    font-size: 1.2rem;
+    margin: 0 10px;
+    color: rgba(0, 0, 0, 0.7); /* لون الأيقونات أسود خفيف */
+}
+
+/* سر الاحترافية: الحركة تقوم بإزاحة ثلث المحتوى (لأننا وضعنا 3 مقاطع متطابقة)، 
+وبمجرد أن ينتهي الثلث، يعود للصفر فوراً بدون أن يلاحظ المستخدم! */
+@keyframes seamlessScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.3333%); }
+}
+/* --- Hero Section --- */
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; overflow: hidden; }
+.hero-content { z-index: 3; position: relative; }
+.main-title { font-size: 6rem; line-height: 1; margin: 10px 0 30px 0; font-weight: 900; text-transform: uppercase; font-style: italic; }
+.main-title span { color: transparent; -webkit-text-stroke: 2px var(--neon-blue); text-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
+/* --- Subtitle (Fixed & Upgraded) --- */
+.subtitle {
+    display: inline-block;
+    letter-spacing: 6px;
+    color: var(--text-color); /* لون أبيض ليبرز بقوة */
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 25px;
+    
+    /* إضافة خلفية داكنة زجاجية لتفصل النص عن الشريط الزهري */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 10px 30px;
+    border-radius: 50px;
+    
+    /* حدود مضيئة باللون الأزرق النيون */
+    border: 1px solid var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+    
+    /* للتأكد من بقائها فوق الشريط */
     position: relative;
-    text-align: center;
+    z-index: 5;
 }
+/* --- Floating Images (Glitchy) --- */
+.floating-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 2; }
+.float-item { position: absolute; transition: transform 0.1s ease-out; will-change: transform; }
+.img-main-1 { width: 200px; height: 250px; top: 15%; left: 8%; object-fit: cover; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); filter: grayscale(100%) contrast(1.2); transition: 0.3s; }
+.img-main-2 { width: 220px; height: 200px; bottom: 15%; right: 8%; object-fit: cover; clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%); border: 3px solid var(--neon-pink); }
+.img-main-1:hover { filter: grayscale(0%); transform: scale(1.1); pointer-events: auto; }
+.icon-1 { font-size: 40px; color: var(--neon-blue); top: 25%; right: 25%; opacity: 0.3; }
+.icon-2 { font-size: 50px; color: var(--neon-pink); bottom: 30%; left: 20%; opacity: 0.3; }
 
-.main-title { font-size: 5rem; line-height: 1; margin: 20px 0; font-weight: 800; text-transform: uppercase; }
-.main-title span { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
-
-.subtitle { letter-spacing: 5px; color: var(--neon-pink); font-weight: bold; }
-
-/* Floating Images */
-
-.img-1 { width: 160px; height: 160px; top: 10%; left: 5%; }
-.img-2 { width: 200px; height: 200px; bottom: 10%; right: 5%; }
-/* تنسيق العناصر الطائرة */
-.floating-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none; /* لكي لا تمنع الضغط على أزرار البحث */
-    z-index: 1;
-}
-
-.float-item {
-    position: absolute;
-    transition: transform 0.1s ease-out; /* حركة ناعمة جداً */
-    will-change: transform;
-}
-
-/* توزيع الصور والأيقونات في أماكن عشوائية */
-.img-main-1 { width: 180px; height: 180px; top: 15%; left: 8%; border-radius: 50%; border: 3px solid var(--neon-blue); }
-.img-main-2 { width: 220px; height: 220px; bottom: 10%; right: 8%; border-radius: 50%; border: 3px solid var(--neon-pink); }
-
-.icon-1 { font-size: 30px; color: var(--neon-blue); top: 20%; right: 15%; opacity: 0.5; }
-.icon-2 { font-size: 40px; color: var(--neon-pink); bottom: 25%; left: 20%; opacity: 0.5; }
-.icon-3 { font-size: 25px; color: #ffcc00; top: 50%; left: 5%; opacity: 0.4; }
-/* Search Box (Glassmorphism) */
+/* --- Edgy Search Box --- */
 .search-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 10px;
-    border-radius: 60px;
-    display: flex;
-    width: 95%;
-    max-width: 900px;
-    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1); display: flex; width: 90%; max-width: 800px;
+    margin: 0 auto; clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%); /* قصة رياضية حادة */
 }
-
-.search-field { flex: 1; display: flex; align-items: center; padding: 0 15px; border-right: 1px solid rgba(255,255,255,0.1); }
-.search-field input, .search-field select {
-    background: transparent; border: none; color: white; padding: 10px; width: 100%; outline: none;
-}
-
+.search-field { flex: 1; display: flex; align-items: center; padding: 20px; border-right: 1px solid rgba(255,255,255,0.1); }
+.search-field i { color: var(--neon-blue); margin-right: 15px; font-size: 1.2rem; }
+.search-field input, .search-field select { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 1.1rem; font-weight: bold; }
+.search-field select option { background: var(--bg-dark); }
 .search-btn {
-    background: var(--neon-blue); border: none; padding: 15px 35px; border-radius: 40px; 
-    font-weight: bold; cursor: pointer; transition: 0.3s;
+    background: var(--neon-blue); border: none; padding: 0 40px; font-weight: 900; font-size: 1.1rem;
+    cursor: none; transition: 0.3s; color: #000; font-style: italic; display: flex; align-items: center; gap: 10px;
+}
+.search-btn:hover { background: var(--neon-pink); color: white; }
+
+/* --- Expanding Slider (Supercharged) --- */
+.events-section { padding: 100px 5%; overflow: hidden; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header h2 { font-size: 4rem; font-weight: 900; font-style: italic; text-transform: uppercase; color: white; -webkit-text-stroke: 1px var(--neon-pink); }
+.section-header p { color: #888; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+
+.expanding-slider { display: flex; width: 100%; height: 60vh; gap: 20px; max-width: 1400px; margin: 0 auto; }
+
+.skate-panel {
+    background-size: cover; background-position: center; border-radius: 15px; color: #fff; cursor: none;
+    flex: 0.5; position: relative; overflow: hidden;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s;
+    filter: grayscale(80%);
+}
+.skate-panel:hover { transform: translateY(-10px); filter: grayscale(40%); }
+.skate-panel.active {
+    flex: 4; cursor: default; filter: grayscale(0%);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3); border: 2px solid var(--neon-blue);
 }
 
-/* Events Grid */
-.events-section { padding: 80px 5%; }
-.section-header { margin-bottom: 40px; }
-.section-header h2 { font-size: 3rem; text-transform: uppercase; }
-
-.events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
+.panel-shadow {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
 }
 
-.event-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.panel-content { position: absolute; bottom: 30px; left: 30px; display: flex; align-items: flex-end; gap: 25px; width: calc(100% - 60px); }
+.icon-box {
+    background: var(--neon-pink); min-width: 60px; height: 60px; border-radius: 5px;
+    display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000;
+    transform: skewX(-10deg); /* شكل مائل للآيكون */
 }
 
-.event-card:hover { transform: translateY(-15px); border-color: var(--neon-pink); }
+.info { opacity: 0; transform: translateX(-30px); transition: 0.4s ease; white-space: nowrap; }
+.skate-panel.active .info { opacity: 1; transform: translateX(0); transition-delay: 0.3s; }
+.category { color: var(--neon-blue); font-weight: 900; font-size: 1rem; letter-spacing: 3px; background: rgba(0,242,255,0.1); padding: 5px 10px; border-radius: 3px; }
+.info h3 { font-size: 3rem; margin: 10px 0; font-weight: 900; font-style: italic; text-transform: uppercase; }
+.info p { color: #ccc; margin-bottom: 20px; font-weight: bold; }
 
-.card-img { height: 220px; background-size: cover; background-position: center; }
-.card-info { padding: 25px; }
-.category { color: var(--neon-blue); font-size: 13px; font-weight: bold; }
 .btn-card {
-    width: 100%; margin-top: 15px; padding: 12px; background: transparent;
-    border: 2px solid var(--neon-blue); color: var(--neon-blue); border-radius: 8px;
-    font-weight: bold; cursor: pointer; transition: 0.3s;
+    padding: 12px 35px; background: transparent; border: 2px solid var(--neon-pink);
+    color: var(--neon-pink); font-weight: 900; cursor: none; transition: 0.3s;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); font-style: italic;
 }
-.btn-card:hover { background: var(--neon-blue); color: black; }
+.btn-card:hover { background: var(--neon-pink); color: black; box-shadow: 0 0 20px var(--neon-pink); }
 
-.see-more { text-align: center; margin-top: 60px; }
+.see-more { text-align: center; margin-top: 80px; }
 .see-more-btn {
-    background: transparent; border: 1px solid white; color: white;
-    padding: 15px 40px; border-radius: 5px; cursor: pointer; transition: 0.3s;
+    background: transparent; border: 2px solid white; color: white; font-weight: 900; font-size: 1.2rem;
+    padding: 20px 50px; cursor: none; transition: 0.3s; font-style: italic; clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
 }
 .see-more-btn:hover { background: white; color: black; }

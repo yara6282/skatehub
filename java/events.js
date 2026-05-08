@@ -1,65 +1,80 @@
+// تسجيل مكتبة ScrollTrigger الخاصة بـ GSAP
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize AOS (Animate on Scroll)
-    AOS.init({
-        duration: 1000,
-        once: true
+
+    // 1. Custom Cursor Logic (مؤشر الماوس الاحترافي)
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    const interactables = document.querySelectorAll('a, button, .skate-panel, input, select');
+
+    document.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 });
     });
 
-    // Parallax effect for floating images
-    document.addEventListener('mousemove', (e) => {
-        const imgs = document.querySelectorAll('.float-img');
-        const x = (window.innerWidth - e.pageX * 2) / 100;
-        const y = (window.innerHeight - e.pageY * 2) / 100;
-
-        imgs.forEach(img => {
-            img.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    // تكبير الماوس عند المرور على أزرار
+    interactables.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            cursor.classList.add('active');
+            follower.style.borderColor = "var(--neon-blue)";
+        });
+        item.addEventListener('mouseleave', () => {
+            cursor.classList.remove('active');
+            follower.style.borderColor = "var(--neon-pink)";
         });
     });
-    // Simple search button interaction
-    const searchBtn = document.querySelector('.search-btn');
-    searchBtn.addEventListener('click', () => {
-        searchBtn.textContent = 'Searching...';
-        setTimeout(() => {
-            searchBtn.textContent = 'Search Now';
-        }, 1000);
+
+    // 2. GSAP Entrance Animations (دخول ناري للواجهة)
+    const tl = gsap.timeline();
+
+    // نزول شريط القائمة العلوية
+    tl.from(".navbar", { y: -100, opacity: 0, duration: 1, ease: "power4.out" })
+      // دخول النصوص الرئيسية بشكل متتالي
+      .from(".gsap-reveal", { y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "back.out(1.7)" }, "-=0.5")
+      // ظهور الصور الطائرة
+      .from(".float-item", { scale: 0, rotation: 45, opacity: 0, duration: 1, stagger: 0.2, ease: "elastic.out(1, 0.5)" }, "-=1");
+
+    // 3. GSAP Scroll Animations (حركة عند النزول للأسفل)
+    gsap.utils.toArray('.gsap-scroll').forEach(element => {
+        gsap.from(element, {
+            scrollTrigger: {
+                trigger: element,
+                start: "top 85%", // يبدأ الأنميشن لما يوصل العنصر لـ 85% من الشاشة
+                toggleActions: "play none none reverse"
+            },
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
     });
-});
-document.addEventListener('DOMContentLoaded', () => {
+
+    // 4. Parallax Floating Elements (تأثير حركة الماوس)
     const items = document.querySelectorAll('.float-item');
-    let mouseX = 0;
-    let mouseY = 0;
-
-    // 1. التقاط إحداثيات الماوس
     document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX - window.innerWidth / 2) / 20;
-        mouseY = (e.clientY - window.innerHeight / 2) / 20;
+        const mouseX = (e.clientX - window.innerWidth / 2) / 20;
+        const mouseY = (e.clientY - window.innerHeight / 2) / 20;
+
+        items.forEach((item) => {
+            const speed = parseFloat(item.getAttribute('data-speed')) || 5;
+            gsap.to(item, {
+                x: mouseX * speed,
+                y: mouseY * speed,
+                rotation: mouseX * (speed / 2),
+                duration: 1,
+                ease: "power1.out"
+            });
+        });
     });
 
-    // 2. محرك الحركة (Animation Engine)
-    function animate() {
-        items.forEach((item, index) => {
-            // الحصول على السرعة المخصصة لكل عنصر من الـ HTML
-            const speed = parseFloat(item.getAttribute('data-speed')) || 5;
-            
-            // حساب حركة "النبض" التلقائي (باستخدام الدالة الرياضية Sin)
-            const autoFloatY = Math.sin(Date.now() * 0.002 + index) * 20;
-            const autoFloatX = Math.cos(Date.now() * 0.002 + index) * 10;
-
-            // حساب الحركة النهائية: (الماوس + النبض التلقائي)
-            const finalX = (mouseX * speed / 5) + autoFloatX;
-            const finalY = (mouseY * speed / 5) + autoFloatY;
-            
-            // حساب الدوران المائل حسب حركة الماوس
-            const rotation = (mouseX * speed / 10);
-
-            // تطبيق التحويل البرمجي
-            item.style.transform = `translate(${finalX}px, ${finalY}px) rotate(${rotation}deg)`;
+    // 5. Pokemon Style Expanding Cards (السلايدر الاحترافي)
+    const panels = document.querySelectorAll('.skate-panel');
+    panels.forEach(panel => {
+        panel.addEventListener('click', () => {
+            panels.forEach(p => p.classList.remove('active'));
+            panel.classList.add('active');
         });
+    });
 
-        // تكرار الأنميشن باستمرار لسلاسة قصوى
-        requestAnimationFrame(animate);
-    }
-
-    // تشغيل المحرك
-    animate();
 });

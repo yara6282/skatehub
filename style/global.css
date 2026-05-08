@@ -22,6 +22,10 @@ a {
     --dark-bg: #222;
     --navy-bg: #001f3f;
 }
+/* إخفاء الماوس الأصلي إجبارياً من كل العناصر في الموقع */
+*, *::before, *::after {
+    cursor: none !important;
+}
 /* تنسيق الـ Navbar الموحد */
 .navbar {
     display: flex;
@@ -89,4 +93,60 @@ a {
 
 .nav-icons a:hover {
     color: #8B0000;
+}
+/* =========================================
+   Global Custom Cursor Styles
+   ========================================= */
+
+/* إخفاء الماوس الافتراضي في كل الموقع */
+body {
+    cursor: none;
+}
+
+/* النقطة الأساسية للماوس */
+.cursor {
+    width: 8px; 
+    height: 8px; 
+    background: var(--neon-blue, #00f2ff);
+    border-radius: 50%; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    pointer-events: none; /* مهم جداً عشان ما يمنع الضغط على الأزرار */
+    z-index: 9999; 
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+}
+
+/* الدائرة التابعة (Follower) اللي بتلحق الماوس ببطء */
+.cursor-follower {
+    width: 30px; 
+    height: 30px; 
+    border: 2px solid var(--neon-pink, #ff007a);
+    border-radius: 50%; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    pointer-events: none; 
+    z-index: 9998; 
+    transform: translate(-50%, -50%);
+    transition: border-color 0.3s ease; /* حركة ناعمة لتغيير اللون */
+}
+
+/* حالة الـ Hover (لما تمر فوق زر أو رابط) */
+.cursor.active { 
+    width: 40px; 
+    height: 40px; 
+    background: rgba(0, 242, 255, 0.2); 
+    border: 1px solid var(--neon-blue, #00f2ff); 
+}
+
+/* إخفاء الماوس المخصص في الموبايل والتابلت (لأنها شاشات لمس) */
+@media (max-width: 768px) {
+    .cursor, .cursor-follower {
+        display: none !important;
+    }
+    body {
+        cursor: auto; /* إرجاع وضع اللمس الطبيعي */
+    }
 }
