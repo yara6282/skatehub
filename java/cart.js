@@ -1,42 +1,54 @@
-// دالة تحديث عداد السلة من الذاكرة
-function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem('skateHubCart')) || [];
-    let count = cart.reduce((sum, item) => sum + item.qty, 0);
-    const cartCountElement = document.getElementById('cart-count');
-    if (cartCountElement) {
-        cartCountElement.innerText = count;
+document.addEventListener('DOMContentLoaded', renderCart);
+
+function renderCart() {
+    let cartData = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    const list = document.getElementById('cart-items-list');
+    
+    if (cartData.length === 0) {
+        // توليد رسالة السلة الفارغة مطابقة للصورة
+        list.innerHTML = `
+            <div class="empty-msg">
+                <h2>YOUR DECK IS EMPTY... 🛹</h2>
+                <a href="shop.html">GO GRAB SOME GEAR</a>
+            </div>`;
+        
+        // تصفير الأرقام في البوكس اليمين (بدون تعديل ستايل البوكس)
+        if(document.getElementById('subtotal-val')) document.getElementById('subtotal-val').innerText = "$0.00";
+        if(document.getElementById('total-val')) document.getElementById('total-val').innerText = "$0.00";
+        return;
     }
+
+    // إذا في منتجات، الكود بكمل عرضه هون...
 }
 
-// تنفيذ التحديث فور تحميل الصفحة
-document.addEventListener('DOMContentLoaded', updateCartCount);
+function updateTotal() {
+    const subText = document.getElementById('subtotal-val').innerText;
+    const subtotal = parseFloat(subText.replace('$', '')) || 0;
+    
+    const shipping = document.querySelector('input[name="shipping"]:checked').value;
+    const total = subtotal + parseFloat(shipping);
+    
+    document.getElementById('total-val').innerText = `$${total.toFixed(2)}`;
+    
+    // تحديث شريط التقدم (مثلاً هدف الشحن المجاني 200$)
+    const goal = 200;
+    const progress = Math.min((subtotal / goal) * 100, 100);
+    document.getElementById('p-bar').style.width = progress + '%';
+    document.getElementById('s-icon').style.left = progress + '%';
+}
 
-// دالة إضافة المنتج للسلة (تأكد أن هذه الدالة تستدعى من زر Confirm في المودال)
-window.addToCartFinal = function() {
-    const productName = document.getElementById('modal-title').innerText;
-    const productPrice = document.getElementById('modal-price').innerText;
-    const productImg = document.getElementById('modal-img').src;
-    const selectedSize = document.querySelector('.chip.active')?.innerText || "M";
-    const quantity = parseInt(document.getElementById('qty-val').innerText) || 1;
-
-    const product = {
-        id: Date.now(),
-        name: productName,
-        price: parseFloat(productPrice.replace('$', '')),
-        img: productImg,
-        size: selectedSize,
-        qty: quantity
-    };
-
-    // حفظ بنفس الاسم الموحد
-    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-    cart.push(product);
+window.removeItem = (index) => {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart'));
+    cart.splice(index, 1);
     localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
-
-    updateCartCount(); // تحديث العداد
-    closeModal();
-    alert("Added! 🛹");
+    renderCart();
 };
+
+function processOrder() {
+    const gov = document.getElementById('governorate').value;
+    if(!gov) { alert("Please select your Governorat!"); return; }
+    alert("ORDER RECEIVED! Shred on! 🛹🔥");
+}
 document.addEventListener('DOMContentLoaded', () => {
     const footerModal = document.getElementById('footer-modal');
     const modalTitle = document.getElementById('modal-title');

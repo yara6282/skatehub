@@ -15,33 +15,28 @@
 
 <!-- الناف بار الخاص بك -->
 
-<!-- الشريط -->
-<div class="navbar">
-  <div class="logo">
-    <a href="home.html" class="logo-link">
-      <img src="./image/9037278.png" alt="SkateHub Logo">
-      <span class="site-title">SkateHub</span>
-    </a>
-  </div>
+  <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+                </div>
+                <span class="site-title">SkateHub</span>
+            </a>
 
-  <div class="nav-links">
-    <a href="home.html">Home</a>
-    <a href="events.html">Events</a>
-    <a href="community.html">Community</a>
-    <a href="shop.html">Shop</a>
-    <a href="tutorials.html">Tutorials</a>
-  </div>
+            <div class="nav-links">
+                <a href="./home.html" class="nav-item">Home</a>
+                <a href="./events.html" class="nav-item active-link">Events</a>
+                <a href="./community.html" class="nav-item">Community</a>
+                <a href="./shop.html" class="nav-item">Shop</a>
+                <a href="./tutorials.html" class="nav-item">Tutorials</a>
+            </div>
 
-  <div class="nav-icons">
-    <a href="login.html"><i class="fas fa-user"></i></a>
-    <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-    <a href="notifications.html"><i class="fas fa-bell"></i></a>
-    <div class="cart-btn">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count">0</span>
-    </div>
-  </div>
-</div>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#"><i class="fas fa-bell"></i></a>
+            </div>
+        </nav>
 
 <!-- قسم الهيرو السينمائي مع 3 صور -->
 <section class="hero-shop">
@@ -82,9 +77,68 @@
         <!-- المنتجات تظهر هنا عبر JS -->
     </div>
 </main>
+<!-- Footer المطور والنحيف -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>SKATEHUB INFO</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
+                <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
+                <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
 
+        <div class="footer-column">
+            <h4>CUSTOMER SERVICE</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
+                <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column socials">
+            <h4>FOLLOW THE FLOW</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 SKATEHUB. DESIGNED BY SKATERS FOR SKATERS</p>
+    </div>
+</footer>
+
+<!-- المودال الخاص بالفوتر (نفس تصميم التيكت بس أكبر وبلون #222) -->
+<div id="footer-modal" class="modal-overlay">
+    <div class="modal-card footer-modal-card">
+        <button class="close-footer-modal"><i class="fas fa-times"></i></button>
+        
+        <div class="modal-header">
+            <i id="modal-icon" class="fas fa-info-circle pulse-icon"></i>
+            <h2 id="modal-title" class="neon-text-blue">TITLE HERE</h2>
+        </div>
+
+        <div id="modal-body-content" class="modal-text-content">
+            <!-- الحكي والشرح سيظهر هنا برمجياً -->
+        </div>
+
+        <div class="modal-footer">
+            <button class="close-btn-bottom">GOT IT!</button>
+        </div>
+    </div>
+</div>
 <!-- مكان عرض المنتجات -->
 <div id="products" class="products-section"></div>
+<!-- 1. مكتبة الأنميشن -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <!-- Custom Cursor (Global) -->
     <div class="cursor"></div>
@@ -92,5 +146,8 @@
 <!-- ملف الماوس المخصص الخاص بك -->
 <script src="./java/cursor.js"></script>
 <script src="./js/shop.js"></script>
+
+<!-- أو -->
+<script src="/java/cart.js"></script> <!-- في صفحة الكارت -->
 </body>
 </html>
