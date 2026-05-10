@@ -1,0 +1,176 @@
+/* الخلفية سودة تماماً */
+body {
+    background-color: #000 !important;
+    color: white;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.vhs-overlay { pointer-events: none; z-index: 5; }
+
+/* الـ Container والرفع الخرافي */
+.cart-wrapper { padding-top: 150px !important;  max-width: 1300px; margin: 0 auto; }
+
+.cart-header { padding-bottom: 60px; } 
+
+.cart-container {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 40px;
+    align-items: start;
+    margin-top: -220px; /* سحب للأعلى ليكون حد العنوان */
+    position: relative;
+    z-index: 10;
+}
+
+/* الصندوق (Order Summary) */
+.cart-summary {
+    position: sticky;
+    top: 20px;
+    background: #fff;
+    color: #000;
+    padding: 25px !important;
+    border: 4px solid #000;
+    box-shadow: 12px 12px 0px #ff0055;
+}
+
+.bangers-text {
+    font-family: 'Bangers';
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #000;
+    padding-bottom: 5px;
+}
+
+/* الأزرار والمدخلات */
+.group-label { display: block; font-weight: 900; font-size: 0.75rem; color: #777; margin: 15px 0 5px; text-transform: uppercase; }
+
+.payment-methods, .payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.method-info, .pay-box {
+    border: 2px solid #ddd;
+    height: 65px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+input[type="radio"] { display: none; }
+input[type="radio"]:checked + .method-info, 
+input[type="radio"]:checked + .pay-box {
+    border-color: #00ff99;
+    background: #e6fff5;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.skate-input {
+    width: 100%; border: 2px solid #000; padding: 10px;
+    margin-bottom: 10px; font-family: 'Poppins';
+    box-sizing: border-box;
+}
+
+/* زر Apply */
+.promo-input-wrap { display: flex; height: 45px; margin-bottom: 15px; }
+.promo-input-wrap input { flex: 1; border: 3px solid #000; border-right: none; padding: 0 10px; font-weight: bold; }
+.apply-btn {
+    background: #000; color: #fff; border: 3px solid #000;
+    font-family: 'Bangers'; font-size: 1.3rem; cursor: pointer; padding: 0 20px;
+}
+.apply-btn:hover { background: #ff0055; border-color: #ff0055; }
+
+/* الجزء السفلي من الصندوق */
+.summary-bottom-info {
+    margin-top: 15px;
+    border-top: 2px dashed #ccc;
+    padding-top: 10px;
+}
+
+.summary-row.small {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.total-row { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 2.2rem; 
+    font-family: 'Bangers'; 
+    color: #000;
+}
+
+.checkout-btn {
+    width: 100%; padding: 18px; background: #000; color: #fff;
+    font-family: 'Bangers'; font-size: 1.8rem; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;
+}
+.checkout-btn:hover { background: #ff0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.4); }
+.glitch {
+    font-family: 'Bangers', cursive;
+    font-size: 5.5rem; /* حجم ضخم */
+    color: #fff;
+    text-shadow: 4px 4px #ff0055, -4px -4px #00f2ff;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+/* شريط التقدم */
+.shipping-goal p {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.progress-track {
+    width: 100%;
+    max-width: 600px; /* طول الشريط كما في الصورة */
+    height: 6px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    position: relative;
+}
+
+.skate-icon {
+    position: absolute;
+    top: -12px;
+    color: #00ff99;
+    font-size: 1.6rem;
+    filter: drop-shadow(0 0 8px #00ff99);
+    /* تأكد إنه ما في تحويل يدفشه لليمين */
+    transform: translateX(0); 
+    transition: left 0.3s ease; /* حركة ناعمة لما يتحرك */
+}
+/* رسالة السلة الفارغة */
+.empty-msg {
+    margin-top: 170px; /* المسافة اللي تحت الشريط */
+    text-align: center;
+    width: 100%;
+    max-width: 600px; /* عشان تكون تحت الشريط بالزبط */
+}
+.empty-msg h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 3.8rem;
+    color: #ff0055; /* وردي نيون */
+    text-shadow: 3px 3px #000;
+    margin-bottom: 10px;
+}
+
+.empty-msg a {
+    color: #00ff99; /* أخضر نيون */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

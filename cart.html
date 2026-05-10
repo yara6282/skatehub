@@ -1,57 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Cart - SkateHub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="./style/global.css">
-    <link rel="stylesheet" href="./style/shop.css">
-     <link rel="stylesheet" href="./style/ConstNavbar.css">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkateHub | Your Deck (Cart)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style/global.css">
+  <link rel="stylesheet" href="./style/cart.css">
 </head>
-<body>
-    <div class="navbar"> </div>
-<!-- Custom Cursor (Global) -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    <div class="main-section">
-        <h1>Shopping Cart 🛒</h1>
-        <div id="cart-items" class="products"></div>
-        <h2 id="total-price" style="margin-top:20px;">Total: $0</h2>
-        <button onclick="clearCart()" style="background:red; color:white; padding:10px; border-radius:5px; border:none; cursor:pointer;">Clear Cart</button>
+<body style="background-color: #000;"> <!-- إجبار الخلفية تكون سودة -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<div class="vhs-overlay"></div>
+
+<nav class="navbar">
+  <div class="logo">
+    <a href="home.html" class="logo-link">
+      <img src="./image/9037278.png" alt="Logo">
+      <span class="site-title">SkateHub</span>
+    </a>
+  </div>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="shop.html">Shop</a>
+  </div>
+</nav>
+
+<main class="cart-wrapper">
+    <!-- جهة اليسار تبدأ هنا -->
+    <header class="cart-header">
+        <h1 class="glitch" data-text="YOUR_DECK">YOUR_DECK</h1>
+        <div class="shipping-goal">
+            <p id="shipping-text">Add <span class="neon-green">$34.00</span> more for FREE SHIPPING</p>
+            <div class="progress-track">
+    <!-- تغيير القيمة لـ 0% في البداية -->
+    <div class="progress-bar" id="p-bar" style="width: 0%;"></div>
+    <i class="fas fa-skating skate-icon" id="s-icon" style="left: 0%;"></i>
+</div>
+        </div>
+    </header>
+
+    <div class="cart-container">
+        <!-- قسم المنتجات المضافة -->
+        <section class="cart-items" id="cart-items-list">
+            <!-- المنتجات بتنزل هون من الـ JS -->
+        </section>
+
+        <!-- صندوق الملخص (Order Summary) -->
+        <aside class="cart-summary sticker-style">
+            <h2 class="bangers-text">ORDER_SUMMARY</h2>
+            
+            <!-- تم إزالة سطر Subtotal من هنا -->
+
+            <label class="group-label">SHIPPING_METHOD</label>
+            <div class="payment-methods">
+                <label class="method-card">
+                    <input type="radio" name="shipping" value="0" checked onchange="updateTotal()">
+                    <div class="method-info">
+                        <span>Free Shipping</span>
+                        <small>$0.00</small>
+                    </div>
+                </label>
+                <label class="method-card">
+                    <input type="radio" name="shipping" value="15" onchange="updateTotal()">
+                    <div class="method-info">
+                        <span>Express Delivery</span>
+                        <small>+$15.00</small>
+                    </div>
+                </label>
+            </div>
+
+            <label class="group-label">DROP_ZONE (Palestine)</label>
+            <select id="governorate" class="skate-input">
+                <option value="" disabled selected>Select Governorate</option>
+                <option value="Jerusalem">Jerusalem (القدس)</option>
+                <option value="Nablus">Nablus</option>
+                <option value="Ramallah">Ramallah</option>
+                <option value="Hebron">Hebron</option>
+                <option value="Jenin">Jenin</option>
+                <option value="Bethlehem">Bethlehem</option>
+            </select>
+            <input type="text" id="address-details" class="skate-input" placeholder="Address Details (Street/Building)">
+
+            <label class="group-label">PAYMENT_WAY</label>
+            <div class="payment-grid">
+                <label class="pay-option">
+                    <input type="radio" name="payway" checked>
+                    <div class="pay-box"><i class="fas fa-money-bill-wave"></i><span>Cash</span></div>
+                </label>
+                <label class="pay-option">
+                    <input type="radio" name="payway">
+                    <div class="pay-box"><i class="fas fa-credit-card"></i><span>Card</span></div>
+                </label>
+            </div>
+
+            <label class="group-label">PROMO_CODE (Optional)</label>
+            <div class="promo-input-wrap">
+                <input type="text" id="coupon-input" placeholder="CODE">
+                <button type="button" class="apply-btn" onclick="applyCoupon()">APPLY</button>
+            </div>
+
+            <div class="summary-bottom-info">
+                 <div class="summary-row small">
+                    <span>Subtotal</span>
+                    <span id="subtotal-val">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>TOTAL</span>
+                    <span id="total-val">$0.00</span>
+                </div>
+            </div>
+
+            <button class="checkout-btn" onclick="processOrder()">
+                KICKFLIP TO CHECKOUT <i class="fas fa-arrow-right"></i>
+            </button>
+        </aside>
     </div>
+</main>
+<!-- Footer المطور والنحيف -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>SKATEHUB INFO</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
+                <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
+                <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
 
-    <script src="js/shop.js"></script>
-    <script>
-        const container = document.getElementById('cart-items');
-        let total = 0;
-        cart.forEach((item, index) => {
-            total += item.price;
-            container.innerHTML += `
-                <div class="product-card">
-                    <img src="${item.image}">
-                    <h3>${item.name}</h3>
-                    <p>$${item.price}</p>
-                    <button onclick="removeCartItem(${index})" class="add-to-cart-btn">Remove</button>
-                </div>`;
-        });
-        document.getElementById('total-price').innerText = "Total: $" + total;
+        <div class="footer-column">
+            <h4>CUSTOMER SERVICE</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
+                <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+            </ul>
+        </div>
 
-        function removeCartItem(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            location.reload();
-        }
-        function clearCart() {
-            localStorage.removeItem('cart');
-            location.reload();
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <!-- ملف الماوس المخصص الخاص بك -->
-    <script src="./java/cursor.js"></script>
+        <div class="footer-column socials">
+            <h4>FOLLOW THE FLOW</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 SKATEHUB. DESIGNED BY SKATERS FOR SKATERS</p>
+    </div>
+</footer>
+
+<!-- المودال الخاص بالفوتر (نفس تصميم التيكت بس أكبر وبلون #222) -->
+<div id="footer-modal" class="modal-overlay">
+    <div class="modal-card footer-modal-card">
+        <button class="close-footer-modal"><i class="fas fa-times"></i></button>
+        
+        <div class="modal-header">
+            <i id="modal-icon" class="fas fa-info-circle pulse-icon"></i>
+            <h2 id="modal-title" class="neon-text-blue">TITLE HERE</h2>
+        </div>
+
+        <div id="modal-body-content" class="modal-text-content">
+            <!-- الحكي والشرح سيظهر هنا برمجياً -->
+        </div>
+
+        <div class="modal-footer">
+            <button class="close-btn-bottom">GOT IT!</button>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="./java/cursor.js"></script>
+<script src="./java/cart.js"></script>
 </body>
 </html>

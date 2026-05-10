@@ -2,37 +2,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
     
-    // إذا فتح الموقع من موبايل، أوقف الكود عشان نوفر أداء
-    if (window.innerWidth <= 768) return;
+    if (!cursor || !follower) return;
 
-    // تحريك الماوس باستخدام مكتبة GSAP للنعومة الخرافية
+    // تحريك الماوس
     document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 }); // الدائرة تتأخر شوي لتعطي ستايل حلو
+        // استخدام GSAP للتحريك
+        gsap.to(cursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1,
+            overwrite: true
+        });
+        gsap.to(follower, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.3,
+            overwrite: true
+        });
     });
 
-    // تحديد كل العناصر القابلة للضغط في الموقع (روابط، أزرار، حقول إدخال)
-    const interactables = document.querySelectorAll('a, button, input, select, textarea, .skate-panel');
-
-    // تأثير التكبير وتغيير اللون لما تمر فوق عنصر قابل للضغط
+    // التفاعل مع الأزرار
+    const interactables = document.querySelectorAll('a, button, input, .sticker, .chip');
     interactables.forEach(item => {
         item.addEventListener('mouseenter', () => {
             cursor.classList.add('active');
-            follower.style.borderColor = "var(--neon-blue, #00f2ff)"; // الدائرة بتصير زرقاء
         });
         item.addEventListener('mouseleave', () => {
             cursor.classList.remove('active');
-            follower.style.borderColor = "var(--neon-pink, #ff007a)"; // ترجع زهرية
         });
     });
 });
-// Add this to your cursor.js
-const links = document.querySelectorAll('a, button, .media-box');
-links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        cursor.classList.add('cursor-hover'); // اضف كلاس CSS يكبر حجم الكيرسر
+// أضف هذا داخل مستمعmousemove في cursor.js
+document.querySelectorAll('input[type="text"]').forEach(input => {
+    input.addEventListener('mouseenter', () => {
+        cursor.style.width = '2px'; // تحويل الكيرسر لشكل خط يشبه مؤشر الكتابة
+        cursor.style.height = '20px';
+        cursor.style.borderRadius = '0';
     });
-    link.addEventListener('mouseleave', () => {
-        cursor.classList.remove('cursor-hover');
+    input.addEventListener('mouseleave', () => {
+        cursor.style.width = '8px'; // إرجاع الكيرسر لشكل نقطة
+        cursor.style.height = '8px';
+        cursor.style.borderRadius = '50%';
     });
 });

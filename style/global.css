@@ -99,54 +99,225 @@ a {
    ========================================= */
 
 /* إخفاء الماوس الافتراضي في كل الموقع */
-body {
+*, *::before, *::after {
+    cursor: none !important;
+}
+
+.cursor, .cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 999999; /* رقم عالي جداً لضمان الظهور */
+    transform: translate(-50%, -50%);
+}
+
+.cursor {
+    width: 10px;
+    height: 10px;
+    background: #00f2ff;
+    border-radius: 50%;
+}
+
+.cursor-follower {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #ff007a;
+    border-radius: 50%;
+}
+/* --- تنحيف الفوتر --- */
+.main-footer {
+    background-color: #222;
+    color: #fff;
+    padding: 30px 0 0 0; /* تقليل الحشوة */
+    margin-top: 50px;
+    border-top: 1px solid rgba(0, 242, 255, 0.3);
+}
+
+.footer-content {
+    display: flex; /* حولناها لـ flex لسهولة التوزيع */
+    justify-content: space-between; /* هذا السطر سيجعلهم يبتعدون عن بعض لأقصى حد */
+    align-items: flex-start;
+    
+    max-width: 1300px; /* زدنا العرض الكلي من 1000 لـ 1300 */
+    margin: 0 auto;    /* تمركز في منتصف الصفحة */
+    padding: 0 5% 30px; 
+    gap: 60px;         /* مسافة إضافية بين الأعمدة */
+}
+
+.footer-column h4 {
+    font-size: 0.9rem;
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.footer-column ul li {
+    list-style: none;
+    margin-bottom: 8px; /* تقليل المسافة بين الروابط */
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover { color: var(--neon-pink); padding-left: 5px; }
+
+.footer-bottom {
+    background: #111;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #555;
+}
+
+/* --- مودال الفوتر (نفس ستايل التيكت) --- */
+.footer-modal-card {
+    background: #222 !important; /* اللون اللي طلبته */
+    max-width: 600px !important; /* أكبر من مودال التيكت */
+    border: 1px solid var(--neon-blue) !important;
+    clip-path: polygon(40px 0, 100% 0, calc(100% - 40px) 100%, 0 100%) !important;
+}
+
+.modal-text-content {
+    color: #ccc;
+    line-height: 1.6;
+    text-align: left;
+    margin: 20px 0;
+    font-size: 1rem;
+    max-height: 300px;
+    overflow-y: auto; /* إذا كان الحكي كثير */
+    padding: 10px;
+}
+
+.neon-text-blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue);
+    font-family: 'Bangers', cursive; /* أو الخط العريض عندك */
+    font-size: 2.5rem;
+}
+
+.close-btn-bottom {
+    background: var(--neon-blue);
+    border: none;
+    padding: 10px 30px;
+    font-weight: 900;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
     cursor: none;
 }
-
-/* النقطة الأساسية للماوس */
-.cursor {
-    width: 8px; 
-    height: 8px; 
-    background: var(--neon-blue, #00f2ff);
-    border-radius: 50%; 
-    position: fixed; 
-    top: 0; 
-    left: 0;
-    pointer-events: none; /* مهم جداً عشان ما يمنع الضغط على الأزرار */
-    z-index: 9999; 
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(8, 30, 54, 0.9);
+    backdrop-filter: blur(10px);
+    display: none; /* مخفي */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
 }
 
-/* الدائرة التابعة (Follower) اللي بتلحق الماوس ببطء */
-.cursor-follower {
-    width: 30px; 
-    height: 30px; 
-    border: 2px solid var(--neon-pink, #ff007a);
-    border-radius: 50%; 
-    position: fixed; 
-    top: 0; 
-    left: 0;
-    pointer-events: none; 
-    z-index: 9998; 
-    transform: translate(-50%, -50%);
-    transition: border-color 0.3s ease; /* حركة ناعمة لتغيير اللون */
+.modal-card {
+    background: #0b2545;
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border: 1px solid var(--neon-blue);
+    /* هاد السطر هو اللي بيعطي شكل السكيت الحاد */
+    clip-path: polygon(30px 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+    text-align: center;
+    position: relative;
 }
 
-/* حالة الـ Hover (لما تمر فوق زر أو رابط) */
-.cursor.active { 
-    width: 40px; 
-    height: 40px; 
-    background: rgba(0, 242, 255, 0.2); 
-    border: 1px solid var(--neon-blue, #00f2ff); 
+/* عشان الكيرسر يضل طالع فوق المودال */
+.cursor, .cursor-follower { z-index: 100001 !important; }
+/* --- تصميم المودال المشع (Neon Glow Style) --- */
+.footer-modal-card {
+    background: #081e36 !important; /* لون كحلي غامق جداً مثل الصورة */
+    border: 2px solid #00f2ff !important; /* إطار أزرق نيون */
+    max-width: 550px !important;
+    padding: 40px !important;
+    position: relative;
+    /* الشكل المائل الاحترافي */
+    clip-path: polygon(40px 0, 100% 0, calc(100% - 40px) 100%, 0 100%);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); /* إشعاع خفيف حول المودال */
+    text-align: center;
 }
 
-/* إخفاء الماوس المخصص في الموبايل والتابلت (لأنها شاشات لمس) */
-@media (max-width: 768px) {
-    .cursor, .cursor-follower {
-        display: none !important;
-    }
-    body {
-        cursor: auto; /* إرجاع وضع اللمس الطبيعي */
-    }
+/* زر الإغلاق X الصغير */
+.close-footer-modal {
+    position: absolute;
+    top: 15px;
+    right: 50px; /* مكان استراتيجي بسبب الميلان */
+    background: none;
+    border: 1px solid #fff;
+    color: white;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: none;
+    opacity: 0.7;
+}
+
+/* أيقونة النيون المشعة (الوردية) */
+.pulse-icon {
+    font-size: 3.5rem !important;
+    color: #ff007a !important; /* وردي نيون */
+    margin-bottom: 15px;
+    /* هذا هو سر الإشعاع */
+    filter: drop-shadow(0 0 15px #ff007a) drop-shadow(0 0 30px #ff007a);
+    animation: iconFloat 2s infinite ease-in-out;
+}
+
+/* العنوان الأزرق المشع */
+#footer-modal-title {
+    font-family: 'Bangers', cursive;
+    color: #00f2ff !important;
+    font-size: 3rem !important;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    /* إشعاع النص */
+    text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff;
+    text-transform: uppercase;
+}
+
+/* نص المحتوى */
+#footer-modal-body-content {
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+/* زر GOT IT الأزرق الصلب */
+.close-btn-bottom {
+    background: #00f2ff !important; /* أزرق نيون صلب */
+    color: #000 !important; /* نص أسود للتباين */
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem !important;
+    padding: 10px 40px !important;
+    border: none !important;
+    cursor: none;
+    transition: 0.3s;
+    font-weight: bold;
+    /* ميلان الزر */
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.close-btn-bottom:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #00f2ff;
+}
+
+/* أنيميشن طفو الأيقونة */
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }

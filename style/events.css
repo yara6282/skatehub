@@ -175,7 +175,7 @@ body {
 .section-header h2 { font-size: 4rem; font-weight: 900; font-style: italic; text-transform: uppercase; color: white; -webkit-text-stroke: 1px var(--neon-pink); }
 .section-header p { color: #888; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 
-.expanding-slider { display: flex; width: 100%; height: 60vh; gap: 20px; max-width: 1400px; margin: 0 auto; }
+.expanding-slider { display: flex; width: 100%; height: 95vh; gap: 20px; max-width: 1400px; margin: 0 auto; }
 
 .skate-panel {
     background-size: cover; background-position: center; border-radius: 15px; color: #fff; cursor: none;
@@ -188,7 +188,12 @@ body {
     flex: 4; cursor: default; filter: grayscale(0%);
     box-shadow: 0 0 30px rgba(0, 242, 255, 0.3); border: 2px solid var(--neon-blue);
 }
-
+.icon-box i {
+    color: #000 !important; /* اللون الأسود ليتناقض مع الوردي */
+    font-size: 28px; /* تكبير حجم الأيقونة قليلاً */
+    display: block;
+    z-index: 5;
+}
 .panel-shadow {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
@@ -220,3 +225,160 @@ body {
     padding: 20px 50px; cursor: none; transition: 0.3s; font-style: italic; clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
 }
 .see-more-btn:hover { background: white; color: black; }
+/* --- Ticket Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(8, 30, 54, 0.9); /* نفس لون الخلفية الكحلي مع شفافية */
+    backdrop-filter: blur(15px);
+    display: none; /* مخفي افتراضياً */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-card {
+    background: #0b2545;
+    width: 90%;
+    max-width: 450px;
+    padding: 40px;
+    position: relative;
+    border: 1px solid var(--neon-blue);
+    box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+    clip-path: polygon(30px 0, 100% 0, calc(100% - 30px) 100%, 0 100%); /* حواف حادة سكيتر */
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px; right: 40px;
+    background: transparent; border: none;
+    color: white; font-size: 1.5rem; cursor: none;
+    transition: 0.3s;
+}
+.close-modal:hover { color: var(--neon-pink); transform: rotate(90deg); }
+
+.modal-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic; font-size: 2rem; margin: 10px 0; }
+.modal-header p { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
+
+.pulse-icon { font-size: 3rem; color: var(--neon-pink); animation: neonPulse 1.5s infinite; }
+
+@keyframes neonPulse {
+    0% { filter: drop-shadow(0 0 2px var(--neon-pink)); }
+    50% { filter: drop-shadow(0 0 15px var(--neon-pink)); }
+    100% { filter: drop-shadow(0 0 2px var(--neon-pink)); }
+}
+
+.order-info { background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 25px; border-left: 4px solid var(--neon-blue); }
+.info-row { display: flex; justify-content: space-between; margin: 5px 0; font-weight: bold; }
+.neon-text { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+
+.payment-section .label { text-align: left; font-size: 0.8rem; font-weight: 900; color: #555; margin-bottom: 10px; letter-spacing: 2px; }
+
+.payment-grid { display: flex; gap: 15px; margin-bottom: 30px; }
+.pay-option { flex: 1; cursor: none; }
+.pay-option input { display: none; }
+
+.pay-box {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 15px; display: flex; flex-direction: column; gap: 10px;
+    transition: 0.3s; background: rgba(0,0,0,0.2);
+}
+.pay-box i { font-size: 1.5rem; }
+.pay-box span { font-size: 0.7rem; font-weight: 900; }
+
+.pay-option input:checked + .pay-box {
+    border-color: var(--neon-blue);
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--neon-blue);
+}
+
+.pay-now-btn {
+    width: 100%; padding: 15px; background: var(--neon-pink);
+    border: none; color: black; font-weight: 900; font-style: italic;
+    font-size: 1.2rem; cursor: none; transition: 0.3s;
+    clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+}
+.pay-now-btn:hover { background: var(--neon-blue); transform: scale(1.05); box-shadow: 0 0 20px var(--neon-blue); }
+
+.modal-footer { margin-top: 20px; font-size: 0.7rem; color: #444; font-weight: bold; text-transform: uppercase; }
+/* تأكد من تحديث هذه القيم */
+.cursor {
+    z-index: 100001 !important; /* قيمة أعلى من المودال */
+    pointer-events: none;
+}
+
+.cursor-follower {
+    z-index: 100000 !important; /* قيمة أعلى من المودال */
+    pointer-events: none;
+}
+
+/* تأكد من إخفاء الماوس الحقيقي داخل المودال أيضاً */
+.modal-overlay, .modal-card, .modal-card * {
+    cursor: none !important;
+}
+/* --- Expanding Slider (Updated for Img tags) --- */
+.skate-panel {
+    border-radius: 15px;
+    color: #fff;
+    cursor: none;
+    flex: 0.5;
+    position: relative;
+    overflow: hidden; /* ضروري لقص أطراف الصورة داخل الكرت */
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s;
+}
+
+/* تنسيق الصورة لتملأ الكرت بالكامل وتكون في الخلفية */
+.panel-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* تجعل الصورة تملأ المساحة دون تمطيط */
+    z-index: 0;
+    filter: grayscale(80%); /* التأثير الرمادي للكرت غير المفعل */
+    transition: filter 0.6s, transform 0.6s;
+}
+
+.skate-panel:hover { transform: translateY(-10px); }
+
+.skate-panel:hover .panel-bg-img {
+    filter: grayscale(40%); /* تفتيح الصورة عند الوقوف عليها */
+}
+
+.skate-panel.active {
+    flex: 4;
+    cursor: default;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+    border: 2px solid var(--neon-blue);
+}
+
+.skate-panel.active .panel-bg-img {
+    filter: grayscale(0%); /* الصورة ملونة بالكامل عند التفعيل */
+    transform: scale(1.05); /* زوم خفيف لجمالية الحركة */
+}
+
+/* التأكد من أن الظل والمحتوى يظهران فوق الصورة */
+.panel-shadow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    z-index: 1; /* فوق الصورة */
+}
+
+.panel-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    align-items: flex-end;
+    gap: 25px;
+    width: calc(100% - 60px);
+    z-index: 2; /* فوق الظل والصورة */
+}
+
+/* بقية أكواد الـ CSS الخاصة بـ info والـ btn-card تبقى كما هي */
