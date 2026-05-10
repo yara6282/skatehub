@@ -1,32 +1,99 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="./login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkateHub | Pro Login</title>
+    <!-- الروابط -->
+    <link rel="stylesheet" href="./style/global.css"> <!-- تأكد من ربط ملف المينيو الأساسي -->
+    <link rel="stylesheet" href="./style/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Custom Cursor (Global) -->
+ <!-- Custom Cursor (Global) -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
-    <div class="container">
-        <!-- الأشكال المتحركة في الخلفية -->
-        <div class="blob"></div>
-        
+<!-- الناف بار (نفس المستخدم في الشوب) -->
+<div class="navbar login-nav">
+  <div class="logo">
+    <a href="home.html" class="logo-link">
+      <img src="./image/9037278.png" alt="SkateHub Logo">
+      <span class="site-title">SkateHub</span>
+    </a>
+  </div>
+
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="community.html">Community</a>
+    <a href="shop.html">Shop</a>
+    <a href="tutorials.html">Tutorials</a>
+  </div>
+
+  <div class="nav-icons">
+    <a href="login.html"><i class="fas fa-user"></i></a>
+    <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+    <a href="notifications.html"><i class="fas fa-bell"></i></a>
+  </div>
+</div>
+
+<div class="split-container">
+    
+    <!-- الجهة اليسرى: الفيديو مع الكتابة -->
+    <div class="video-side">
+        <video autoplay muted loop playsinline class="side-video">
+            <source src="./image/Video Project.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay-dark"></div>
+        <div class="video-content">
+            <h1 class="glitch-text" data-text="SKATEHUB">SKATE<span>HUB</span></h1>
+            <p class="video-slogan">STREET CULTURE EST. 2024</p>
+        </div>
+    </div>
+
+    <!-- خط النيون الفاصل -->
+    <div class="neon-divider"></div>
+
+    <!-- الجهة اليمنى: الفورم مع الصورة الخلفية -->
+    <div class="form-side">
+        <img src="./image/pexels-introspectivedsgn-13583313.jpg" alt="Background" class="back-img">
+        <div class="navy-overlay"></div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+
         <div class="login-box">
-            <h2>تسجيل الدخول</h2>
+            <div class="box-header">
+                <h2>SIGN IN</h2>
+                <p>Access the underground crew</p>
+            </div>
+
             <form>
-                <input type="text" placeholder="اسم المستخدم">
-                <input type="password" placeholder="كلمة المرور">
-                <button type="submit">دخول</button>
+                <div class="input-wrap">
+                    <label>USER_ID</label>
+                    <i class="fas fa-user"></i>
+                    <input type="email" placeholder="ENTER YOUR EMAIL" required>
+                </div>
+
+                <div class="input-wrap">
+                    <label>PASS_CODE</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="ENTER YOUR PASSWORD" required>
+                </div>
+
+                <button type="submit" class="login-btn">EXECUTE LOGIN</button>
             </form>
-            <div class="footer">
-                <a href="#">نسيت كلمة السر؟</a>
-                <a href="#">حساب جديد</a>
+
+            <div class="footer-links">
+                <a href="#" class="f-link">FORGOT_PASSWORD?</a>
+                <a href="signup.html" class="f-link highlight">CREATE_NEW_ACCOUNT</a>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <!-- ملف الماوس المخصص الخاص بك -->
-    <script src="./java/cursor.js"></script>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<!-- ملف الماوس المخصص الخاص بك -->
+<script src="./java/cursor.js"></script>
 </body>
 </html>

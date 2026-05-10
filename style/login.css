@@ -1,0 +1,133 @@
+/* --- 1. المتغيرات والألوان الأساسية --- */
+:root {
+    --navy-deep: #020c1b;
+    --navy-card: #0a192f;
+    --neon-pink: #ff0055;
+    --neon-blue: #00ccff;
+    --text-gray: #8892b0;
+    --white: #ffffff;
+}
+
+/* --- 2. إعدادات الصفحة العامة --- */
+body, html {
+    margin: 0; padding: 0;
+    width: 100%; height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--navy-deep);
+    overflow: hidden;
+    cursor: none; /* إخفاء الماوس الأصلي */
+}
+
+/* --- 3. الماوس المخصص (GSAP) --- */
+.cursor, .cursor-follower {
+    position: fixed; top: 0; left: 0;
+    border-radius: 50%; pointer-events: none;
+    z-index: 10000; transform: translate(-50%, -50%);
+}
+.cursor { width: 10px; height: 10px; background-color: var(--neon-pink); }
+.cursor-follower { 
+    width: 35px; height: 35px; 
+    border: 2px solid var(--neon-blue); 
+    background-color: rgba(0, 242, 255, 0.1); 
+}
+.cursor-hover { scale: 2.5; background-color: rgba(255, 0, 85, 0.2) !important; }
+
+/* --- 4. الناف بار (الشفاف) --- */
+.login-nav {
+    position: absolute; top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(2, 12, 27, 0.95), transparent) !important;
+    border-bottom: none !important;
+    padding: 10px 0;
+}
+
+/* --- 5. الحاوية الرئيسية (Split Screen) --- */
+.split-container {
+    display: flex; width: 100%; height: 100vh; position: relative;
+}
+
+/* --- 6. الجهة اليسرى (الفيديو والكتابة) --- */
+.video-side {
+    flex: 1; position: relative; overflow: hidden; background: #000;
+}
+.side-video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) brightness(0.6); }
+.video-overlay-dark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.4); z-index: 2; }
+
+/* الكتابة الموسطة */
+.video-content {
+    position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; z-index: 10; width: 100%; pointer-events: none;
+}
+.glitch-text {
+    font-family: 'Bangers', cursive; font-size: 5.5rem; color: var(--white); margin: 0;
+    letter-spacing: 5px; text-shadow: 3px 3px var(--neon-pink), -3px -3px var(--neon-blue);
+    line-height: 1;
+}
+.glitch-text span { color: var(--neon-pink); text-shadow: none; }
+.video-slogan { color: var(--neon-blue); font-weight: 900; letter-spacing: 3px; margin-top: 10px; text-transform: uppercase; }
+
+/* --- 7. خط النيون الفاصل --- */
+.neon-divider {
+    width: 5px; height: 100%; background: #fff; z-index: 50;
+    box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+    animation: neonPulse 2s infinite alternate;
+}
+@keyframes neonPulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+/* --- 8. الجهة اليمنى (الكحلي والفينتاج والصورة) --- */
+.form-side {
+    flex: 1; position: relative; display: flex; justify-content: center; align-items: center; background: var(--navy-deep);
+}
+.back-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.navy-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.88); z-index: 2; }
+
+/* طبقات الفينتاج */
+.grain, .scanlines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.grain { background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Resolution_White_Noise_Video_Frame.png'); opacity: 0.04; z-index: 3; }
+.scanlines { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); background-size: 100% 4px; z-index: 4; }
+
+/* --- 9. صندوق الساين ان والساين اب (Glassmorphism) --- */
+.login-box {
+    width: 100%; max-width: 380px;
+    background: rgba(10, 25, 47, 0.8);
+    padding: 45px;
+    border: 1px solid var(--neon-blue);
+    position: relative; z-index: 10;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.box-header h2 { font-family: 'Bangers', cursive; font-size: 2.8rem; color: var(--neon-blue); margin: 0; }
+.box-header p { color: var(--text-gray); font-size: 0.8rem; margin-bottom: 30px; }
+
+.input-wrap { margin-bottom: 20px; position: relative; text-align: left; }
+.input-wrap label { display: block; color: var(--neon-pink); font-size: 0.7rem; font-weight: bold; margin-bottom: 5px; }
+.input-wrap i { position: absolute; left: 12px; bottom: 13px; color: var(--neon-blue); }
+.input-wrap input { width: 100%; padding: 12px 12px 12px 35px; background: rgba(2, 12, 27, 0.5); border: 1px solid #233554; color: white; outline: none; box-sizing: border-box; }
+
+.login-btn { width: 100%; padding: 15px; background: transparent; color: white; border: 1px solid var(--neon-pink); font-family: 'Bangers', cursive; font-size: 1.6rem; cursor: pointer; transition: 0.3s; }
+.login-btn:hover { background: var(--neon-pink); color: black; box-shadow: 0 0 20px var(--neon-pink); }
+
+.f-link { color: #555; text-decoration: none; font-size: 0.7rem; }
+.highlight { color: var(--neon-blue); text-decoration: none; font-weight: bold; }
+
+/* --- 10. تنسيقات خاصة فقط للساين أب لضغط الحجم --- */
+.signup-box {
+    max-width: 430px;
+    padding: 25px 40px; /* حشو أقل لعدم لمس الناف بار */
+    margin-top: 60px;   /* دفع الصندوق تحت المنيو */
+}
+.signup-box .box-header h2 { font-size: 1.8rem; }
+.signup-box .box-header p { margin-bottom: 15px; }
+.signup-box .input-wrap { margin-bottom: 10px; }
+.signup-box .input-wrap input { padding: 10px 10px 12px 35px; font-size: 0.9rem; }
+.signup-box .input-wrap i { bottom: 11px; }
+.signup-box .login-btn { padding: 18px; font-size: 1.4rem; }
+
+/* --- 11. التجاوب --- */
+@media (max-width: 850px) {
+    .video-side, .neon-divider { display: none; }
+    .form-side { width: 100%; flex: 1; }
+    body { cursor: default; }
+    .cursor, .cursor-follower { display: none; }
+}
