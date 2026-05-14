@@ -1,0 +1,205 @@
+:root {
+    --navy-deep: #020c1b;
+    --navy-card: #0a192f;
+    --neon-pink: #ff0055;
+    --neon-blue: #00ccff;
+}
+
+body {
+    background: var(--navy-deep);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.edit-container {
+    padding-top: 120px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.edit-box {
+    width: 100%;
+    max-width: 600px;
+    background: var(--navy-card);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.header span { color: var(--neon-pink); }
+
+/* تنسيق تعديل الصورة */
+.avatar-edit {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.current-avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 10px;
+    position: relative;
+    border-radius: 50%;
+    border: 3px solid var(--neon-blue);
+    overflow: hidden;
+}
+
+.current-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-upload {
+    position: absolute;
+    bottom: 0; width: 100%; height: 40%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.overlay-upload label {
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* الحقول */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+.input-group label {
+    display: block;
+    color: var(--neon-pink);
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.input-field {
+    position: relative;
+}
+
+.input-field i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-blue);
+}
+
+.input-field input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    background: rgba(2, 12, 27, 0.5);
+    border: 1px solid #233554;
+    border-radius: 8px;
+    color: white;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.input-field input:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.2);
+}
+
+/* ستايل الحقل المغلق (Email) */
+.readonly input {
+    background: rgba(0, 0, 0, 0.3);
+    color: #555;
+    border-color: #111;
+    cursor: not-allowed;
+}
+
+.readonly i { color: #333; }
+
+/* الأزرار */
+.action-btns {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+}
+
+.save-btn {
+    flex: 2;
+    padding: 15px;
+    background: var(--neon-pink);
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    box-shadow: 0 0 20px var(--neon-pink);
+    transform: translateY(-3px);
+}
+
+.cancel-btn {
+    flex: 1;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.cancel-btn:hover { background: #333; }
+/* الحالة الطبيعية (هادئة) */
+#old-pass-group {
+    transition: 0.4s;
+    opacity: 0.7; /* باهت قليلاً لأنه غير مطلوب حالياً */
+}
+
+/* الحالة عندما يصبح الحقل مطلوباً (نيون نشط) */
+#old-pass-group.needs-verify {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+#old-pass-group.needs-verify label {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
+
+#old-pass-group.needs-verify input {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+}

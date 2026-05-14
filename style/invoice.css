@@ -1,0 +1,109 @@
+:root {
+    --navy-deep: #020c1b;
+    --navy-card: #0a192f;
+    --neon-pink: #ff0055;
+    --neon-blue: #00ccff;
+}
+
+body {
+    background-color: var(--navy-deep);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.invoice-page {
+    padding: 140px 10% 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.back-link {
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    display: inline-block;
+}
+
+/* ورقة الفاتورة */
+.invoice-wrapper {
+    background: var(--navy-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 60px;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+.invoice-grain {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Resolution_White_Noise_Video_Frame.png');
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.brand .logo { font-family: 'Bangers', cursive; font-size: 4rem; margin: 0; }
+.brand .logo span { color: var(--neon-pink); }
+.brand p { color: var(--neon-blue); letter-spacing: 5px; font-weight: 900; font-size: 0.7rem; }
+
+.invoice-meta { text-align: right; }
+.invoice-meta .label { color: #8892b0; font-size: 0.8rem; letter-spacing: 2px; }
+.invoice-meta h2 { font-family: 'Bangers', cursive; font-size: 2.5rem; margin: 5px 0; }
+
+.neon-hr { border: 0; border-top: 1px solid rgba(0, 204, 255, 0.1); margin: 30px 0; }
+
+.invoice-addresses { display: flex; justify-content: space-between; margin-bottom: 50px; }
+.address-box h3 { font-family: 'Bangers', cursive; color: var(--neon-pink); font-size: 1.2rem; margin-bottom: 10px; }
+.address-box p { font-size: 0.9rem; color: #ccd6f6; margin: 4px 0; }
+.skater-name { font-weight: 900; color: white; font-size: 1.1rem; }
+
+.status-badge {
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-weight: 900;
+    font-size: 0.7rem;
+    border: 1px solid;
+}
+.status-badge.delivered { color: #00ff99; background: rgba(0, 255, 153, 0.05); }
+.status-badge.processing { color: #ffde59; background: rgba(255, 222, 89, 0.05); }
+
+/* الجدول */
+.invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 50px; }
+.invoice-table th { text-align: left; padding: 15px; color: var(--neon-blue); font-family: 'Bangers'; border-bottom: 2px solid #233554; }
+.invoice-table td { padding: 20px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+
+.prod-cell { display: flex; align-items: center; gap: 15px; }
+.prod-cell img { width: 50px; height: 50px; object-fit: contain; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 8px; }
+
+/* الفوتر */
+.invoice-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+.note-box { max-width: 400px; border-left: 3px solid var(--neon-pink); padding-left: 20px; }
+.note-box p { font-size: 0.8rem; font-weight: 600; margin: 0; }
+.note-box .slogan { color: var(--neon-blue); margin-top: 5px; }
+
+.summary-box { width: 320px; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 15px; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.9rem; color: #8892b0; }
+.total-row { border-top: 1px solid #233554; padding-top: 20px; margin-top: 15px; }
+.neon-price { font-family: 'Bangers', cursive; font-size: 2.5rem; color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+
+.invoice-controls { margin-top: 50px; text-align: right; }
+.control-btn {
+    background: transparent; border: 2px solid var(--neon-blue); color: var(--neon-blue);
+    padding: 12px 35px; font-family: 'Bangers'; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
+}
+.control-btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 30px var(--neon-blue); }
+
+/* طباعة */
+@media print {
+    .navbar, .back-link, .invoice-controls, .cursor, .cursor-follower { display: none; }
+    .invoice-wrapper { border: 1px solid #000; color: #000; background: #fff; box-shadow: none; padding: 20px; }
+    .neon-price, .logo, .logo span { color: #000 !important; text-shadow: none !important; }
+}

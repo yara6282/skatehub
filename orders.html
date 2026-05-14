@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkateHub | Order History</title>
+    <!-- الروابط الأساسية -->
+    <link rel="stylesheet" href="./style/global.css">
+    <link rel="stylesheet" href="./style/orders.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الماوس المخصص -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- الناف بار الموحد -->
+   <nav class="navbar">
+        <!-- ... نفس كود الناف بار المعتاد ... -->
+         <div class="navbar login-nav">
+  <div class="logo">
+    <a href="home.html" class="logo-link">
+      <img src="./image/9037278.png" alt="SkateHub Logo">
+      <span class="site-title">SkateHub</span>
+    </a>
+  </div>
+
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="community.html">Community</a>
+    <a href="shop.html">Shop</a>
+    <a href="tutorials.html">Tutorials</a>
+  </div>
+
+  <div class="nav-icons">
+    <a href="login.html"><i class="fas fa-user"></i></a>
+    <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+    <a href="notifications.html"><i class="fas fa-bell"></i></a>
+  </div>
+</div>
+    </nav>
+
+    <main class="orders-page">
+        <!-- عنوان الصفحة -->
+        <h1 class="glitch-text">ORDER_<span>LOG</span></h1>
+
+        <div class="orders-list">
+            <!-- كرت الطلب الأول (مكتمل) -->
+            <div class="simple-order-card">
+                <div class="order-info-top">
+                    <span class="order-id">ID: #SK-99201</span>
+                    <span class="order-date">DATE: 20/10/2024</span>
+                    <span class="order-status delivered">DELIVERED</span>
+                </div>
+                
+                <div class="order-body">
+                    <div class="order-items-preview">
+                        <img src="./image/decks.png" alt="gear">
+                        <img src="./image/shoes.png" alt="gear">
+                    </div>
+                    
+                    <div class="order-action-area">
+                        <div class="price-tag">TOTAL: $134.99</div>
+                        <!-- الزر المطلوب -->
+                        <!-- الطلب الأول -->
+                    <a href="invoice.html?id=99201" class="view-details-btn">VIEW_DETAILS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كرت الطلب الثاني (قيد المعالجة) -->
+            <div class="simple-order-card">
+                <div class="order-info-top">
+                    <span class="order-id">ID: #SK-99550</span>
+                    <span class="order-date">DATE: 01/11/2024</span>
+                    <span class="order-status processing">PROCESSING</span>
+                </div>
+                
+                <div class="order-body">
+                    <div class="order-items-preview">
+                        <img src="./image/accessories.png" alt="gear">
+                    </div>
+                    
+                    <div class="order-action-area">
+                        <div class="price-tag">TOTAL: $25.00</div>             
+                     <!-- الطلب الثاني -->
+                     <a href="invoice.html?id=99550" class="view-details-btn">VIEW_DETAILS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إذا كانت القائمة فارغة -->
+            <div class="empty-state" style="display:none;">
+                <i class="fas fa-box-open"></i>
+                <p>NO ORDERS FOUND IN SYSTEM</p>
+                <a href="shop.html">START_SHOPPING</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- سكريبتات الأنيميشن والماوس -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="./java/cursor.js"></script>
+</body>
+</html>
