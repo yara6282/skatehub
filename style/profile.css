@@ -1,0 +1,190 @@
+:root {
+    --navy-deep: #020c1b;
+    --navy-card: #0a192f;
+    --neon-pink: #ff0055;
+    --neon-blue: #00ccff;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--navy-deep);
+    color: var(--white);
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- دمج الصورة الخلفية (The Professional Blend) --- */
+.profile-hero {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-banner {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5) contrast(1.2);
+}
+
+/* التدرج اللوني اللي بدمج الصورة مع الصفحة */
+.banner-blend-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* التدرج يبدأ من فوق لتحت */
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(2, 12, 27, 0.2) 50%, 
+        var(--navy-deep) 100%);
+    z-index: 2;
+}
+
+.user-profile-info {
+    position: absolute;
+    bottom: 20px; /* مكان الاسم والصورة بالنسبة للدمج */
+    text-align: center;
+    z-index: 10;
+}
+
+.avatar-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.avatar-container img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 5px solid var(--navy-deep);
+    object-fit: cover;
+}
+
+.avatar-glow {
+    position: absolute;
+    top: -8px; left: -8px; right: -8px; bottom: -8px;
+    border: 3px solid var(--neon-pink);
+    border-radius: 50%;
+    box-shadow: 0 0 25px var(--neon-pink);
+}
+
+.glitch-name {
+    font-family: 'Bangers', cursive;
+    font-size: 4rem;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+.glitch-name span { color: var(--neon-pink); }
+
+/* --- لوحة التحكم (المربعات الكبيرة) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px 8% 100px;
+    max-width: 1400px; /* عرض أكبر للمربعات */
+    margin: 0 auto;
+}
+
+.db-card {
+    background: var(--navy-card);
+    border-radius: 25px;
+    padding: 50px; /* زيادة المساحة الداخلية */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.db-card:hover {
+    border-color: var(--neon-blue);
+    transform: translateY(-10px);
+}
+
+.db-card h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.2rem; /* تكبير العنوان */
+    color: var(--neon-blue);
+    margin-bottom: 35px;
+    letter-spacing: 2px;
+}
+
+/* --- تنسيق قائمة الأمنيات الكبيرة --- */
+.wishlist-container-large {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wish-item-lg {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.wish-item-lg img {
+    width: 70px; /* تكبير صور المنتجات */
+    height: 70px;
+    margin-right: 20px;
+}
+
+.wish-details span { font-size: 1.1rem; font-weight: 600; display: block; }
+.wish-details p { color: var(--neon-pink); font-weight: bold; margin: 5px 0 0; }
+
+.shop-link-lg { color: var(--neon-blue); font-size: 1.5rem; transition: 0.3s; margin-left: auto; }
+.shop-link-lg:hover { transform: scale(1.3); text-shadow: 0 0 10px var(--neon-blue); }
+
+/* --- تنسيق أزرار الأكشن الكبيرة --- */
+.action-list-lg {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.action-btn-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 22px 30px; /* تكبير الأزرار */
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-info { display: flex; align-items: center; gap: 20px; font-size: 1rem; }
+.btn-info i { color: var(--neon-blue); font-size: 1.2rem; }
+
+.action-btn-lg:hover {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.action-btn-lg:hover i { color: black; }
+
+.logout-btn-lg { border: 1px solid rgba(255, 0, 85, 0.2); }
+.logout-btn-lg .btn-info i { color: var(--neon-pink); }
+.logout-btn-lg:hover { background: var(--neon-pink); color: white; }
+
+/* للموبايل */
+@media (max-width: 1000px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+}

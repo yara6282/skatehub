@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkateHub | Digital Invoice</title>
+    <!-- الروابط -->
+    <link rel="stylesheet" href="./style/global.css">
+    <link rel="stylesheet" href="./style/invoice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الماوس المخصص -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- الناف بار الموحد -->
+    <nav class="navbar">
+        <!-- ... نفس كود الناف بار المعتاد ... -->
+         <div class="navbar login-nav">
+  <div class="logo">
+    <a href="home.html" class="logo-link">
+      <img src="./image/9037278.png" alt="SkateHub Logo">
+      <span class="site-title">SkateHub</span>
+    </a>
+  </div>
+
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="community.html">Community</a>
+    <a href="shop.html">Shop</a>
+    <a href="tutorials.html">Tutorials</a>
+  </div>
+
+  <div class="nav-icons">
+    <a href="login.html"><i class="fas fa-user"></i></a>
+    <a href="signup.html"><i class="fas fa-user-plus"></i></a>
+    <a href="notifications.html"><i class="fas fa-bell"></i></a>
+  </div>
+</div>
+    </nav>
+
+
+    <main class="invoice-page">
+        <!-- زر الرجوع للسجل -->
+        <a href="orders.html" class="back-link"><i class="fas fa-arrow-left"></i> RETURN_TO_LOG</a>
+
+        <div class="invoice-wrapper" id="printable-invoice">
+            <div class="invoice-grain"></div>
+
+            <!-- هيدر الفاتورة -->
+            <header class="invoice-header">
+                <div class="brand">
+                    <h1 class="logo">SKATE<span>HUB</span></h1>
+                    <p>OFFICIAL_STREET_GEAR</p>
+                </div>
+                <div class="invoice-meta">
+                    <span class="label">INVOICE_ID</span>
+                    <h2 id="order-id-display">#SK-00000</h2>
+                    <p id="order-date-display">DATE: --/--/----</p>
+                </div>
+            </header>
+
+            <hr class="neon-hr">
+
+            <!-- معلومات الشحن -->
+            <section class="invoice-addresses">
+                <div class="address-box">
+                    <h3>BILL_TO:</h3>
+                    <p class="skater-name">SKATER_USER_01</p>
+                    <p>STREET DISTRICT 9, AMMAN</p>
+                    <p>JORDAN, 11110</p>
+                </div>
+                <div class="address-box">
+                    <h3>DELIVERY_STATUS:</h3>
+                    <span id="order-status-display" class="status-badge">UNKNOWN</span>
+                    <p style="margin-top:10px;">METHOD: FAST_SKATE_POST</p>
+                </div>
+            </section>
+
+            <!-- جدول المنتجات الديناميكي -->
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>PRODUCT_DESCRIPTION</th>
+                        <th>QTY</th>
+                        <th>PRICE</th>
+                        <th>TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody id="invoice-items-body">
+                    <!-- سيتم تعبئتها بواسطة JavaScript -->
+                </tbody>
+            </table>
+
+            <hr class="neon-hr">
+
+            <!-- الفوتر والحساب الكلي -->
+            <footer class="invoice-footer">
+                <div class="note-box">
+                    <p>THANKS FOR SUPPORTING THE CREW.</p>
+                    <p class="slogan">SKATEBOARDING IS NOT A CRIME.</p>
+                </div>
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>SUBTOTAL:</span>
+                        <span id="subtotal-val">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>SHIPPING:</span>
+                        <span style="color:#00ff99;">FREE</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>GRAND_TOTAL:</span>
+                        <span id="grand-total-val" class="neon-price">$0.00</span>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- أزرار التحكم -->
+            <div class="invoice-controls">
+                <button onclick="window.print()" class="control-btn"><i class="fas fa-print"></i> PRINT_REPORT</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- الجافاسكريبت لجعل الصفحة ديناميكية -->
+    <script>
+        // 1. قاعدة بيانات تجريبية لمحاكاة الواقع
+        const ordersDatabase = {
+            "99201": {
+                date: "OCT 20, 2024",
+                status: "DELIVERED",
+                total: "$134.99",
+                products: [
+                    { name: "Baker Skull Pro Deck 8.25", qty: "01", price: "$59.99", img: "./image/decks.png" },
+                    { name: "Vans Old Skool Black Pro", qty: "01", price: "$75.00", img: "./image/shoes.png" }
+                ]
+            },
+            "99550": {
+                date: "NOV 01, 2024",
+                status: "PROCESSING",
+                total: "$25.00",
+                products: [
+                    { name: "Skate Tool Multi-Hardware", qty: "01", price: "$25.00", img: "./image/accessories.png" }
+                ]
+            }
+        };
+
+        // 2. وظيفة جلب البيانات من الرابط
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id'); // يقرأ الـ ID من الرابط
+
+            if (id && ordersDatabase[id]) {
+                const data = ordersDatabase[id];
+                
+                // تعبئة النصوص
+                document.getElementById('order-id-display').innerText = "#SK-" + id;
+                document.getElementById('order-date-display').innerText = "DATE: " + data.date;
+                document.getElementById('order-status-display').innerText = data.status;
+                document.getElementById('order-status-display').classList.add(data.status.toLowerCase());
+                document.getElementById('subtotal-val').innerText = data.total;
+                document.getElementById('grand-total-val').innerText = data.total;
+
+                // تعبئة جدول المنتجات
+                const tableBody = document.getElementById('invoice-items-body');
+                tableBody.innerHTML = ""; // مسح المحتوى القديم
+
+                data.products.forEach(item => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>
+                                <div class="prod-cell">
+                                    <img src="${item.img}" alt="gear">
+                                    <span>${item.name}</span>
+                                </div>
+                            </td>
+                            <td>${item.qty}</td>
+                            <td>${item.price}</td>
+                            <td>${item.price}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                // في حال عدم وجود ID صحيح
+                document.querySelector('.invoice-wrapper').innerHTML = "<h1 style='text-align:center; padding:100px; font-family:Bangers;'>INVALID_ORDER_ID</h1>";
+            }
+        };
+    </script>
+
+    <!-- سكريبتات الماوس -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="./java/cursor.js"></script>
+</body>
+</html>
