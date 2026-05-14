@@ -248,4 +248,33 @@ body {
 .nav-icons { display: flex; gap: 25px; }
 .nav-icons a { color: white; font-size: 1.2rem; transition: 0.3s; }
 .nav-icons a:hover { color: var(--neon-pink); transform: scale(1.2); }
+.size-options {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0 5px;
+}
+
+.size-options button {
+    background: transparent;
+    border: 1px solid #00ccff;
+    color: white;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.size-options button.active-size {
+    background: #ff0055;
+    border-color: #ff0055;
+    color: white;
+}
+
+.size-error {
+    color: #ff3b3b;
+    font-size: 12px;
+    display: block;
+    min-height: 15px;
+    text-align: center;
+}
 

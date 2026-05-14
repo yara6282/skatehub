@@ -28,14 +28,14 @@ window.addToCartFinal = function() {
         qty: quantity
     };
 
-    // حفظ بنفس الاسم الموحد
-    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let cart = JSON.parse(localStorage.getItem('skateHubCart')) || [];
     cart.push(product);
-    localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
+    localStorage.setItem('skateHubCart', JSON.stringify(cart));
 
-    updateCartCount(); // تحديث العداد
+    updateCartCount();
     closeModal();
-    alert("Added! 🛹");
+
+    window.location.href = "cart.html";
 };
 document.addEventListener('DOMContentLoaded', () => {
     const footerModal = document.getElementById('footer-modal');

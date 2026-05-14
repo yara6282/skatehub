@@ -321,3 +321,55 @@ a {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
+/* إخفاء الماوس الأصلي من كل مكان */
+*, *::before, *::after {
+    cursor: none !important;
+}
+
+/* --- الكيرسر في الوضع الطبيعي (النقطة الزرقاء) --- */
+.cursor {
+    width: 8px;
+    height: 8px;
+    background-color: #00f2ff; /* أزرق نيون */
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+}
+
+/* --- الكيرسر في الوضع الطبيعي (الحلقة الحمراء الخارجي) --- */
+.cursor-follower {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ff0055; /* أحمر/زهري نيون */
+    background-color: transparent;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* =========================================
+   تأثير الصورة (حلقتين زرقاوين نيون عند اللمس)
+   ========================================= */
+
+/* النقطة الزرقاء تصبح حلقة زرقاء */
+.cursor.active {
+    width: 18px;
+    height: 18px;
+    background-color: transparent !important;
+    border: 2px solid #00f2ff;
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+/* الحلقة الحمراء تصبح زرقاء وتوسع قليلاً */
+.cursor-follower.active {
+    width: 38px;
+    height: 38px;
+    border-color: #00f2ff !important;
+    box-shadow: 0 0 15px #00f2ff;
+}

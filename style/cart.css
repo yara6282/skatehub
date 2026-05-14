@@ -151,26 +151,253 @@ input[type="radio"]:checked + .pay-box {
     transition: left 0.3s ease; /* حركة ناعمة لما يتحرك */
 }
 /* رسالة السلة الفارغة */
+/* رسالة السلة الفارغة */
 .empty-msg {
-    margin-top: 170px; /* المسافة اللي تحت الشريط */
+    margin-top: 80px;
     text-align: center;
     width: 100%;
-    max-width: 600px; /* عشان تكون تحت الشريط بالزبط */
 }
+
 .empty-msg h2 {
     font-family: 'Bangers', cursive;
-    font-size: 3.8rem;
-    color: #ff0055; /* وردي نيون */
-    text-shadow: 3px 3px #000;
-    margin-bottom: 10px;
+    font-size: 4rem;
+    color: #ff0055;
+    text-shadow: 4px 4px #000;
+    margin-bottom: 15px;
 }
 
 .empty-msg a {
-    color: #00ff99; /* أخضر نيون */
+    color: #00ff99;
+    font-family: 'Bangers', cursive;
+    font-size: 2.8rem;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+.empty-msg a:hover {
+    color: #ff0055;
+}
+
+/* كارد المنتج */
+.cart-product {
+    display: flex;
+    gap: 25px;
+    background: #0d0d0d;
+    border: 2px solid #222;
+    padding: 25px;
+    margin-bottom: 25px;
+    color: white;
+    align-items: flex-start;
+    transition: 0.3s;
+}
+
+.cart-product:hover {
+    border-color: #00e5ff;
+    box-shadow: 0 0 20px rgba(0,229,255,0.2);
+}
+
+.cart-product-img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border: 2px solid #222;
+}
+
+/* معلومات المنتج */
+.cart-product-info h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.cart-product-info p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 900;
-    text-decoration: underline;
-    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin: 8px 0;
+    color: #fff;
+}
+
+.cart-product-info span {
+    color: #00ff99;
+    font-weight: bold;
+}
+
+/* الكمية */
+.qty-box {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin: 18px 0;
+}
+
+.qty-box span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+}
+
+.qty-box button {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: #111;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #333;
+}
+
+.qty-box button:hover {
+    background: #ff0055;
+    box-shadow: 0 0 15px #ff0055;
+}
+
+/* زر الحذف */
+.remove-btn {
+    margin-top: 18px;
+    background: #ff0055;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
     letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(255,0,85,0.4);
+}
+
+.remove-btn:hover {
+    background: #00e5ff;
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #00e5ff;
+}
+
+/* GO GRAB SOME GEAR */
+.continue-shopping {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.continue-shopping a {
+    font-family: 'Bangers', cursive;
+    font-size: 4rem;
+    color: #00ff99;
+    text-decoration: none;
+    transition: 0.3s;
+    letter-spacing: 2px;
+}
+
+.continue-shopping a:hover {
+    color: #ff0055;
+}
+.cart-top-section{
+    margin-bottom: 50px;
+}
+.cart-wrapper {
+    padding-top: 120px !important;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.cart-header {
+    padding-bottom: 40px !important;
+    margin-bottom: 30px !important;
+    position: relative;
+    z-index: 20;
+}
+
+.cart-container {
+    margin-top: 0 !important;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 40px;
+    align-items: start;
+}
+
+.glitch {
+    font-size: 4.5rem !important;
+    margin-bottom: 15px !important;
+}
+
+.shipping-goal {
+    margin-bottom: 25px;
+}
+
+.progress-track {
+    max-width: 650px !important;
+}
+
+/* Empty cart */
+.empty-msg {
+    margin-top: 40px !important;
+    text-align: center;
+}
+
+.empty-msg h2 {
+    font-size: 3rem !important;
+    margin: 20px 0 !important;
+}
+
+.empty-msg a {
+    font-size: 2.3rem !important;
+    font-family: 'Bangers', cursive;
+}
+
+/* Product card */
+.cart-product {
+    max-width: 760px;
+    min-height: 210px;
+    padding: 18px !important;
+    gap: 22px;
+}
+
+.cart-product-img {
+    width: 135px !important;
+    height: 135px !important;
+}
+
+.cart-product-info h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.3rem !important;
+    letter-spacing: 1px;
+    margin: 0 0 12px !important;
+}
+
+.cart-product-info p {
+    font-size: 1rem !important;
+    margin: 6px 0 !important;
+}
+
+.qty-box {
+    margin: 12px 0 !important;
+}
+
+.qty-box button {
+    width: 34px !important;
+    height: 34px !important;
+}
+
+.remove-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem !important;
+    padding: 9px 22px !important;
+    margin-top: 12px !important;
+}
+
+/* Go grab */
+.continue-shopping {
+    margin-top: 35px !important;
+    text-align: center;
+}
+
+.continue-shopping a {
+    font-family: 'Bangers', cursive;
+    font-size: 3.2rem !important;
+    color: #00ff99;
+    text-decoration: none;
 }

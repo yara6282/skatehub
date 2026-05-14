@@ -4,109 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkateHub | Join The Crew</title>
-    <!-- الروابط -->
+
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <!-- الماوس المخصص -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
 
-    <!-- الناف بار -->
-    <div class="navbar login-nav">
-      <div class="logo">
+<div class="navbar login-nav">
+    <div class="logo">
         <a href="home.html" class="logo-link">
-          <img src="./image/9037278.png" alt="SkateHub Logo">
-          <span class="site-title">SkateHub</span>
+            <img src="./image/9037278.png" alt="SkateHub Logo">
+            <span class="site-title">SkateHub</span>
         </a>
-      </div>
-      <div class="nav-links">
+    </div>
+
+    <div class="nav-links">
         <a href="home.html">Home</a>
         <a href="events.html">Events</a>
         <a href="community.html">Community</a>
         <a href="shop.html">Shop</a>
         <a href="tutorials.html">Tutorials</a>
-      </div>
-      <div class="nav-icons">
+    </div>
+
+    <div class="nav-icons">
         <a href="login.html"><i class="fas fa-user"></i></a>
         <a href="signup.html"><i class="fas fa-user-plus"></i></a>
         <a href="notifications.html"><i class="fas fa-bell"></i></a>
-      </div>
     </div>
+</div>
 
-    <div class="split-container">
-        
-        <!-- الجهة اليسرى: الفيديو مع الكتابة الموسطة -->
-        <div class="video-side">
-            <video autoplay muted loop playsinline class="side-video">
-                <source src="./image/Video Project.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay-dark"></div>
-            
-            <!-- النصوص في منتصف الجهة اليسرى -->
-            <div class="video-content">
-                <h1 class="glitch-text" data-text="JOINHUB">JOIN<span>HUB</span></h1>
-                <p class="video-slogan">START YOUR JOURNEY EST. 2024</p>
-            </div>
-        </div>
+<div class="split-container">
 
-        <!-- خط النيون الفاصل -->
-        <div class="neon-divider"></div>
+    <div class="video-side">
+        <video autoplay muted loop playsinline class="side-video">
+            <source src="./image/Video Project.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay-dark"></div>
 
-        <!-- الجهة اليمنى: الفورم مع الصورة -->
-        <div class="form-side">
-            <img src="./image/pexels-introspectivedsgn-13583313.jpg" alt="Background" class="back-img">
-            <div class="navy-overlay"></div>
-            <div class="grain"></div>
-            <div class="scanlines"></div>
-
-            <!-- صندوق الساين أب (مضغوط لكي لا يلمس الناف بار) -->
-            <div class="login-box signup-box">
-                <div class="box-header">
-                    <h2>CREATE_ACCOUNT</h2>
-                    <p>Enter the underground community</p>
-                </div>
-
-                <form>
-                    <div class="input-wrap">
-                        <label>FULL_NAME</label>
-                        <i class="fas fa-id-badge"></i>
-                        <input type="text" placeholder="YOUR NAME" required>
-                    </div>
-
-                    <div class="input-wrap">
-                        <label>USER_ID (EMAIL)</label>
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="YOUR EMAIL" required>
-                    </div>
-
-                    <div class="input-wrap">
-                        <label>PASS_CODE</label>
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="CREATE PASSWORD" required>
-                    </div>
-
-                    <div class="input-wrap">
-                        <label>RE_PASS_CODE</label>
-                        <i class="fas fa-shield-alt"></i>
-                        <input type="password" placeholder="CONFIRM PASSWORD" required>
-                    </div>
-
-                    <button type="submit" class="login-btn">EXECUTE SIGNUP</button>
-                </form>
-
-                <div class="footer-links">
-                    <p style="color:#555; font-size: 0.7rem;">Already a member? <a href="login.html" class="highlight">SIGN_IN_HERE</a></p>
-                </div>
-            </div>
+        <div class="video-content">
+            <h1 class="glitch-text" data-text="JOINHUB">JOIN<span>HUB</span></h1>
+            <p class="video-slogan">START YOUR JOURNEY EST. 2024</p>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="./java/cursor.js"></script>
+    <div class="neon-divider"></div>
+
+    <div class="form-side">
+        <img src="./image/pexels-introspectivedsgn-13583313.jpg" alt="Background" class="back-img">
+        <div class="navy-overlay"></div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+
+        <div class="login-box signup-box">
+            <div class="box-header">
+                <h2>CREATE_ACCOUNT</h2>
+                <p>Enter the underground community</p>
+            </div>
+
+            <form action="signup.php" method="POST" id="signupForm">
+
+                <div class="input-wrap">
+                    <label>FULL_NAME</label>
+                    <div class="input-field">
+                        <i class="fas fa-id-badge input-icon"></i>
+                        <input type="text" name="fullname" id="fullname" placeholder="YOUR NAME" required>
+                    </div>
+                    <small id="fullname-error" class="error-message"></small>
+                </div>
+
+                <div class="input-wrap">
+                    <label>USER_ID (EMAIL)</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" name="email" id="email" placeholder="YOUR EMAIL" required>
+                    </div>
+                    <small id="email-error" class="error-message"></small>
+                </div>
+
+                <div class="input-wrap">
+                    <label>PASS_CODE</label>
+                    <div class="input-field">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" name="password" id="password" placeholder="CREATE PASSWORD" required>
+                        <i class="fas fa-eye password-eye" id="togglePassword"></i>
+                    </div>
+                    <small id="password-error" class="error-message"></small>
+                </div>
+
+                <div class="input-wrap">
+                    <label>RE_PASS_CODE</label>
+                    <div class="input-field">
+                        <i class="fas fa-shield-alt input-icon"></i>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="CONFIRM PASSWORD" required>
+                        <i class="fas fa-eye password-eye" id="toggleConfirmPassword"></i>
+                    </div>
+                    <small id="confirm-error" class="error-message"></small>
+                </div>
+
+                <button type="submit" class="login-btn">EXECUTE SIGNUP</button>
+            </form>
+
+            <div class="footer-links">
+                <p style="color:#555; font-size: 0.7rem;">
+                    Already a member?
+                    <a href="login.html" class="highlight">SIGN_IN_HERE</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="./java/signup-validation.js"></script>
+<script src="./java/cursor.js"></script>
+
 </body>
 </html>

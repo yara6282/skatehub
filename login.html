@@ -68,21 +68,49 @@
                 <p>Access the underground crew</p>
             </div>
 
-            <form>
-                <div class="input-wrap">
-                    <label>USER_ID</label>
-                    <i class="fas fa-user"></i>
-                    <input type="email" placeholder="ENTER YOUR EMAIL" required>
-                </div>
+            <form action="login.php" method="POST" id="loginForm">
 
-                <div class="input-wrap">
-                    <label>PASS_CODE</label>
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="ENTER YOUR PASSWORD" required>
-                </div>
+    <div class="input-wrap">
+        <label>USER_ID</label>
 
-                <button type="submit" class="login-btn">EXECUTE LOGIN</button>
-            </form>
+        <div class="input-field">
+            <i class="fas fa-user input-icon"></i>
+
+            <input type="email"
+                   name="email"
+                   id="email"
+                   placeholder="ENTER YOUR EMAIL"
+                   required>
+
+        </div>
+
+        <small id="email-error" class="error-message"></small>
+    </div>
+
+    <div class="input-wrap">
+        <label>PASS_CODE</label>
+
+        <div class="input-field">
+            <i class="fas fa-lock input-icon"></i>
+
+            <input type="password"
+                   name="password"
+                   id="password"
+                   placeholder="ENTER YOUR PASSWORD"
+                   required>
+
+            <i class="fas fa-eye password-eye"
+               id="togglePassword"></i>
+        </div>
+
+        <small id="password-error" class="error-message"></small>
+    </div>
+
+    <button type="submit" class="login-btn">
+        EXECUTE LOGIN
+    </button>
+
+</form>
 
             <div class="footer-links">
                 <a href="#" class="f-link">FORGOT_PASSWORD?</a>
@@ -94,6 +122,8 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <!-- ملف الماوس المخصص الخاص بك -->
+ <script src="./java/login-validation.js"></script>
 <script src="./java/cursor.js"></script>
+
 </body>
 </html>

@@ -200,3 +200,102 @@ a { color: #00aced; text-decoration: none; }
     display: block;
 }
 
+/* تأثير الحالة النشطة للنقطة المركزية (الزرقاء) */
+.cursor.active {
+    width: 15px;
+    height: 15px;
+    background-color: var(--neon-pink) !important; /* يتغير لونها للوردي عند اللمس */
+    box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink); /* توهج قوي */
+}
+
+/* تأثير الحالة النشطة للدائرة الخارجية (الوردية) */
+.cursor-follower.active {
+    width: 60px;
+    height: 60px;
+    border-color: var(--neon-blue) !important; /* يتغير لون الإطار للأزرق */
+    background-color: rgba(0, 242, 255, 0.1); /* ملء خفيف مشع */
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+/* الحالة العادية (تأكد أن الألوان الأساسية هكذا) */
+.cursor {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-blue);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+}
+
+.cursor-follower {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--neon-pink);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+/* =========================================
+   تأثير الصورة (دائرتين زرقاوين عند اللمس)
+   ========================================= */
+
+.cursor.active {
+    width: 18px; /* حجم الدائرة الداخلية */
+    height: 18px;
+    background-color: transparent !important; /* تصبح مفرغة */
+    border: 2px solid var(--neon-blue) !important; /* إطار أزرق */
+    box-shadow: 0 0 10px var(--neon-blue); /* إشعاع خفيف */
+}
+
+.cursor-follower.active {
+    width: 32px; /* حجم الدائرة الخارجية */
+    height: 32px;
+    border-color: var(--neon-blue) !important; /* تتحول للأزرق */
+    border-width: 1px; /* خط أنحف قليلاً ليعطي شكل الحلقة */
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+/* --- الكيرسر في الوضع الطبيعي (طول الوقت) --- */
+.cursor {
+    width: 8px; /* النقطة اللي بالنص */
+    height: 8px;
+    background-color: var(--neon-blue); /* زرقاء */
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cursor-follower {
+    width: 30px; /* الحلقة اللي بره */
+    height: 30px;
+    border: 2px solid var(--neon-pink); /* حمراء/زهري نيون */
+    background-color: transparent;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- التأثير عند لمس الكبسة (الحلقتين الزرقاوين) --- */
+
+.cursor.active {
+    width: 18px; /* تكبر شوي */
+    background-color: transparent !important; /* تصير مفرغة */
+    border: 2px solid var(--neon-blue); /* تقلب حلقة زرقاء */
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.cursor-follower.active {
+    width: 34px; /* توسع شوي */
+    border-color: var(--neon-blue) !important; /* تقلب زرقاء */
+    border-width: 1.5px;
+    box-shadow: 0 0 15px var(--neon-blue);
+}

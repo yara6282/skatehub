@@ -1,0 +1,260 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.html");
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkateHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/global.css">
+    <link rel="stylesheet" href="./style/home.css"> 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Custom Cursor (Global) -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+  <nav class="navbar">
+            <a href="home.html" class="logo-link">
+                <div class="logo">
+                    <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+                </div>
+                <span class="site-title">SkateHub</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="./home.html" class="nav-item">Home</a>
+                <a href="./events.html" class="nav-item active-link">Events</a>
+                <a href="./community.html" class="nav-item">Community</a>
+                <a href="./shop.html" class="nav-item">Shop</a>
+                <a href="./tutorials.html" class="nav-item">Tutorials</a>
+            </div>
+
+            <div class="nav-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#"><i class="fas fa-bell"></i></a>
+            </div>
+    </nav>
+
+<div class="hero-slider">
+        
+      
+        <a href="home.html" class="slide active"> 
+            <img src="./image/welc.jpg" alt="Welcome to SkateHub"> 
+            <div class="slide-content"> 
+                <h2>Welcome to SkateHub</h2> 
+                <p>Your ultimate skating destination</p> 
+            </div>
+        </a>
+
+        
+        <a href="events.html" class="slide">
+            <img src="./image/event.jpg" alt="Skate Events"> 
+            <div class="slide-content">
+                <h2>Join the Next Epic Event</h2> 
+                <p>Don't miss out on the biggest skate competitions!</p> 
+            </div>
+        </a>
+
+        
+        <a href="shop.html" class="slide">
+            <img src="./image/vans.jpg" alt="Skate Shop"> 
+            <div class="slide-content">
+                <h2>Upgrade Your Gear</h2> 
+                <p>Check out the latest boards, wheels, and street wear</p> 
+            </div>
+        </a>
+
+        
+        <a href="tutorials.html" class="slide">
+    <video autoplay muted loop playsinline class="slide-video">
+        <source src="./videos/vid1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="slide-content">
+        <h2>Learn to Skate Like a PRO</h2>
+        <p>Master new tricks with our step-by-step tutorials</p>
+    </div>
+</a>
+
+    
+        <a href="community.html" class="slide">
+           
+                 <video autoplay muted loop playsinline class="slide-video">
+        <source src="./videos/trick.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+            <div class="slide-content">
+                <h2>Share Your Best Tricks</h2> 
+                <p>Connect with skaters and show off your Moves!</p> 
+            </div>
+        </a>
+
+    </div>
+
+<div class="shop-preview">
+    <h2>Skater’s Choice</h2>
+    <div class="products">
+        <div class="product-card">
+            <img src="./image/skate1.png" alt="Skateboard">
+            <h3>Pro Skateboard</h3>
+            <p>$120</p>
+            <button>View</button>
+        </div>
+        <div class="product-card">
+            <img src="./image/t-shirt1.webp" alt="T-shirt">
+            <h3>Skate T-Shirt</h3>
+            <p>$25</p>
+            <button>View</button>
+        </div>
+        <div class="product-card">
+            <img src="./image/helmet1.jpg" alt="Helmet">
+            <h3>Safety Helmet</h3>
+            <p>$45</p>
+            <button>View</button>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Learn Skating Basics</h2>
+    <div class="video-container">
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/0wepmbVVgYQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/JwEfq-OafFA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <p>
+        Your journey to pro skating starts here.<br>
+        <a href="tutorials.html">Click here</a> for more tutorials!
+    </p>
+</div>
+
+<div class="community-section">
+    <h2>Our Community</h2>
+    <p>Join a vibrant community of skaters sharing tricks, events, and stories.</p>
+    <div class="community-grid">
+        <div class="comm-card">
+            <img src="community1.jpg" alt="Local Events">
+            <h3>Local Events</h3>
+        </div>
+        <div class="comm-card">
+            <img src="community2.jpg" alt="Skater Groups">
+            <h3>Skater Groups</h3>
+        </div>
+        <div class="comm-card">
+            <img src="community3.jpg" alt="Stories">
+            <h3>Success Stories</h3>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
+    <h2>About SkateHub</h2>
+    <p>
+        SkateHub is more than just a website — it’s a space where skaters connect, learn, and grow.
+        Our mission is to make skating accessible, inspiring, and fun for everyone.
+    </p>
+</div>
+<!-- Footer المطور والنحيف -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>SKATEHUB INFO</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
+                <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
+                <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>CUSTOMER SERVICE</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
+                <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column socials">
+            <h4>FOLLOW THE FLOW</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 SKATEHUB. DESIGNED BY SKATERS FOR SKATERS</p>
+    </div>
+</footer>
+
+<!-- المودال الخاص بالفوتر (نفس تصميم التيكت بس أكبر وبلون #222) -->
+<div id="footer-modal" class="modal-overlay">
+    <div class="modal-card footer-modal-card">
+        <!-- زر X العلوي -->
+        <button class="close-footer-modal">&times;</button>
+        
+        <div class="modal-header">
+            <!-- الأيقونة التي ستأخذ الإشعاع الوردي -->
+            <i id="footer-modal-icon" class="fas fa-history pulse-icon"></i>
+            <!-- العنوان الذي سيأخذ الإشعاع الأزرق -->
+            <h2 id="footer-modal-title">OUR STORY</h2>
+        </div>
+
+        <div id="footer-modal-body-content">
+            <!-- الحكي سيظهر هنا -->
+        </div>
+
+        <div class="modal-footer">
+            <button class="close-btn-bottom">GOT IT!</button>
+        </div>
+    </div>
+</div>
+<!-- Modal النافذة المنبثقة العامة -->
+<div id="generic-modal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="close-modal"><i class="fas fa-times"></i></button>
+        
+        <div class="modal-header">
+            <i class="fas fa-bolt pulse-icon"></i>
+            <h2 id="modal-display-title">QUICK VIEW</h2>
+        </div>
+
+        <div class="modal-body">
+            <p id="modal-display-text">Details will appear here...</p>
+        </div>
+
+        <button class="modal-confirm-btn">CONFIRM</button>
+    </div>
+</div>
+<script src="./java/slider.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="./java/home.js"></script>
+    <!-- ملف الماوس المخصص الخاص بك -->
+    <script src="/java/cursor.js"></script>
+</body>
+</html>
