@@ -110,12 +110,72 @@ function updateShippingProgress(subtotal) {
 }
 
 function processOrder() {
-    const gov = document.getElementById('governorate').value;
+    const cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
 
-    if (!gov) {
+    const governorate = document.getElementById('governorate').value;
+    const address = document.getElementById('address-details').value.trim();
+
+    const subtotal = parseFloat(
+        document.getElementById('subtotal-val').innerText.replace('$', '')
+    ) || 0;
+
+    const shippingInput = document.querySelector('input[name="shipping"]:checked');
+    const shippingFee = parseFloat(shippingInput.value) || 0;
+
+    const shippingMethod = shippingFee === 0 ? "Free Shipping" : "Express Delivery";
+
+    const paymentInput = document.querySelector('input[name="payway"]:checked');
+    const paymentMethod = paymentInput
+        .closest('.pay-option')
+        .querySelector('span')
+        .innerText;
+
+    const total = parseFloat(
+        document.getElementById('total-val').innerText.replace('$', '')
+    ) || 0;
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    if (!governorate) {
         alert("Please select your Governorate!");
         return;
     }
 
-    alert("ORDER RECEIVED! Shred on! 🛹🔥");
+    if (address === "") {
+        alert("Please enter your address details.");
+        return;
+    }
+
+    fetch("place_order.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            governorate: governorate,
+            address: address,
+            payment_method: paymentMethod,
+            shipping_method: shippingMethod,
+            subtotal: subtotal,
+            shipping_fee: shippingFee,
+            total: total,
+            cart: cart
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            localStorage.removeItem('skateHub_FinalCart');
+           window.location.href = "orders.php";
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Something went wrong while placing the order.");
+    });
 }

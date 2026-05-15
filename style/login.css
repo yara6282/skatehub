@@ -192,3 +192,29 @@ body, html {
 .input-field.error input {
     border: 1px solid #ff3b3b !important;
 }
+.guest-btn{
+    width:100%;
+    display:block;
+    text-align:center;
+    margin-top:12px;
+    padding:13px;
+    box-sizing:border-box;
+
+    background:transparent;
+    border:1px solid var(--neon-blue);
+
+    color:var(--neon-blue);
+    text-decoration:none;
+
+    font-family:'Bangers', cursive;
+    font-size:1.3rem;
+    letter-spacing:1px;
+
+    transition:0.3s;
+}
+
+.guest-btn:hover{
+    background:var(--neon-blue);
+    color:black;
+    box-shadow:0 0 20px var(--neon-blue);
+}

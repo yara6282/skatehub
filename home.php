@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.html");
-    exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,32 +22,73 @@ if (!isset($_SESSION["user_id"])) {
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
   <nav class="navbar">
-            <a href="home.html" class="logo-link">
-                <div class="logo">
-                    <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
-                </div>
-                <span class="site-title">SkateHub</span>
+
+    <a href="home.php" class="logo-link">
+        <div class="logo">
+            <img src="./image/9037278.png"
+                 alt="SkateHub Logo"
+                 onerror="this.style.display='none'">
+        </div>
+
+        <span class="site-title">SkateHub</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="./home.php" class="nav-item">
+            Home
+        </a>
+
+        <a href="./events.html" class="nav-item active-link">
+            Events
+        </a>
+
+        <a href="./community.html" class="nav-item">
+            Community
+        </a>
+
+        <a href="./shop.html" class="nav-item">
+            Shop
+        </a>
+
+        <a href="./tutorials.html" class="nav-item">
+            Tutorials
+        </a>
+
+    </div>
+
+    <div class="nav-icons">
+
+        <?php if (isset($_SESSION["user_id"])): ?>
+
+            <a href="profile.php">
+                <i class="fas fa-user"></i>
             </a>
 
-            <div class="nav-links">
-                <a href="./home.html" class="nav-item">Home</a>
-                <a href="./events.html" class="nav-item active-link">Events</a>
-                <a href="./community.html" class="nav-item">Community</a>
-                <a href="./shop.html" class="nav-item">Shop</a>
-                <a href="./tutorials.html" class="nav-item">Tutorials</a>
-            </div>
+        <?php else: ?>
 
-            <div class="nav-icons">
-                <a href="login.html"><i class="fas fa-user"></i></a>
-                <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-                <a href="#"><i class="fas fa-bell"></i></a>
-            </div>
-    </nav>
+            <a href="login.html">
+                <i class="fas fa-user"></i>
+            </a>
+
+        <?php endif; ?>
+
+        <a href="cart.html">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+
+        <a href="#">
+            <i class="fas fa-bell"></i>
+        </a>
+
+    </div>
+
+</nav>
 
 <div class="hero-slider">
         
       
-        <a href="home.html" class="slide active"> 
+        <a href="home.php" class="slide active"> 
             <img src="./image/welc.jpg" alt="Welcome to SkateHub"> 
             <div class="slide-content"> 
                 <h2>Welcome to SkateHub</h2> 
@@ -255,6 +293,6 @@ if (!isset($_SESSION["user_id"])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="./java/home.js"></script>
     <!-- ملف الماوس المخصص الخاص بك -->
-    <script src="/java/cursor.js"></script>
+    <script src="./java/cursor.js"></script>
 </body>
 </html>

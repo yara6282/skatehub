@@ -12,24 +12,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) == 0) {
-
         header("Location: login.html?email=notfound");
         exit();
-
     }
 
     $user = mysqli_fetch_assoc($result);
 
     if (!password_verify($password, $user["password"])) {
-
         header("Location: login.html?password=wrong");
         exit();
-
     }
 
     $_SESSION["user_id"] = $user["id"];
     $_SESSION["fullname"] = $user["fullname"];
     $_SESSION["email"] = $user["email"];
+    $_SESSION["role"] = $user["role"];
+
+    if ($user["role"] === "admin") {
+        header("Location: admin-dashboard.php");
+        exit();
+    }
 
     header("Location: home.php");
     exit();
