@@ -17,32 +17,25 @@
     <div class="cursor-follower"></div>
 
     <div class="admin-wrapper">
-        <aside class="sidebar">
+        <!-- القائمة الجانبية المحدثة -->
+<aside class="sidebar">
     <div class="sidebar-header">
-        <!-- تأكد أن كلاس logo موجود هنا لكي يطبق عليه الـ font-size الصغير -->
         <h2 class="logo">SKATE<span>ADMIN</span></h2>
     </div>
-    
     <nav class="sidebar-nav">
-        <!-- كلاس nav-btn active هو اللي بعطي اللون الوردي للزر المختار -->
-        <button class="nav-btn active" onclick="showSection('shop-mgmt')">
-            <i class="fas fa-shopping-cart"></i> SHOP_GEAR
-        </button>
+        <!-- الأقسام القديمة -->
+        <button class="nav-btn active" onclick="showSection('shop-mgmt')"><i class="fas fa-shopping-cart"></i> SHOP_GEAR</button>
+        <button class="nav-btn" onclick="showSection('events-mgmt')"><i class="fas fa-calendar-alt"></i> EVENTS_MGMT</button>
+        <button class="nav-btn" onclick="showSection('tutorials-mgmt')"><i class="fas fa-play-circle"></i> TUTORIALS_CLIPS</button>
         
-        <button class="nav-btn" onclick="showSection('events-mgmt')">
-            <i class="fas fa-calendar-alt"></i> EVENTS_MGMT
+        <!-- القسم الجديد لإدارة الطلبات -->
+        <button class="nav-btn" onclick="showSection('orders-mgmt')">
+            <i class="fas fa-box"></i> ORDERS_QUEUE 
+            <span class="order-badge">3</span> <!-- عدد الطلبات الجديدة -->
         </button>
-        
-        <button class="nav-btn" onclick="showSection('tutorials-mgmt')">
-            <i class="fas fa-play-circle"></i> TUTORIALS_CLIPS
-        </button>
-        
+
         <hr class="nav-divider">
-        
-        <!-- زر الخروج يفضل أن يوجه لـ logout.php مستقبلاً وليس home.html -->
-        <a href="home.html" class="nav-btn logout">
-            <i class="fas fa-external-link-alt"></i> VIEW_SITE
-        </a>
+        <a href="home.html" class="nav-btn logout"><i class="fas fa-external-link-alt"></i> VIEW_SITE</a>
     </nav>
 </aside>
         <!-- المحتوى الرئيسي (Main Content) -->
@@ -174,6 +167,60 @@
                     </form>
                 </div>
             </section>
+            <!-- 4. قسم إدارة طلبات الزبائن (الجديد) -->
+    <section id="orders-mgmt" class="mgmt-section">
+        <div class="action-bar">
+            <h2 class="sub-title"><i class="fas fa-stream"></i> INCOMING_ORDERS_LOG</h2>
+        </div>
+
+        <div class="orders-table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ORDER_ID</th>
+                        <th>CUSTOMER_INFO</th>
+                        <th>ORDER_ITEMS (SIZE/QTY)</th>
+                        <th>TOTAL_PRICE</th>
+                        <th>STATUS_CONTROL</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- مثال لطلب من زبون -->
+                    <tr>
+                        <td class="pink-text">#SK-1024</td>
+                        <td>
+                            <div class="user-cell">
+                                <strong>ZikZak Skater</strong>
+                                <span>zikzak@email.com</span>
+                                <small>Amman, Jordan</small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="items-list-cell">
+                                <div>• Baker Deck 8.25 (Size: 8.25) x1</div>
+                                <div>• Vans Old Skool (Size: 42) x1</div>
+                            </div>
+                        </td>
+                        <td class="blue-text">$134.99</td>
+                        <td>
+                            <select class="status-select">
+                                <option value="pending" selected>PENDING_REVIEW</option>
+                                <option value="processing">PREPARING_GEAR</option>
+                                <option value="shipped">SHIPPED</option>
+                                <option value="delivered">DELIVERED</option>
+                                <option value="canceled">CANCELLED</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="update-status-btn">UPDATE</button>
+                            <button class="del-btn"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
         </main>
     </div>
 
@@ -182,17 +229,27 @@
     <script src="./java/cursor.js"></script>
 
     <script>
-        // دالة التبديل بين الأقسام
-        function showSection(sectionId) {
-            document.querySelectorAll('.mgmt-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+       
+    function showSection(sectionId) {
+        // إخفاء كل الأقسام
+        document.querySelectorAll('.mgmt-section').forEach(sec => sec.classList.remove('active'));
+        // إظهار القسم المختار
+        document.getElementById(sectionId).classList.add('active');
+        
+        // تحديث حالة الأزرار في السايد بار
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        
+        // ربط الزر المكبوس بالحالة النشطة
+        const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => 
+            btn.getAttribute('onclick').includes(sectionId)
+        );
+        if(activeBtn) activeBtn.classList.add('active');
 
-            document.getElementById('section-title').innerText = sectionId.replace('-', '_').toUpperCase();
-        }
-
+        // تحديث عنوان الصفحة
+        document.getElementById('section-title').innerText = sectionId.replace('-', '_').toUpperCase();
+    }
+</script>
+<script>
         // تنبيه نجاح الإضافة من الـ PHP
         const params = new URLSearchParams(window.location.search);
         if(params.has('status')) {
