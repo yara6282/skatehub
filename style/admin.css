@@ -1,0 +1,246 @@
+:root {
+    --sidebar-w: 280px; /* العرض الكلي للسايد بار */
+    --navy-deep: #020c1b;
+    --navy-card: #0a192f;
+    --neon-pink: #ff0055;
+    --neon-blue: #00ccff;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--navy-deep);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    cursor: none; /* إخفاء الماوس الأصلي */
+}
+
+/* لضمان إخفاء الماوس عن كل العناصر التفاعلية */
+.nav-btn, .add-btn, .edit-btn, .del-btn, .save-btn, input, select, textarea, .check-item {
+    cursor: none !important;
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================================
+   1. القائمة الجانبية (Sidebar) - تم تعديلها هنا
+   ========================================= */
+/* --- تعديل السايد بار --- */
+.sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy-card);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    position: fixed;
+    height: 100%;
+    z-index: 100;
+}
+
+/* --- تعديل الهيدر ليصبح موسطاً تماماً --- */
+.sidebar-header {
+    padding: 40px 0; /* لغينا البادينغ الجانبي واعتمدنا التوسيط */
+    width: 100%;
+    text-align: center; /* توسيط النص */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-header .logo {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem; /* حجم ممتاز */
+    letter-spacing: 2px;
+    color: var(--white);
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin: 0; /* إلغاء أي مارجن قديم */
+}
+
+
+.sidebar-header .logo span { 
+    color: var(--neon-pink); 
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #8892b0;
+    text-align: left;
+    padding: 15px 25px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-btn i { font-size: 1rem; color: var(--neon-blue); }
+
+.nav-btn:hover, .nav-btn.active {
+    background: rgba(255, 255, 255, 0.03);
+    color: white;
+    border-left: 4px solid var(--neon-pink);
+}
+
+.nav-divider { border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 20px 25px; }
+.logout { color: var(--neon-pink); }
+
+/* =========================================
+   2. المحتوى الرئيسي (Main)
+   ========================================= */
+.main-content {
+    margin-left: var(--sidebar-w); /* سيتعدل تلقائياً لـ 280px */
+    flex: 1;
+    padding: 40px 50px;
+}
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.content-header h1 { 
+    font-family: 'Bangers', cursive; 
+    font-size: 2.5rem; 
+    color: var(--neon-blue); 
+    text-transform: uppercase;
+}
+
+.admin-profile { display: flex; align-items: center; gap: 15px; font-size: 0.8rem; font-weight: 700; }
+.admin-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--neon-pink); }
+
+/* =========================================
+   3. الجداول والأقسام
+   ========================================= */
+.mgmt-section { display: none; animation: fadeIn 0.5s ease forwards; }
+.mgmt-section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--navy-card);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.admin-table th { background: rgba(255,255,255,0.03); padding: 20px; text-align: left; font-family: 'Bangers'; color: #8892b0; }
+.admin-table td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+
+/* =========================================
+   4. تنسيق الكروت والفورم (إضافاتك السابقة)
+   ========================================= */
+.admin-form-card {
+    background: var(--navy-card);
+    padding: 50px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 50px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.full-width { grid-column: span 2; }
+
+.input-group label {
+    display: block;
+    color: var(--neon-blue);
+    font-family: 'Bangers';
+    letter-spacing: 2px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+    width: 100%;
+    padding: 15px;
+    background: var(--navy-deep);
+    border: 1px solid #233554;
+    color: white;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); }
+
+/* أزرار النشر */
+.publish-btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 20px;
+    background: var(--neon-pink);
+    color: white;
+    border: none;
+    font-family: 'Bangers';
+    font-size: 1.8rem;
+    cursor: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.publish-btn:hover {
+    background: #ff3377;
+    box-shadow: 0 0 30px var(--neon-pink);
+    transform: scale(1.02);
+}
+
+/* =========================================
+   5. الماوس المخصص (لضمان الظهور)
+   ========================================= */
+.cursor, .cursor-follower {
+    z-index: 9999999 !important; 
+}
+
+/* خيارات المقاسات */
+.sizes-checkboxes {
+    display: flex;
+    gap: 20px;
+    background: var(--navy-deep);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #233554;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+    color: var(--neon-blue);
+}
+
+/* لون خاص لزر التوتوريالز */
+.tutorial-btn {
+    background: var(--neon-blue) !important;
+    color: black !important;
+}
+
+.tutorial-btn:hover {
+    box-shadow: 0 0 30px var(--neon-blue) !important;
+}
+
+/* نصوص الجدول الملونة */
+.pink-text { color: var(--neon-pink); font-weight: bold; }
+.blue-text { color: var(--neon-blue); font-weight: bold; }

@@ -38,19 +38,6 @@ body {
 }
 .cursor.active { width: 40px; height: 40px; background: rgba(0, 242, 255, 0.2); border: 1px solid var(--neon-blue); }
 
-/* --- Navbar --- */
-.navbar {
-    position: absolute; top: 0; width: 100%; padding: 25px 5%;
-    display: flex; justify-content: space-between; align-items: center; z-index: 10;
-}
-.logo-link { display: flex; align-items: center; text-decoration: none; color: white; gap: 10px; }
-.site-title { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-style: italic; }
-.nav-links { display: flex; gap: 40px; }
-.nav-item { text-decoration: none; color: white; font-weight: 800; font-size: 14px; text-transform: uppercase; transition: 0.3s; position: relative; }
-.nav-item:hover, .active-link { color: var(--neon-blue); }
-.nav-icons { display: flex; gap: 25px; }
-.nav-icons a { color: white; font-size: 1.2rem; transition: 0.3s; }
-.nav-icons a:hover { color: var(--neon-pink); transform: scale(1.2); }
 
 /* --- Massive Background Text --- */
 .massive-bg-text {
