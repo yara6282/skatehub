@@ -265,4 +265,64 @@ body {
     min-height: 15px;
     text-align: center;
 }
+.wish-btn {
+    background: transparent;
+    border: 1px solid #ff0055;
+    color: #ff0055;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
 
+.wish-btn:hover {
+    background: #ff0055;
+    color: white;
+    box-shadow: 0 0 15px #ff0055;
+}
+.product-actions {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    margin-top: 18px;
+}
+
+.product-actions .add-btn {
+    flex: 1;
+    height: 56px;
+    margin-top: 0;
+}
+
+.wish-btn {
+    width: 56px;
+    height: 56px;
+
+    background: transparent;
+
+    border: 2px solid #ff0055;
+
+    color: #ff0055;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+
+    margin: 0;
+
+    box-sizing: border-box;
+
+    transition: 0.3s ease;
+}
+
+.wish-btn:hover {
+    background: #ff0055;
+    color: white;
+    box-shadow: 0 0 15px #ff0055;
+    transform: translateY(-2px);
+}

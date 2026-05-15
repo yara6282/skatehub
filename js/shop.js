@@ -56,6 +56,8 @@ function renderProducts(items) {
             <img src="${p.img}" alt="${p.name}">
             <h3>${p.name}</h3>
             <p class="price">${p.price}</p>
+            
+</button>
 
             <div class="size-options" id="sizes-${p.id}">
                 <button type="button" onclick="selectSize(${p.id}, 'S', this)">S</button>
@@ -65,10 +67,15 @@ function renderProducts(items) {
             </div>
 
             <small class="size-error" id="size-error-${p.id}"></small>
+<div class="product-actions">
+    <button class="add-btn" onclick="addToCart(${p.id})">
+        <i class="fas fa-cart-plus"></i> ADD TO CART
+    </button>
 
-            <button class="add-btn" onclick="addToCart(${p.id})">
-                <i class="fas fa-cart-plus"></i> ADD TO CART
-            </button>
+    <button class="wish-btn" onclick="toggleWishlist(${p.id})">
+        <i class="fas fa-heart"></i>
+    </button>
+</div>
         </div>
     `).join('');
 }
@@ -85,32 +92,103 @@ function selectSize(productId, size, btn) {
 }
 
 function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    const sizeBox = document.getElementById(`sizes-${productId}`);
-    const selectedSize = sizeBox.dataset.selectedSize;
 
-    if (!selectedSize) {
-        document.getElementById(`size-error-${productId}`).innerText = "Please choose a size.";
-        return;
-    }
+    fetch("check_login.php")
 
-    const cartItem = {
-        id: Date.now(),
-        productId: product.id,
-        name: product.name,
-        price: parseFloat(product.price.replace('$', '')),
-        img: product.img,
-        size: selectedSize,
-        qty: 1
-    };
+    .then(response => response.json())
 
-    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-    cart.push(cartItem);
-    localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
+    .then(data => {
 
-    window.location.href = "cart.html";
+        // إذا مش عامل login
+        if (!data.loggedIn) {
+
+            alert("Please login first.");
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        // إذا عامل login
+        const product = products.find(p => p.id === productId);
+
+        const sizeBox = document.getElementById(`sizes-${productId}`);
+
+        const selectedSize = sizeBox.dataset.selectedSize;
+
+        if (!selectedSize) {
+
+            document.getElementById(`size-error-${productId}`).innerText =
+                "Please choose a size.";
+
+            return;
+        }
+
+        const cartItem = {
+
+            id: Date.now(),
+
+            productId: product.id,
+
+            name: product.name,
+
+            price: parseFloat(product.price.replace('$', '')),
+
+            img: product.img,
+
+            size: selectedSize,
+
+            qty: 1
+        };
+
+        let cart =
+            JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+
+        cart.push(cartItem);
+
+        localStorage.setItem(
+            'skateHub_FinalCart',
+            JSON.stringify(cart)
+        );
+
+        window.location.href = "cart.html";
+    });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
     filterProducts('all');
 });
+function toggleWishlist(productId) {
+    fetch("check_login.php")
+        .then(response => response.json())
+        .then(login => {
+            if (!login.loggedIn) {
+                alert("Please login first to add wishlist.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const product = products.find(p => p.id === productId);
+
+            fetch("toggle_wishlist.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    product_id: product.id,
+                    product_name: product.name,
+                    product_img: product.img,
+                    product_price: parseFloat(product.price.replace("$", ""))
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "added") {
+                    alert("Added to wishlist ❤️");
+                } else {
+                    alert("Removed from wishlist");
+                }
+            });
+        });
+}
