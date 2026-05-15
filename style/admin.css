@@ -244,3 +244,65 @@ body {
 /* نصوص الجدول الملونة */
 .pink-text { color: var(--neon-pink); font-weight: bold; }
 .blue-text { color: var(--neon-blue); font-weight: bold; }
+/* شعار التنبيه في القائمة الجانبية */
+.order-badge {
+    background: var(--neon-pink);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto; /* يدفعه لليسار */
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+/* تنسيق خلية الزبون */
+.user-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.user-cell strong { color: white; font-size: 0.9rem; }
+.user-cell span { color: var(--neon-blue); font-size: 0.8rem; }
+.user-cell small { color: #8892b0; font-size: 0.7rem; }
+
+/* تنسيق قائمة المنتجات داخل الجدول */
+.items-list-cell {
+    font-size: 0.8rem;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+/* التحكم بحالة الطلب (Dropdown) */
+.status-select {
+    background: var(--navy-deep);
+    border: 1px solid #233554;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.status-select:focus { border-color: var(--neon-blue); }
+
+/* زر التحديث */
+.update-status-btn {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-family: 'Bangers';
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.update-status-btn:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* تلوين الصفوف حسب الحالة (اختياري) */
+tr:has(.status-select[value="delivered"]) { opacity: 0.6; }
