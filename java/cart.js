@@ -8,7 +8,7 @@ function renderCart() {
         list.innerHTML = `
             <div class="empty-msg">
                 <h2>YOUR DECK IS EMPTY... 🛹</h2>
-                <a href="shop.html">GO GRAB SOME GEAR</a>
+                <a href="shop.php">GO GRAB SOME GEAR</a>
             </div>`;
 
         document.getElementById('subtotal-val').innerText = "$0.00";

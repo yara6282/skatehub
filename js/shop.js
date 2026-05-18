@@ -196,3 +196,119 @@ function toggleWishlist(productId) {
             });
         });
 }
+// =========================================
+// 2. منطق مختبر التصميم (Custom Lab Logic)
+// =========================================
+
+// وظيفة تبديل المنتج الأساسي (سكيت أو تيشيرت)
+window.setBase = function(type, imgSrc) {
+    const area = document.getElementById('design-area');
+    const baseImg = document.getElementById('base-product-img');
+    const userText = document.getElementById('user-custom-text');
+    
+    if (!area || !baseImg) return;
+
+    // تغيير الصورة الأساسية
+    baseImg.src = imgSrc;
+
+    // تبديل الكلاسات لتغيير وضعية الصورة والنص (من ملف CSS)
+    if (type === 'deck') {
+        area.classList.remove('lab-shirt');
+        area.classList.add('lab-deck');
+        userText.innerText = userText.innerText === "YOUR_TEXT" ? "DECK_ART" : userText.innerText;
+    } else {
+        area.classList.remove('lab-deck');
+        area.classList.add('lab-shirt');
+        userText.innerText = userText.innerText === "DECK_ART" ? "YOUR_TEXT" : userText.innerText;
+    }
+
+    // تحديث شكل الأزرار (Highlight)
+    document.querySelectorAll('.base-btn').forEach(btn => btn.classList.remove('active'));
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
+};
+
+// مراقبة إدخال النص وتحديثه فوراً على المنتج
+const labTextInput = document.getElementById('lab-text-input');
+if (labTextInput) {
+    labTextInput.addEventListener('input', function() {
+        const previewText = document.getElementById('user-custom-text');
+        previewText.innerText = this.value.toUpperCase() || "YOUR_TEXT";
+    });
+}
+
+// مراقبة اختيار اللون
+const labColorInput = document.getElementById('lab-color-input');
+if (labColorInput) {
+    labColorInput.addEventListener('input', function() {
+        document.getElementById('user-custom-text').style.color = this.value;
+    });
+}
+
+// مراقبة رفع الصورة (Live Preview)
+const labImageInput = document.getElementById('lab-image-input');
+if (labImageInput) {
+    labImageInput.addEventListener('change', function(evt) {
+        const [file] = this.files;
+        if (file) {
+            const imgPreview = document.getElementById('user-uploaded-img');
+            imgPreview.src = URL.createObjectURL(file);
+            imgPreview.style.display = 'block';
+            
+            // إضافة تأثير انيميشن بسيط عند ظهور الصورة
+            gsap.fromTo("#user-uploaded-img", {opacity: 0, scale: 0.5}, {opacity: 1, scale: 1, duration: 0.5});
+        }
+    });
+}
+window.addCustomToCart = function() {
+    // 1. التأكد من تسجيل الدخول
+    fetch("check_login.php")
+    .then(response => response.json())
+    .then(data => {
+        if (!data.loggedIn) {
+            alert("Please login first.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        // إظهار رسالة "جاري التجهيز" لأن التصوير يأخذ ثانية
+        const btn = document.querySelector('.publish-btn');
+        const originalText = btn.innerText;
+        btn.innerText = "CAPTURING_DESIGN...";
+
+        // 2. استخدام html2canvas لتصوير منطقة التصميم فقط
+        const designArea = document.getElementById('design-area');
+
+        html2canvas(designArea, {
+            backgroundColor: null, // يجعل الخلفية شفافة إذا أمكن
+            logging: false,
+            useCORS: true // للسماح بتصوير الصور من روابط خارجية
+        }).then(canvas => {
+            // تحويل اللوحة (Canvas) إلى صورة نصية (Base64)
+            const capturedImage = canvas.toDataURL("image/png");
+
+            // 3. جمع البيانات
+            const baseType = document.querySelector('.base-btn.active').innerText;
+            const customPrice = (baseType === "DECK") ? 85.00 : 35.00;
+
+            const customCartItem = {
+                id: Date.now(),
+                productId: "CUSTOM-" + Date.now(),
+                name: `CUSTOM_${baseType}`,
+                price: customPrice,
+                img: capturedImage, // هنا السحر! حفظنا صورة التصميم كاملة
+                size: "CUSTOM",
+                qty: 1
+            };
+
+            // 4. الحفظ في localStorage
+            let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+            cart.push(customCartItem);
+            localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
+
+            // 5. الذهاب للسلة
+            window.location.href = "cart.php";
+        });
+    });
+};

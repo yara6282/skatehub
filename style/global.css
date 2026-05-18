@@ -163,6 +163,40 @@ a {
     color: var(--neon-pink);
     transform: scale(1.2);
 }
+/* تنسيق أيقونة الأدمن في الناف بار */
+.admin-nav-icon {
+    color: var(--neon-pink) !important; /* لون وردي لتمييزه عن الباقي */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-nav-icon i {
+    font-size: 1.3rem; /* نفس حجم باقي الأيقونات */
+    filter: drop-shadow(0 0 5px var(--neon-pink));
+}
+
+/* نص صغير يظهر عند تمرير الماوس فوق أيقونة الأدمن */
+.admin-tooltip {
+    position: absolute;
+    top: 40px;
+    background: var(--neon-pink);
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.admin-nav-icon:hover .admin-tooltip {
+    opacity: 1;
+    top: 35px;
+}
 
 /* =========================================
    4. الفوتر المطور (Footer)

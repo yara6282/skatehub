@@ -326,3 +326,142 @@ body {
     box-shadow: 0 0 15px #ff0055;
     transform: translateY(-2px);
 }
+/* =========================================
+   CUSTOM LAB - مضاف في نهاية الملف
+   ========================================= */
+.custom-lab {
+    padding: 100px 8%;
+    background-color: var(--navy-deep);
+    border-top: 2px solid rgba(0, 242, 255, 0.1);
+}
+
+.lab-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    background: var(--navy-card);
+    padding: 50px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* صندوق المعاينة */
+.preview-box {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: #ffffff; /* خلفية بيضاء لإبراز التصميم */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.1);
+}
+
+.base-obj {
+    max-height: 90%;
+    z-index: 5;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* طبقة التصميم فوق المنتج */
+.user-overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* --- التحكم في شكل السكيت بورد (صورة كاملة) --- */
+.lab-deck .user-overlay {
+    width: 140px; /* عرض السكيت */
+    height: 520px; /* طول السكيت */
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.lab-deck #user-uploaded-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* تجعل الصورة تملأ السكيت بالكامل */
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0.9;
+}
+
+.lab-deck #user-custom-text {
+    z-index: 11;
+    transform: rotate(90deg); /* نص طولي للسكيت */
+    font-size: 3rem;
+    color: white;
+}
+
+/* --- التحكم في شكل التيشيرت (صورة موسطة) --- */
+.lab-shirt .user-overlay {
+    width: 200px;
+    height: 250px;
+    top: 25%; /* مكان الصدر */
+}
+
+.lab-shirt #user-uploaded-img {
+    max-width: 100%;
+    max-height: 80%;
+    object-fit: contain; /* صورة موسطة بدون تمطيط */
+}
+
+.lab-shirt #user-custom-text {
+    z-index: 11;
+    margin-top: 15px;
+    font-size: 1.5rem;
+}
+
+/* نصوص وأدوات التحكم */
+.controls-side { display: flex; flex-direction: column; gap: 30px; }
+.control-group label {
+    display: block;
+    font-family: 'Bangers';
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.base-toggles { display: flex; gap: 15px; }
+.base-btn {
+    flex: 1; padding: 12px; background: transparent; border: 2px solid #233554;
+    color: white; font-family: 'Bangers'; cursor: pointer; transition: 0.3s;
+}
+.base-btn.active { background: var(--neon-blue); color: black; border-color: var(--neon-blue); }
+
+.controls-side input[type="text"] {
+    width: 100%; padding: 15px; background: var(--navy-deep); border: 1px solid #233554;
+    color: white; border-radius: 8px; outline: none;
+}
+
+.controls-side input[type="color"] {
+    width: 100%; height: 50px; background: none; border: none; cursor: pointer;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    background: var(--neon-pink); border: none; padding: 10px 20px; color: white;
+    font-family: 'Bangers'; cursor: pointer; margin-right: 15px;
+}
+
+/* زر الإضافة للسلة */
+.publish-btn {
+    padding: 20px; background: var(--neon-pink); color: white; border: none;
+    font-family: 'Bangers'; font-size: 1.5rem; cursor: pointer; border-radius: 10px;
+    transition: 0.3s;
+}
+.publish-btn:hover { box-shadow: 0 0 30px var(--neon-pink); transform: scale(1.02); }
+
+/* التجاوب مع الموبايل */
+@media (max-width: 1000px) {
+    .lab-container { grid-template-columns: 1fr; }
+    .preview-box { height: 450px; }
+}
