@@ -1,3 +1,4 @@
+updateCartCount();
 document.addEventListener('DOMContentLoaded', () => {
     // تشغيل أنيميشن الظهور
     AOS.init({ duration: 1000, once: true });
@@ -116,3 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.close-footer-modal').addEventListener('click', closeFooter);
     document.querySelector('.close-btn-bottom').addEventListener('click', closeFooter);
 });
+// وظيفة تحديث عداد السلة
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}

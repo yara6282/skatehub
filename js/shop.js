@@ -1,3 +1,26 @@
+/**
+ * SkateHub - Ultimate Shop & Custom Lab Logic
+ * نظام متكامل للمتجر، مختبر التصميم، والسلة
+ */
+
+// =========================================
+// 1. وظيفة تحديث عداد السلة (تحديث حي)
+// =========================================
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}
+
+// تشغيل التحديث فور تحميل الصفحة
+document.addEventListener('DOMContentLoaded', updateCartCount);
+
+// =========================================
+// 2. قاعدة بيانات المنتجات
+// =========================================
 const products = [
     { id: 1, name: "Baker Skull Skateboard 8.25", category: "skates", price: "$59.99", img: "./image/BQ8D783-c.jpg" },
     { id: 2, name: "Impala Roller Skates - Cyan", category: "skates", price: "$95.00", img: "./image/BLUE_1_1200x_271dc398-dae0-4405-896f-5ea6fedef1a4_1200x1200.jpg" },
@@ -15,30 +38,18 @@ const products = [
     { id: 14, name: "Skate Tool - Multi All-in-one", category: "accessories", price: "$12.00", img: "./image/71N2Ucc5OWL._AC_UF894,1000_QL80_.jpg" },
     { id: 15, name: "Protective Gear Set (Pads)", category: "accessories", price: "$45.00", img: "./image/71eNv9GK1ML._SL1500.jpg" }
 ];
+
+// دمج منتجات قاعدة البيانات إذا وجدت
 if (typeof dbProducts !== "undefined" && dbProducts.length > 0) {
-    dbProducts.forEach(p => {
-        products.push(p);
-    });
+    dbProducts.forEach(p => products.push(p));
 }
+
 const grid = document.getElementById('products-grid');
 const categoryTitle = document.getElementById('category-title');
 
-function getSizeOptions(category) {
-    if (category === "shoes") {
-        return ["36", "37", "38", "39", "40", "41", "42", "43"];
-    }
-
-    if (category === "tshirts") {
-        return ["S", "M", "L", "XL"];
-    }
-
-    if (category === "skates") {
-        return ["7.75", "8.0", "8.25", "8.5"];
-    }
-
-    return ["Standard"];
-}
-
+// =========================================
+// 3. منطق عرض المنتجات والفلترة
+// =========================================
 function filterProducts(category) {
     document.querySelectorAll('.sticker').forEach(btn => btn.classList.remove('active'));
 
@@ -46,10 +57,7 @@ function filterProducts(category) {
     else if (category === 'skates') categoryTitle.innerText = "BOARDS, ROLLERS & INLINES";
     else categoryTitle.innerText = category.toUpperCase();
 
-    const filteredItems = category === 'all'
-        ? products
-        : products.filter(p => p.category === category);
-
+    const filteredItems = category === 'all' ? products : products.filter(p => p.category === category);
     renderProducts(filteredItems);
 }
 
@@ -61,8 +69,6 @@ function renderProducts(items) {
             <h3>${p.name}</h3>
             <p class="price">${p.price}</p>
             
-</button>
-
             <div class="size-options" id="sizes-${p.id}">
                 <button type="button" onclick="selectSize(${p.id}, 'S', this)">S</button>
                 <button type="button" onclick="selectSize(${p.id}, 'M', this)">M</button>
@@ -71,54 +77,51 @@ function renderProducts(items) {
             </div>
 
             <small class="size-error" id="size-error-${p.id}"></small>
-<div class="product-actions">
-    <button class="add-btn" onclick="addToCart(${p.id})">
-        <i class="fas fa-cart-plus"></i> ADD TO CART
-    </button>
-
-    <button class="wish-btn" onclick="toggleWishlist(${p.id})">
-        <i class="fas fa-heart"></i>
-    </button>
-</div>
+            
+            <div class="product-actions">
+                <button class="add-btn" onclick="addToCart(${p.id})">
+                    <i class="fas fa-cart-plus"></i> ADD TO CART
+                </button>
+                <button class="wish-btn" onclick="toggleWishlist(${p.id})">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
         </div>
     `).join('');
 }
 
 function selectSize(productId, size, btn) {
-    document.querySelectorAll(`#sizes-${productId} button`).forEach(b => {
-        b.classList.remove("active-size");
-    });
-
+    document.querySelectorAll(`#sizes-${productId} button`).forEach(b => b.classList.remove("active-size"));
     btn.classList.add("active-size");
     btn.parentElement.dataset.selectedSize = size;
-
     document.getElementById(`size-error-${productId}`).innerText = "";
 }
-// --- 1. دالة الإشعارات الجديدة ---
+
+// =========================================
+// 4. نظام الإشعارات (Shop Toast)
+// =========================================
 function showShopToast(msg, type = 'blue') {
     const container = document.getElementById('shop-toast-container');
+    if(!container) return;
     const toast = document.createElement('div');
     toast.className = `shop-toast ${type === 'pink' ? 'toast-pink' : 'toast-blue'}`;
     toast.innerText = msg;
-
     container.appendChild(toast);
-
-    // إزالة الإشعار بعد 3 ثوانٍ
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transition = '0.5s';
         setTimeout(() => toast.remove(), 500);
     }, 3000);
 }
 
-// --- 2. تحديث دالة addToCart ---
+// =========================================
+// 5. وظائف السلة والأمنيات
+// =========================================
 function addToCart(productId) {
     fetch("check_login.php")
     .then(response => response.json())
     .then(data => {
         if (!data.loggedIn) {
             showShopToast("LOGIN REQUIRED TO GRAB GEAR!", "pink");
-            setTimeout(() => { window.location.href = "login.html"; }, 2000);
             return;
         }
 
@@ -127,9 +130,7 @@ function addToCart(productId) {
         const selectedSize = sizeBox.dataset.selectedSize;
 
         if (!selectedSize) {
-            showShopToast("CHOOSE A SIZE FIRST!", "pink");
-            // إضافة رعشة بسيطة لصندوق المقاسات للتنبيه
-            gsap.to(`#sizes-${productId}`, {x: 10, repeat: 3, yoyo: true, duration: 0.05});
+            document.getElementById(`size-error-${productId}`).innerText = "Please choose a size.";
             return;
         }
 
@@ -147,15 +148,12 @@ function addToCart(productId) {
         cart.push(cartItem);
         localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
 
-        showShopToast(`${product.name.toUpperCase()} ADDED TO DECK!`, "blue");
+        // تحديث العداد فوراً
+        updateCartCount();
+        showShopToast(`${product.name.toUpperCase()} ADDED!`, "blue");
     });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    filterProducts('all');
-});
-
-// --- 3. تحديث دالة toggleWishlist ---
 function toggleWishlist(productId) {
     fetch("check_login.php")
     .then(response => response.json())
@@ -164,9 +162,7 @@ function toggleWishlist(productId) {
             showShopToast("LOGIN TO SAVE FAVORITES!", "pink");
             return;
         }
-
         const product = products.find(p => p.id === productId);
-
         fetch("toggle_wishlist.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -179,140 +175,60 @@ function toggleWishlist(productId) {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === "added") {
-                showShopToast("ADDED TO WISHLIST ❤️", "blue");
-            } else {
-                showShopToast("REMOVED FROM WISHLIST", "pink");
-            }
+            if (data.status === "added") showShopToast("ADDED TO WISHLIST ❤️", "blue");
+            else showShopToast("REMOVED FROM WISHLIST", "pink");
         });
     });
 }
 
-// --- 4. تحديث دالة addCustomToCart ---
-window.addCustomToCart = function() {
-    fetch("check_login.php")
-    .then(response => response.json())
-    .then(data => {
-        if (!data.loggedIn) {
-            showShopToast("LOGIN TO DESIGN YOUR GEAR!", "pink");
-            return;
-        }
-
-        const btn = document.querySelector('.publish-btn');
-        showShopToast("CAPTURING YOUR ART...", "blue");
-
-        const designArea = document.getElementById('design-area');
-
-        html2canvas(designArea, {
-            backgroundColor: null,
-            useCORS: true
-        }).then(canvas => {
-            const capturedImage = canvas.toDataURL("image/png");
-            const baseType = document.querySelector('.base-btn.active').innerText;
-            const customPrice = (baseType === "DECK") ? 85.00 : 35.00;
-
-            const customCartItem = {
-                id: Date.now(),
-                productId: "CUSTOM-" + Date.now(),
-                name: `CUSTOM_${baseType}`,
-                price: customPrice,
-                img: capturedImage,
-                size: "CUSTOM",
-                qty: 1
-            };
-
-            let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-            cart.push(customCartItem);
-            localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
-
-            showShopToast("CUSTOM GEAR ADDED TO DECK! 🛹", "blue");
-            setTimeout(() => { window.location.href = "cart.php"; }, 1500);
-        });
-    });
-};
 // =========================================
-// 2. منطق مختبر التصميم (Custom Lab Logic)
+// 6. منطق مختبر التصميم (Custom Lab)
 // =========================================
-
-// وظيفة تبديل المنتج الأساسي (سكيت أو تيشيرت)
 window.setBase = function(type, imgSrc) {
     const area = document.getElementById('design-area');
     const baseImg = document.getElementById('base-product-img');
     const userText = document.getElementById('user-custom-text');
-    
     if (!area || !baseImg) return;
-
-    // تغيير الصورة الأساسية
     baseImg.src = imgSrc;
-
-    // تبديل الكلاسات لتغيير وضعية الصورة والنص (من ملف CSS)
     if (type === 'deck') {
         area.classList.remove('lab-shirt');
         area.classList.add('lab-deck');
-        userText.innerText = userText.innerText === "YOUR_TEXT" ? "DECK_ART" : userText.innerText;
     } else {
         area.classList.remove('lab-deck');
         area.classList.add('lab-shirt');
-        userText.innerText = userText.innerText === "DECK_ART" ? "YOUR_TEXT" : userText.innerText;
     }
-
-    // تحديث شكل الأزرار (Highlight)
     document.querySelectorAll('.base-btn').forEach(btn => btn.classList.remove('active'));
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-    }
+    if (event) event.currentTarget.classList.add('active');
 };
 
-// مراقبة إدخال النص وتحديثه فوراً على المنتج
-const labTextInput = document.getElementById('lab-text-input');
-if (labTextInput) {
-    labTextInput.addEventListener('input', function() {
-        const previewText = document.getElementById('user-custom-text');
-        previewText.innerText = this.value.toUpperCase() || "YOUR_TEXT";
+if (document.getElementById('lab-text-input')) {
+    document.getElementById('lab-text-input').addEventListener('input', function() {
+        document.getElementById('user-custom-text').innerText = this.value.toUpperCase() || "YOUR_TEXT";
     });
-}
-
-// مراقبة اختيار اللون
-const labColorInput = document.getElementById('lab-color-input');
-if (labColorInput) {
-    labColorInput.addEventListener('input', function() {
+    document.getElementById('lab-color-input').addEventListener('input', function() {
         document.getElementById('user-custom-text').style.color = this.value;
     });
-}
-
-// مراقبة رفع الصورة (Live Preview)
-const labImageInput = document.getElementById('lab-image-input');
-if (labImageInput) {
-    labImageInput.addEventListener('change', function(evt) {
+    document.getElementById('lab-image-input').addEventListener('change', function(evt) {
         const [file] = this.files;
         if (file) {
             const imgPreview = document.getElementById('user-uploaded-img');
             imgPreview.src = URL.createObjectURL(file);
             imgPreview.style.display = 'block';
-            
-            // إضافة تأثير انيميشن بسيط عند ظهور الصورة
-            gsap.fromTo("#user-uploaded-img", {opacity: 0, scale: 0.5}, {opacity: 1, scale: 1, duration: 0.5});
         }
     });
 }
+
 window.addCustomToCart = function() {
     fetch("check_login.php")
     .then(response => response.json())
     .then(data => {
         if (!data.loggedIn) {
-            showShopToast("LOGIN TO DESIGN YOUR GEAR!", "pink");
+            showShopToast("LOGIN TO DESIGN GEAR!", "pink");
             return;
         }
-
-        const btn = document.querySelector('.publish-btn');
-        showShopToast("CAPTURING YOUR ART...", "blue");
-
+        showShopToast("CAPTURING DESIGN...", "blue");
         const designArea = document.getElementById('design-area');
-
-        html2canvas(designArea, {
-            backgroundColor: null,
-            useCORS: true
-        }).then(canvas => {
+        html2canvas(designArea, { backgroundColor: null, useCORS: true }).then(canvas => {
             const capturedImage = canvas.toDataURL("image/png");
             const baseType = document.querySelector('.base-btn.active').innerText;
             const customPrice = (baseType === "DECK") ? 85.00 : 35.00;
@@ -330,9 +246,14 @@ window.addCustomToCart = function() {
             let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
             cart.push(customCartItem);
             localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
-
-            showShopToast("CUSTOM GEAR ADDED TO DECK! 🛹", "blue");
-            setTimeout(() => { window.location.href = "cart.php"; }, 1500);
+            
+            // تحديث العداد فوراً
+            updateCartCount();
+            showShopToast("CUSTOM GEAR ADDED! 🛹", "blue");
         });
     });
 };
+
+window.addEventListener('DOMContentLoaded', () => {
+    filterProducts('all');
+});

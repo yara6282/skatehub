@@ -1,8 +1,7 @@
 // تسجيل مكتبة ScrollTrigger الخاصة بـ GSAP
 gsap.registerPlugin(ScrollTrigger);
-
+updateCartCount();
 document.addEventListener('DOMContentLoaded', () => {
-
     // 1. Custom Cursor Logic (مؤشر الماوس الاحترافي)
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
@@ -195,3 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.close-footer-modal').addEventListener('click', closeFooter);
     document.querySelector('.close-btn-bottom').addEventListener('click', closeFooter);
 });
+// وظيفة تحديث عداد السلة
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}

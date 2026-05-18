@@ -312,5 +312,17 @@ document.addEventListener("click", (e)=>{
 });
 
 </script>
+<script>
+    updateCartCount();
+// وظيفة تحديث عداد السلة
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}
+</script>
 </body>
 </html>
