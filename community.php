@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/includes/db.php";
-
+mysqli_query($conn, "DELETE FROM stories WHERE expires_at <= NOW()");
 $user_id = $_SESSION["user_id"] ?? null;
 $role = $_SESSION["role"] ?? "user";
 
@@ -1082,21 +1082,23 @@ document.getElementById("topUserSearch").addEventListener("input", async functio
 
     box.innerHTML = users.map(user => `
         <div class="top-user-result">
-            ${
-                user.profile_img
-                ? `<img src="${user.profile_img}">`
-                : `<div class="story-avatar-empty">${user.fullname.charAt(0).toUpperCase()}</div>`
-            }
+    <a href="user-community-profile.php?id=${user.id}" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:white;">
+        ${
+            user.profile_img
+            ? `<img src="${user.profile_img}">`
+            : `<div class="story-avatar-empty">${user.fullname.charAt(0).toUpperCase()}</div>`
+        }
 
-            <div>
-                <strong>${user.fullname}</strong>
-                <p>${user.email}</p>
-            </div>
-
-            <a href="follow_user.php?user_id=${user.id}&back=community.php">
-                Follow
-            </a>
+        <div>
+            <strong>${user.fullname}</strong>
+            <p>${user.email}</p>
         </div>
+    </a>
+
+    <a href="follow_user.php?user_id=${user.id}&back=community.php">
+        Follow
+    </a>
+</div>
     `).join("");
 });
 </script>
