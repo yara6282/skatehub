@@ -392,7 +392,7 @@ body {
         <a href="home.php" class="nav-item active-link">Home</a>
         <a href="events.php" class="nav-item">Events</a>
         <a href="shop.php" class="nav-item">Shop</a>
-        <a href="community.html" class="nav-item">Community</a>
+        <a href="community.php" class="nav-item">Community</a>
         <a href="tutorials.php" class="nav-item">Tutorials</a>
     </div>
 
