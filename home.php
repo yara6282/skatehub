@@ -289,10 +289,10 @@ session_start();
             <h4>SKATEHUB INFO</h4>
 
             <ul>
-                <li><a href="#" class="footer-link">About Us</a></li>
-                <li><a href="#" class="footer-link">Team Riders</a></li>
-                <li><a href="#" class="footer-link">Privacy Policy</a></li>
-            </ul>
+    <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
+    <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
+    <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+</ul>
 
         </div>
 
@@ -301,10 +301,10 @@ session_start();
             <h4>CUSTOMER SERVICE</h4>
 
             <ul>
-                <li><a href="#" class="footer-link">FAQ</a></li>
-                <li><a href="#" class="footer-link">Contact Us</a></li>
-                <li><a href="#" class="footer-link">Sizing Chart</a></li>
-            </ul>
+    <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
+    <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
+    <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+</ul>
 
         </div>
 
@@ -333,7 +333,29 @@ session_start();
     </div>
 
 </footer>
+<div id="footer-modal" class="footer-modal">
+  <div class="footer-modal-card">
 
+    <button class="close-footer-modal" type="button">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div class="footer-modal-icon-box">
+      <i id="modal-icon" class="fas fa-lock pulse-icon"></i>
+    </div>
+
+    <h2 id="modal-title">OUR STORY</h2>
+
+    <div class="footer-modal-text-box">
+      <p id="modal-body-content"></p>
+    </div>
+
+    <button class="close-btn-bottom" type="button">
+      GOT IT! ⚡
+    </button>
+
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <script src="./java/slider.js"></script>

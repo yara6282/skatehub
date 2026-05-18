@@ -130,8 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body-content');
     const modalIcon = document.getElementById('modal-icon');
-    
-    // بيانات المحتوى (القصة، التيم، الخ...)
+    const closeX = document.querySelector('.close-footer-modal');
+    const closeBottom = document.querySelector('.close-btn-bottom');
+
+    if (!footerModal || !modalTitle || !modalBody || !modalIcon) {
+        console.log("Footer modal elements not found");
+        return;
+    }
+
     const footerContent = {
         about: {
             title: "OUR STORY",
@@ -146,12 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sizing: {
             title: "SIZING CHART",
             icon: "fa-ruler-combined",
-            text: "Choosing the right deck is crucial. <br>• 7.75\" to 8.0\": Great for technical street tricks.<br>• 8.0\" to 8.5\": The all-rounder for park and street.<br>• 8.5\"+: Maximum stability for ramps and bowls."
+            text: "Choosing the right deck is crucial.<br><br>• 7.75&quot; to 8.0&quot;: Great for technical street tricks.<br>• 8.0&quot; to 8.5&quot;: The all-rounder for park and street.<br>• 8.5&quot;+: Maximum stability for ramps and bowls."
         },
         faq: {
             title: "F.A.Q",
             icon: "fa-question-circle",
-            text: "<b>How long is shipping?</b> Usually 2-4 business days. <br><b>Do you ship internationally?</b> Yes, we shred worldwide! <br><b>Can I return a used board?</b> Only if it has a manufacturing defect. Snapped boards from bad landings aren't covered!"
+            text: "<b>How long is shipping?</b> Usually 2-4 business days.<br><br><b>Do you ship internationally?</b> Yes, we shred worldwide!<br><br><b>Can I return a used board?</b> Only if it has a manufacturing defect. Snapped boards from bad landings aren't covered!"
         },
         contact: {
             title: "CONTACT US",
@@ -165,34 +171,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // فتح المودال عند الضغط
     document.querySelectorAll('.footer-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const type = link.getAttribute('data-type');
+
+            const type = link.dataset.type;
             const data = footerContent[type];
+
+            if (!data) {
+                console.log("No data-type found for:", link.innerText);
+                return;
+            }
 
             modalTitle.innerText = data.title;
             modalBody.innerHTML = data.text;
             modalIcon.className = `fas ${data.icon} pulse-icon`;
 
             footerModal.style.display = 'flex';
-            gsap.fromTo(".footer-modal-card", 
-                { scale: 0.7, opacity: 0 }, 
-                { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }
-            );
+
+            if (typeof gsap !== "undefined") {
+                gsap.fromTo(
+                    ".footer-modal-card",
+                    { scale: 0.75, opacity: 0, y: 40 },
+                    { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }
+                );
+            }
         });
     });
 
-    // إغلاق المودال
-    const closeFooter = () => {
-        gsap.to(".footer-modal-card", { scale: 0.7, opacity: 0, duration: 0.3, onComplete: () => {
+    function closeFooterModal() {
+        if (typeof gsap !== "undefined") {
+            gsap.to(".footer-modal-card", {
+                scale: 0.75,
+                opacity: 0,
+                y: 40,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    footerModal.style.display = 'none';
+                }
+            });
+        } else {
             footerModal.style.display = 'none';
-        }});
-    };
+        }
+    }
 
-    document.querySelector('.close-footer-modal').addEventListener('click', closeFooter);
-    document.querySelector('.close-btn-bottom').addEventListener('click', closeFooter);
+    if (closeX) closeX.addEventListener('click', closeFooterModal);
+    if (closeBottom) closeBottom.addEventListener('click', closeFooterModal);
+
+    footerModal.addEventListener('click', (e) => {
+        if (e.target === footerModal) {
+            closeFooterModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && footerModal.style.display === 'flex') {
+            closeFooterModal();
+        }
+    });
 });
 // وظيفة تحديث عداد السلة
 function updateCartCount() {
