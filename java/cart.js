@@ -1,4 +1,4 @@
-    updateCartCount();
+updateCartCount();
 // وظيفة تحديث عداد السلة
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
@@ -121,7 +121,10 @@ function updateShippingProgress(subtotal) {
 function processOrder() {
     const cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
 
-    const governorate = document.getElementById('governorate').value;
+    // **تم حذف سطر الحصول على governorate من هنا.**
+    // **يمكنك تعيين قيمة افتراضية إذا كنت تريد إرسال شيء إلى الخادم، أو تركه فارغًا.**
+    const governorate = "N/A"; // أو يمكنك جعلها = "" إذا لم تكن تريد إرسال أي قيمة
+    
     const address = document.getElementById('address-details').value.trim();
 
     const subtotal = parseFloat(
@@ -148,10 +151,11 @@ function processOrder() {
         return;
     }
 
-    if (!governorate) {
-        showNotification("Please select your Governorate!");
-        return;
-    }
+    // **تم حذف التحقق من governorate من هنا.**
+    // if (!governorate) {
+    //     showNotification("Please select your Governorate!");
+    //     return;
+    // }
 
     if (address === "") {
         showNotification("Please enter your address details.");
@@ -164,7 +168,7 @@ function processOrder() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            governorate: governorate,
+            governorate: governorate, // سيتم إرسال "N/A" أو ""
             address: address,
             payment_method: paymentMethod,
             shipping_method: shippingMethod,

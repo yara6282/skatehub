@@ -1,22 +1,4 @@
-/**
- * SkateHub - Ultimate Shop & Custom Lab Logic
- * نظام متكامل للمتجر، مختبر التصميم، والسلة
- */
 
-// =========================================
-// 1. وظيفة تحديث عداد السلة (تحديث حي)
-// =========================================
-function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-    let count = cart.reduce((sum, item) => sum + item.qty, 0);
-    const cartCountElement = document.getElementById('cart-count');
-    if (cartCountElement) {
-        cartCountElement.innerText = count;
-    }
-}
-
-// تشغيل التحديث فور تحميل الصفحة
-document.addEventListener('DOMContentLoaded', updateCartCount);
 
 // =========================================
 // 2. قاعدة بيانات المنتجات

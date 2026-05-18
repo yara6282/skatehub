@@ -171,7 +171,7 @@ $total_tickets = $tickets_count_row["total_tickets"];
                                 <p>$" . number_format($wish["product_price"], 2) . "</p>
                             </div>
 
-                            <a href='shop.html' class='shop-link-lg'>
+                            <a href='shop.php' class='shop-link-lg'>
                                 <i class='fas fa-cart-plus'></i>
                             </a>
                         </div>
