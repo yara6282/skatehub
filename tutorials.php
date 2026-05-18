@@ -1,0 +1,388 @@
+<?php
+session_start();
+require_once __DIR__ . "/includes/db.php";
+
+$tutorials_result = mysqli_query($conn, "SELECT * FROM tutorials ORDER BY id DESC");
+
+function styleClass($style) {
+    $s = strtolower(trim($style));
+
+    if (str_contains($s, "roller")) return "roller";
+    if (str_contains($s, "inline")) return "inline";
+    if (str_contains($s, "snow")) return "snowboard";
+
+    return "skateboard";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkateHub | Professional Tutorials</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style/tutorials.css">
+    <link rel="stylesheet" href="./style/global.css">
+</head>
+
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<nav class="navbar">
+    <a href="home.php" class="logo-link">
+        <div class="logo">
+            <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+        </div>
+        <span class="site-title">SkateHub</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="./home.php" class="nav-item">Home</a>
+        <a href="./events.php" class="nav-item">Events</a>
+        <a href="./community.html" class="nav-item">Community</a>
+        <a href="./shop.php" class="nav-item">Shop</a>
+        <a href="./tutorials.php" class="nav-item active-link">Tutorials</a>
+    </div>
+
+    <div class="nav-icons">
+        <?php if (isset($_SESSION["user_id"])): ?>
+            <a href="profile.php"><i class="fas fa-user"></i></a>
+        <?php else: ?>
+            <a href="login.html"><i class="fas fa-user"></i></a>
+        <?php endif; ?>
+
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+
+        <div class="notif-wrapper">
+            <button class="notif-btn" id="notifBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <div class="notif-panel" id="notifPanel">
+                <div class="notif-header">NOTIFICATIONS</div>
+
+                <div class="notif-list" id="notifList">
+                    <div class="notif-loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="floating-elements">
+        <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=300" class="float-obj img-1" data-speed="6">
+        <img src="https://images.unsplash.com/photo-1520156582985-31368bd59c3b?q=80&w=300" class="float-obj img-2" data-speed="-4">
+        <i class="fas fa-bolt float-obj icon-1" data-speed="10"></i>
+        <i class="fas fa-skating float-obj icon-2" data-speed="-8"></i>
+    </div>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <div class="mastery-banner" data-aos="zoom-in" data-aos-duration="1200">
+        <h1>Your Journey to Skating Mastery Starts Here</h1>
+        <p>Explore tutorials, tips, and skills to level up your ride.</p>
+    </div>
+</header>
+
+<div class="filter-section">
+    <div class="filter-bar" data-aos="fade-up">
+        <button class="filter-btn active" data-filter="all">All Styles</button>
+        <button class="filter-btn" data-filter="skateboard">Skateboard</button>
+        <button class="filter-btn" data-filter="roller">Roller Skate</button>
+        <button class="filter-btn" data-filter="inline">Inline/Aggressive</button>
+        <button class="filter-btn" data-filter="snowboard">Snowboarding</button>
+    </div>
+</div>
+
+<section class="tutorials-grid-container">
+    <div class="video-grid">
+
+        <?php while ($tutorial = mysqli_fetch_assoc($tutorials_result)): ?>
+            <?php $class = styleClass($tutorial["style"]); ?>
+
+            <div class="video-card <?php echo $class; ?>" data-aos="fade-up">
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/<?php echo htmlspecialchars($tutorial['video_id']); ?>"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-info">
+                    <span class="category-tag">
+                        <?php echo htmlspecialchars($tutorial["style"]); ?>
+                    </span>
+
+                    <h3>
+                        <?php echo htmlspecialchars($tutorial["title"]); ?>
+                    </h3>
+
+                    <p>
+                        <?php echo htmlspecialchars($tutorial["description"]); ?>
+                    </p>
+                </div>
+            </div>
+        <?php endwhile; ?>
+
+        <div class="video-card skateboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/JNmUK9fvrAs" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Skateboard</span>
+                <h3>Basic Ollie Tutorial</h3>
+                <p>Learn the foundation of all skateboard tricks.</p>
+            </div>
+        </div>
+
+        <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/JtQiufi5fGM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Roller Skate</span>
+                <h3>Mastering Balance & Forward Stride</h3>
+                <p>The first step to freedom on wheels.</p>
+            </div>
+        </div>
+
+        <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/PgGpaX32BWA" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Roller Skate</span>
+                <h3>The Bubble Drill for Leg Power</h3>
+                <p>Build the muscle and precision needed for advanced maneuvers.</p>
+            </div>
+        </div>
+
+        <div class="video-card roller" data-aos="fade-up" data-aos-delay="100">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/iuk-Iuogdio" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Roller Skate</span>
+                <h3>How to Stop Safely</h3>
+                <p>Essential braking techniques for beginners.</p>
+            </div>
+        </div>
+
+        <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/UAblYvh-TNY" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Inline</span>
+                <h3>Parallel Slide Guide</h3>
+                <p>Master the most stylish way to stop on inline skates.</p>
+            </div>
+        </div>
+
+        <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/Exf3WLA_xEo" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Inline</span>
+                <h3>Dynamic Crossovers & Sharp Turns</h3>
+                <p>Flow like water and weave through the city.</p>
+            </div>
+        </div>
+
+        <div class="video-card inline" data-aos="fade-up" data-aos-delay="200">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/zqDtkXXHlGQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Inline</span>
+                <h3>Seamless Transitions & Fakie Mastery</h3>
+                <p>Unlock backward flow and smooth transitions.</p>
+            </div>
+        </div>
+
+        <div class="video-card skateboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/jC47GDAPyOs" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Skateboard</span>
+                <h3>Kickflip Masterclass</h3>
+                <p>Level up your flip game with these pro tips.</p>
+            </div>
+        </div>
+
+        <div class="video-card skateboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/bvdfBnmqjbk" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Skateboard</span>
+                <h3>Dropping In the Halfpipe</h3>
+                <p>Lean forward, trust your board, and feel the rush.</p>
+            </div>
+        </div>
+
+        <div class="video-card snowboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/lCgM4OOfu44" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Snowboarding</span>
+                <h3>Mastering Your Stance & Balance</h3>
+                <p>Learn how to find your center on the board.</p>
+            </div>
+        </div>
+
+        <div class="video-card snowboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/daGKFdYt5Qw" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Snowboarding</span>
+                <h3>Edge Control: How to Stop Safely</h3>
+                <p>Master heel and toe edges to control your speed.</p>
+            </div>
+        </div>
+
+        <div class="video-card snowboard" data-aos="fade-up">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/FyZ1RWKJSug" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <span class="category-tag">Snowboarding</span>
+                <h3>Linking Your First Turns</h3>
+                <p>Connect your movements into a smooth S-shape flow.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>SKATEHUB INFO</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
+                <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
+                <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>CUSTOMER SERVICE</h4>
+            <ul>
+                <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
+                <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column socials">
+            <h4>FOLLOW THE FLOW</h4>
+
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 SKATEHUB. DESIGNED BY SKATERS FOR SKATERS</p>
+    </div>
+</footer>
+
+<div id="footer-modal" class="modal-overlay">
+    <div class="modal-card footer-modal-card">
+        <button class="close-footer-modal"><i class="fas fa-times"></i></button>
+
+        <div class="modal-header">
+            <i id="modal-icon" class="fas fa-info-circle pulse-icon"></i>
+            <h2 id="modal-title" class="neon-text-blue">TITLE HERE</h2>
+        </div>
+
+        <div id="modal-body-content" class="modal-text-content"></div>
+
+        <div class="modal-footer">
+            <button class="close-btn-bottom">GOT IT!</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="./java/cursor.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="./java/tutorials.js"></script>
+
+<script>
+const notifBtn = document.getElementById("notifBtn");
+const notifPanel = document.getElementById("notifPanel");
+const notifList = document.getElementById("notifList");
+
+if (notifBtn) {
+    notifBtn.addEventListener("click", async () => {
+        notifPanel.classList.toggle("active");
+
+        if (notifPanel.classList.contains("active")) {
+            try {
+                const response = await fetch("fetch_notifications.php");
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    notifList.innerHTML = `
+                        <div class="notif-empty">
+                            NO NOTIFICATIONS YET
+                        </div>
+                    `;
+                    return;
+                }
+
+                notifList.innerHTML = "";
+
+                data.forEach(notif => {
+                    notifList.innerHTML += `
+                        <div class="notif-item">
+                            <div class="notif-message">${notif.message}</div>
+                            <div class="notif-time">${notif.created_at}</div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                notifList.innerHTML = `
+                    <div class="notif-empty">
+                        ERROR LOADING NOTIFICATIONS
+                    </div>
+                `;
+            }
+        }
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!notifBtn.contains(e.target) && !notifPanel.contains(e.target)) {
+            notifPanel.classList.remove("active");
+        }
+    });
+}
+</script>
+
+</body>
+</html>

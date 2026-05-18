@@ -1,3 +1,25 @@
+<?php
+
+require_once __DIR__ . "/includes/db.php";
+
+$products_query = "SELECT * FROM products ORDER BY id DESC";
+
+$products_result = mysqli_query($conn, $products_query);
+
+$products = [];
+
+while ($row = mysqli_fetch_assoc($products_result)) {
+
+    $products[] = [
+        "id" => $row["id"],
+        "name" => $row["name"],
+        "category" => $row["category"],
+        "price" => "$" . number_format($row["price"], 2),
+        "img" => $row["image"],
+        "sizes" => $row["sizes"]
+    ];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +38,7 @@
 <!-- الناف بار الخاص بك -->
 
   <nav class="navbar">
-            <a href="index.html" class="logo-link">
+            <a href="home.php" class="logo-link">
                 <div class="logo">
                     <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
                 </div>
@@ -24,17 +46,41 @@
             </a>
 
             <div class="nav-links">
-                <a href="./home.html" class="nav-item">Home</a>
-                <a href="./events.html" class="nav-item active-link">Events</a>
+                <a href="./home.php" class="nav-item">Home</a>
+                <a href="./events.php" class="nav-item active-link">Events</a>
                 <a href="./community.html" class="nav-item">Community</a>
-                <a href="./shop.html" class="nav-item">Shop</a>
-                <a href="./tutorials.html" class="nav-item">Tutorials</a>
+                <a href="./shop.php" class="nav-item">Shop</a>
+                <a href="./tutorials.php" class="nav-item">Tutorials</a>
             </div>
 
             <div class="nav-icons">
                 <a href="login.html"><i class="fas fa-user"></i></a>
                 <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-                <a href="#"><i class="fas fa-bell"></i></a>
+                <div class="notif-wrapper">
+
+    <button class="notif-btn" id="notifBtn">
+        <i class="fas fa-bell"></i>
+
+        <span class="notif-dot"></span>
+    </button>
+
+    <div class="notif-panel" id="notifPanel">
+
+        <div class="notif-header">
+            NOTIFICATIONS
+        </div>
+
+        <div class="notif-list" id="notifList">
+
+            <div class="notif-loading">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
             </div>
         </nav>
 
@@ -145,9 +191,93 @@
     <div class="cursor-follower"></div>
 <!-- ملف الماوس المخصص الخاص بك -->
 <script src="./java/cursor.js"></script>
+
+<script>
+const dbProducts = <?php echo json_encode($products); ?>;
+</script>
+
 <script src="./js/shop.js"></script>
 
 <!-- أو -->
 <script src="/java/cart.js"></script> <!-- في صفحة الكارت -->
+<script>
+
+const notifBtn =
+document.getElementById("notifBtn");
+
+const notifPanel =
+document.getElementById("notifPanel");
+
+const notifList =
+document.getElementById("notifList");
+
+notifBtn.addEventListener("click", async () => {
+
+    notifPanel.classList.toggle("active");
+
+    if(notifPanel.classList.contains("active")){
+
+        try{
+
+            const response =
+            await fetch("fetch_notifications.php");
+
+            const data =
+            await response.json();
+
+            if(data.length === 0){
+
+                notifList.innerHTML = `
+                    <div class="notif-empty">
+                        NO NOTIFICATIONS YET
+                    </div>
+                `;
+
+                return;
+            }
+
+            notifList.innerHTML = "";
+
+            data.forEach(notif => {
+
+                notifList.innerHTML += `
+
+                <div class="notif-item">
+
+                    <div class="notif-message">
+                        ${notif.message}
+                    </div>
+
+                    <div class="notif-time">
+                        ${notif.created_at}
+                    </div>
+
+                </div>
+
+                `;
+            });
+
+        }catch(err){
+
+            notifList.innerHTML = `
+                <div class="notif-empty">
+                    ERROR LOADING NOTIFICATIONS
+                </div>
+            `;
+        }
+    }
+});
+
+document.addEventListener("click", (e)=>{
+
+    if(
+        !notifBtn.contains(e.target) &&
+        !notifPanel.contains(e.target)
+    ){
+        notifPanel.classList.remove("active");
+    }
+});
+
+</script>
 </body>
 </html>

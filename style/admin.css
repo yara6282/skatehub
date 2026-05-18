@@ -306,3 +306,224 @@ body {
 
 /* تلوين الصفوف حسب الحالة (اختياري) */
 tr:has(.status-select[value="delivered"]) { opacity: 0.6; }
+.products-admin-grid{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+}
+
+.admin-product-card{
+
+    background:#081423;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    transition:0.3s;
+}
+
+.admin-product-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 0 25px rgba(0,204,255,0.25);
+}
+
+.admin-product-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+}
+
+.admin-product-info{
+
+    padding:18px;
+}
+
+.admin-product-info h3{
+
+    color:white;
+
+    margin-bottom:10px;
+
+    font-size:1rem;
+}
+
+.admin-price{
+
+    color:#00ccff;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.admin-category{
+
+    color:#ff0055;
+
+    font-size:0.8rem;
+
+    letter-spacing:1px;
+}
+
+.admin-product-actions{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+}
+
+.delete-product-btn{
+
+    width:42px;
+
+    height:42px;
+
+    background:#ff0055;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.delete-product-btn:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:
+    0 0 20px rgba(255,0,85,0.6);
+}
+.admin-content-grid{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+}
+
+.content-card{
+
+    position:relative;
+
+    background:#081423;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:0.3s;
+}
+
+.content-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 0 25px rgba(0,204,255,0.18);
+}
+
+.content-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+}
+
+.tutorial-card iframe{
+
+    width:100%;
+
+    height:220px;
+}
+
+.content-info{
+
+    padding:18px;
+}
+
+.content-info h3{
+
+    color:white;
+
+    margin-bottom:10px;
+}
+
+.content-date,
+.content-price,
+.tutorial-style{
+
+    color:#00ccff;
+
+    font-size:0.9rem;
+}
+
+.content-delete{
+
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#ff0055;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.content-delete:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:
+    0 0 18px rgba(255,0,85,0.5);
+}

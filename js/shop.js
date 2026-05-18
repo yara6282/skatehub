@@ -15,7 +15,11 @@ const products = [
     { id: 14, name: "Skate Tool - Multi All-in-one", category: "accessories", price: "$12.00", img: "./image/71N2Ucc5OWL._AC_UF894,1000_QL80_.jpg" },
     { id: 15, name: "Protective Gear Set (Pads)", category: "accessories", price: "$45.00", img: "./image/71eNv9GK1ML._SL1500.jpg" }
 ];
-
+if (typeof dbProducts !== "undefined" && dbProducts.length > 0) {
+    dbProducts.forEach(p => {
+        products.push(p);
+    });
+}
 const grid = document.getElementById('products-grid');
 const categoryTitle = document.getElementById('category-title');
 

@@ -5,6 +5,27 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
     header("Location: login.html");
     exit();
 }
+
+require_once __DIR__ . "/includes/db.php";
+
+$products_result = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
+$events_result =
+mysqli_query($conn,
+"SELECT * FROM events ORDER BY id DESC");
+
+$tutorials_result =
+mysqli_query($conn,
+"SELECT * FROM tutorials ORDER BY id DESC");
+$orders_sql = "
+SELECT o.*, u.fullname, u.email
+FROM orders o
+JOIN users u ON o.user_id = u.id
+ORDER BY o.order_date DESC
+";
+$orders_result = mysqli_query($conn, $orders_sql);
+
+$count_result = mysqli_query($conn, "SELECT COUNT(*) AS total_orders FROM orders");
+$total_orders = mysqli_fetch_assoc($count_result)["total_orders"];
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +66,11 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
                 <i class="fas fa-play-circle"></i> TUTORIALS_CLIPS
             </button>
 
+            <button class="nav-btn" onclick="showSection('orders-mgmt')">
+                <i class="fas fa-box"></i> ORDERS_QUEUE
+                <span class="order-badge"><?php echo $total_orders; ?></span>
+            </button>
+
             <hr class="nav-divider">
 
             <a href="home.php" class="nav-btn logout">
@@ -63,10 +89,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
             <h1 id="section-title">SHOP_GEAR_MANAGEMENT</h1>
 
             <div class="admin-profile">
-                <span>
-                    WELCOME, <?php echo strtoupper($_SESSION["fullname"]); ?>
-                </span>
-
+                <span>WELCOME, <?php echo strtoupper($_SESSION["fullname"]); ?></span>
                 <img src="./image/user-avatar.jpg" alt="Admin">
             </div>
         </header>
@@ -126,6 +149,50 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
                     </button>
                 </form>
             </div>
+
+            <div class="products-admin-grid">
+
+                <?php if (mysqli_num_rows($products_result) == 0): ?>
+
+                    <p style="color:#8892b0;">No products added yet.</p>
+
+                <?php else: ?>
+
+                    <?php while ($product = mysqli_fetch_assoc($products_result)): ?>
+
+                        <div class="admin-product-card">
+
+                            <img src="<?php echo $product['image']; ?>" alt="product">
+
+                            <div class="admin-product-info">
+                                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+
+                                <p class="admin-price">
+                                    $<?php echo number_format($product['price'], 2); ?>
+                                </p>
+
+                                <span class="admin-category">
+                                    <?php echo strtoupper(htmlspecialchars($product['category'])); ?>
+                                </span>
+                            </div>
+
+                            <div class="admin-product-actions">
+                                <a
+                                    href="delete_product.php?id=<?php echo $product['id']; ?>"
+                                    class="delete-product-btn"
+                                    onclick="return confirm('Delete this product?');"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    <?php endwhile; ?>
+
+                <?php endif; ?>
+
+            </div>
         </section>
 
         <section id="events-mgmt" class="mgmt-section">
@@ -181,6 +248,44 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
                     </button>
                 </form>
             </div>
+            <div class="admin-content-grid">
+
+<?php while($event = mysqli_fetch_assoc($events_result)): ?>
+
+<div class="content-card">
+
+    <img
+    src="<?php echo $event['image']; ?>"
+    alt="event">
+
+    <div class="content-info">
+
+        <h3>
+            <?php echo $event['title']; ?>
+        </h3>
+
+        <p class="content-date">
+            <?php echo $event['date']; ?>
+        </p>
+
+        <p class="content-price">
+            $<?php echo number_format($event['price'],2); ?>
+        </p>
+
+    </div>
+
+    <a
+    href="delete_event.php?id=<?php echo $event['id']; ?>"
+    class="content-delete"
+    >
+        <i class="fas fa-trash"></i>
+    </a>
+
+</div>
+
+<?php endwhile; ?>
+
+</div>
         </section>
 
         <section id="tutorials-mgmt" class="mgmt-section">
@@ -201,6 +306,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
 
                         <div class="input-group">
                             <label>STYLE_CATEGORY</label>
+
                             <select name="video_style" required>
                                 <option value="Skateboard">SKATEBOARD</option>
                                 <option value="Roller Skate">ROLLER SKATE</option>
@@ -225,6 +331,166 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
                     </button>
                 </form>
             </div>
+            <div class="admin-content-grid">
+
+<?php while($tutorial = mysqli_fetch_assoc($tutorials_result)): ?>
+
+<div class="content-card tutorial-card">
+
+    <iframe
+    src="https://www.youtube.com/embed/<?php echo $tutorial['video_id']; ?>"
+    frameborder="0"
+    allowfullscreen>
+    </iframe>
+
+    <div class="content-info">
+
+        <h3>
+            <?php echo $tutorial['title']; ?>
+        </h3>
+
+        <p class="tutorial-style">
+            <?php echo $tutorial['style']; ?>
+        </p>
+
+    </div>
+
+    <a
+    href="delete_tutorial.php?id=<?php echo $tutorial['id']; ?>"
+    class="content-delete"
+    >
+        <i class="fas fa-trash"></i>
+    </a>
+
+</div>
+
+<?php endwhile; ?>
+
+</div>
+        </section>
+
+        <section id="orders-mgmt" class="mgmt-section">
+            <div class="action-bar">
+                <h2 class="sub-title">
+                    <i class="fas fa-stream"></i> INCOMING_ORDERS_LOG
+                </h2>
+            </div>
+
+            <div class="orders-table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ORDER_ID</th>
+                            <th>CUSTOMER_INFO</th>
+                            <th>ORDER_ITEMS (SIZE/QTY)</th>
+                            <th>TOTAL_PRICE</th>
+                            <th>STATUS_CONTROL</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php if (mysqli_num_rows($orders_result) == 0): ?>
+
+                            <tr>
+                                <td colspan="5" style="text-align:center; color:#8892b0;">
+                                    NO ORDERS FOUND
+                                </td>
+                            </tr>
+
+                        <?php else: ?>
+
+                            <?php while ($order = mysqli_fetch_assoc($orders_result)): ?>
+
+                                <tr>
+                                    <td class="pink-text">
+                                        #SK-<?php echo $order["id"]; ?>
+                                    </td>
+
+                                    <td>
+                                        <div class="user-cell">
+                                            <strong>
+                                                <?php echo htmlspecialchars($order["fullname"]); ?>
+                                            </strong>
+
+                                            <span>
+                                                <?php echo htmlspecialchars($order["email"]); ?>
+                                            </span>
+
+                                            <small>
+                                                <?php echo htmlspecialchars($order["governorate"]); ?>,
+                                                <?php echo htmlspecialchars($order["address"]); ?>
+                                            </small>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="items-list-cell">
+                                            <?php
+                                            $order_id = $order["id"];
+
+                                            $items_sql = "SELECT * FROM order_items WHERE order_id = '$order_id'";
+                                            $items_result = mysqli_query($conn, $items_sql);
+
+                                            while ($item = mysqli_fetch_assoc($items_result)) {
+                                                echo "<div>• " .
+                                                    htmlspecialchars($item["product_name"]) .
+                                                    " (Size: " . htmlspecialchars($item["size"]) . ") x" .
+                                                    $item["quantity"] .
+                                                    "</div>";
+                                            }
+                                            ?>
+                                        </div>
+                                    </td>
+
+                                    <td class="blue-text">
+                                        $<?php echo number_format($order["total"], 2); ?>
+                                    </td>
+
+                                    <td>
+                                        <form action="update_order_status.php" method="POST" class="status-form">
+
+                                            <input
+                                                type="hidden"
+                                                name="order_id"
+                                                value="<?php echo $order['id']; ?>"
+                                            >
+
+                                            <select name="status" class="status-select">
+                                                <option value="PENDING_REVIEW" <?php if ($order["status"] == "PENDING_REVIEW") echo "selected"; ?>>
+                                                    PENDING_REVIEW
+                                                </option>
+
+                                                <option value="PREPARING_GEAR" <?php if ($order["status"] == "PREPARING_GEAR") echo "selected"; ?>>
+                                                    PREPARING_GEAR
+                                                </option>
+
+                                                <option value="SHIPPED" <?php if ($order["status"] == "SHIPPED") echo "selected"; ?>>
+                                                    SHIPPED
+                                                </option>
+
+                                                <option value="DELIVERED" <?php if ($order["status"] == "DELIVERED") echo "selected"; ?>>
+                                                    DELIVERED
+                                                </option>
+
+                                                <option value="CANCELLED" <?php if ($order["status"] == "CANCELLED") echo "selected"; ?>>
+                                                    CANCELLED
+                                                </option>
+                                            </select>
+
+                                            <button type="submit" class="update-status-btn">
+                                                UPDATE
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            <?php endwhile; ?>
+
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </main>
@@ -245,7 +511,13 @@ function showSection(sectionId) {
         btn.classList.remove('active');
     });
 
-    event.currentTarget.classList.add('active');
+    const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn =>
+        btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(sectionId)
+    );
+
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
 
     document.getElementById('section-title').innerText =
         sectionId.replace('-', '_').toUpperCase();

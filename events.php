@@ -59,8 +59,8 @@ $events_result = mysqli_query($conn, $events_query);
             <a href="./home.php" class="nav-item">Home</a>
             <a href="./events.php" class="nav-item active-link">Events</a>
             <a href="./community.html" class="nav-item">Community</a>
-            <a href="./shop.html" class="nav-item">Shop</a>
-            <a href="./tutorials.html" class="nav-item">Tutorials</a>
+            <a href="./shop.php" class="nav-item">Shop</a>
+            <a href="./tutorials.php" class="nav-item">Tutorials</a>
         </div>
 
         <div class="nav-icons">
@@ -71,7 +71,31 @@ $events_result = mysqli_query($conn, $events_query);
             <?php endif; ?>
 
             <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-            <a href="#"><i class="fas fa-bell"></i></a>
+            <div class="notif-wrapper">
+
+    <button class="notif-btn" id="notifBtn">
+        <i class="fas fa-bell"></i>
+
+        <span class="notif-dot"></span>
+    </button>
+
+    <div class="notif-panel" id="notifPanel">
+
+        <div class="notif-header">
+            NOTIFICATIONS
+        </div>
+
+        <div class="notif-list" id="notifList">
+
+            <div class="notif-loading">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
         </div>
     </nav>
 
@@ -439,6 +463,84 @@ document.querySelector(".close-modal")
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="./java/cursor.js"></script>
 <script src="./java/events.js"></script>
+<script>
 
+const notifBtn =
+document.getElementById("notifBtn");
+
+const notifPanel =
+document.getElementById("notifPanel");
+
+const notifList =
+document.getElementById("notifList");
+
+notifBtn.addEventListener("click", async () => {
+
+    notifPanel.classList.toggle("active");
+
+    if(notifPanel.classList.contains("active")){
+
+        try{
+
+            const response =
+            await fetch("fetch_notifications.php");
+
+            const data =
+            await response.json();
+
+            if(data.length === 0){
+
+                notifList.innerHTML = `
+                    <div class="notif-empty">
+                        NO NOTIFICATIONS YET
+                    </div>
+                `;
+
+                return;
+            }
+
+            notifList.innerHTML = "";
+
+            data.forEach(notif => {
+
+                notifList.innerHTML += `
+
+                <div class="notif-item">
+
+                    <div class="notif-message">
+                        ${notif.message}
+                    </div>
+
+                    <div class="notif-time">
+                        ${notif.created_at}
+                    </div>
+
+                </div>
+
+                `;
+            });
+
+        }catch(err){
+
+            notifList.innerHTML = `
+                <div class="notif-empty">
+                    ERROR LOADING NOTIFICATIONS
+                </div>
+            `;
+        }
+    }
+});
+
+document.addEventListener("click", (e)=>{
+
+    if(
+        !notifBtn.contains(e.target) &&
+        !notifPanel.contains(e.target)
+    ){
+        notifPanel.classList.remove("active");
+    }
+});
+
+</script>
 </body>
 </html>

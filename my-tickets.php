@@ -380,7 +380,7 @@ body {
 <div class="cursor-follower"></div>
 <div class="navbar login-nav">
     <div class="logo">
-        <a href="home.html" class="logo-link">
+        <a href="home.php" class="logo-link">
             <img src="./image/9037278.png" alt="SkateHub Logo">
             <span class="site-title">SkateHub</span>
         </a>
@@ -389,7 +389,31 @@ body {
     <div class="nav-icons">
         <a href="login.html"><i class="fas fa-user"></i></a>
         <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-        <a href="notifications.html"><i class="fas fa-bell"></i></a>
+        <div class="notif-wrapper">
+
+    <button class="notif-btn" id="notifBtn">
+        <i class="fas fa-bell"></i>
+
+        <span class="notif-dot"></span>
+    </button>
+
+    <div class="notif-panel" id="notifPanel">
+
+        <div class="notif-header">
+            NOTIFICATIONS
+        </div>
+
+        <div class="notif-list" id="notifList">
+
+            <div class="notif-loading">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
     </div>
 </div>
     <main class="tickets-page">
@@ -527,6 +551,85 @@ body {
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="./java/cursor.js"></script>
+<script>
+
+const notifBtn =
+document.getElementById("notifBtn");
+
+const notifPanel =
+document.getElementById("notifPanel");
+
+const notifList =
+document.getElementById("notifList");
+
+notifBtn.addEventListener("click", async () => {
+
+    notifPanel.classList.toggle("active");
+
+    if(notifPanel.classList.contains("active")){
+
+        try{
+
+            const response =
+            await fetch("fetch_notifications.php");
+
+            const data =
+            await response.json();
+
+            if(data.length === 0){
+
+                notifList.innerHTML = `
+                    <div class="notif-empty">
+                        NO NOTIFICATIONS YET
+                    </div>
+                `;
+
+                return;
+            }
+
+            notifList.innerHTML = "";
+
+            data.forEach(notif => {
+
+                notifList.innerHTML += `
+
+                <div class="notif-item">
+
+                    <div class="notif-message">
+                        ${notif.message}
+                    </div>
+
+                    <div class="notif-time">
+                        ${notif.created_at}
+                    </div>
+
+                </div>
+
+                `;
+            });
+
+        }catch(err){
+
+            notifList.innerHTML = `
+                <div class="notif-empty">
+                    ERROR LOADING NOTIFICATIONS
+                </div>
+            `;
+        }
+    }
+});
+
+document.addEventListener("click", (e)=>{
+
+    if(
+        !notifBtn.contains(e.target) &&
+        !notifPanel.contains(e.target)
+    ){
+        notifPanel.classList.remove("active");
+    }
+});
+
+</script>
 </body>
 
 </html>

@@ -1,60 +1,40 @@
 <?php
 session_start();
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkateHub</title>
+    <title>SkateHub | Home</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="./style/global.css">
-    <link rel="stylesheet" href="./style/home.css"> 
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/home.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<!-- Custom Cursor (Global) -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-  <nav class="navbar">
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<nav class="navbar">
 
     <a href="home.php" class="logo-link">
-        <div class="logo">
-            <img src="./image/9037278.png"
-                 alt="SkateHub Logo"
-                 onerror="this.style.display='none'">
-        </div>
-
+        <img src="./image/9037278.png" alt="Logo">
         <span class="site-title">SkateHub</span>
     </a>
 
     <div class="nav-links">
-
-        <a href="./home.php" class="nav-item">
-            Home
-        </a>
-
-        <a href="./events.html" class="nav-item active-link">
-            Events
-        </a>
-
-        <a href="./community.html" class="nav-item">
-            Community
-        </a>
-
-        <a href="./shop.html" class="nav-item">
-            Shop
-        </a>
-
-        <a href="./tutorials.html" class="nav-item">
-            Tutorials
-        </a>
-
+        <a href="home.php" class="nav-item active-link">Home</a>
+        <a href="events.php" class="nav-item">Events</a>
+        <a href="shop.php" class="nav-item">Shop</a>
+        <a href="community.html" class="nav-item">Community</a>
+        <a href="tutorials.php" class="nav-item">Tutorials</a>
     </div>
 
     <div class="nav-icons">
@@ -62,237 +42,376 @@ session_start();
         <?php if (isset($_SESSION["user_id"])): ?>
 
             <a href="profile.php">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user-circle"></i>
             </a>
 
         <?php else: ?>
 
             <a href="login.html">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user-circle"></i>
             </a>
 
         <?php endif; ?>
 
-        <a href="cart.html">
-            <i class="fas fa-shopping-cart"></i>
-        </a>
+        <div class="cart-btn">
+            <a href="cart.html">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
 
-        <a href="#">
-            <i class="fas fa-bell"></i>
-        </a>
+            <span id="cart-count">0</span>
+        </div>
+
+        <div class="notif-wrapper">
+
+            <button class="notif-btn" id="notifBtn">
+                <i class="fas fa-bell"></i>
+
+                <span class="notif-dot"></span>
+            </button>
+
+            <div class="notif-panel" id="notifPanel">
+
+                <div class="notif-header">
+                    NOTIFICATIONS
+                </div>
+
+                <div class="notif-list" id="notifList">
+
+                    <div class="notif-loading">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </nav>
 
-<div class="hero-slider">
-        
-      
-        <a href="home.php" class="slide active"> 
-            <img src="./image/welc.jpg" alt="Welcome to SkateHub"> 
-            <div class="slide-content"> 
-                <h2>Welcome to SkateHub</h2> 
-                <p>Your ultimate skating destination</p> 
-            </div>
+<section class="hero-slider">
+
+    <div class="vhs-overlay"></div>
+    <div class="scanlines"></div>
+
+    <div class="slide active">
+        <img src="./image/welc.jpg" alt="Welcome">
+
+        <div class="slide-content">
+            <h1 class="glitch" data-text="SKATE HUB">
+                SKATE <span>HUB</span>
+            </h1>
+
+            <p>UNDERGROUND CULTURE EST. 2024</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="./image/event.jpg" alt="Events">
+
+        <div class="slide-content">
+            <h2>THE_BATTLE</h2>
+            <p>EPIC COMPETITIONS AWAIT</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="./image/vans.jpg" alt="Gear">
+
+        <div class="slide-content">
+            <h2>PREMIUM_GEAR</h2>
+            <p>UPGRADE YOUR RIDE</p>
+        </div>
+    </div>
+
+    <div class="slide">
+
+        <video autoplay muted loop playsinline class="slide-video">
+            <source src="./videos/vid1.mp4" type="video/mp4">
+        </video>
+
+        <div class="slide-content">
+            <h2>LEARN_PRO</h2>
+            <p>MASTER THE STREETS</p>
+        </div>
+    </div>
+
+    <div class="slide">
+
+        <video autoplay muted loop playsinline class="slide-video">
+            <source src="./videos/trick.mp4" type="video/mp4">
+        </video>
+
+        <div class="slide-content">
+            <h2>JOIN_CREW</h2>
+            <p>SHARE YOUR BEST MOVES</p>
+        </div>
+    </div>
+
+</section>
+
+<section class="featured-event-highlight">
+
+    <div class="section-header">
+        <h2>FEATURED_<span>EVENT</span></h2>
+    </div>
+
+    <div class="event-cinema-card">
+
+        <div class="event-cinema-img">
+            <img src="./image/3333.png" alt="Street King">
+
+            <div class="cinema-overlay"></div>
+        </div>
+
+        <div class="event-cinema-content">
+
+            <span class="cat-tag">
+                SKATEBOARD
+            </span>
+
+            <h3>STREET KING</h3>
+
+            <p class="event-date">
+                <i class="far fa-calendar-alt"></i>
+                SEPT 15, 2026
+            </p>
+
+            <p class="event-desc">
+                The biggest underground competition is back in town.
+                Prepare for the concrete battle.
+            </p>
+
+            <a href="events.php" class="neon-btn-pink">
+                GET_TICKET
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="shop-preview-compact">
+
+    <div class="section-header">
+
+        <h2>
+            GEAR_<span>LOG</span>
+        </h2>
+
+        <a href="shop.php" class="view-all-link">
+            EXPLORE_ALL
         </a>
 
-        
-        <a href="events.html" class="slide">
-            <img src="./image/event.jpg" alt="Skate Events"> 
-            <div class="slide-content">
-                <h2>Join the Next Epic Event</h2> 
-                <p>Don't miss out on the biggest skate competitions!</p> 
+    </div>
+
+    <div class="compact-grid">
+
+        <div class="p-card-small">
+
+            <div class="p-img-box">
+                <img src="./image/skate1.png" alt="Skate">
             </div>
-        </a>
 
-        
-        <a href="shop.html" class="slide">
-            <img src="./image/vans.jpg" alt="Skate Shop"> 
-            <div class="slide-content">
-                <h2>Upgrade Your Gear</h2> 
-                <p>Check out the latest boards, wheels, and street wear</p> 
+            <div class="p-details">
+                <h4>PRO SKATEBOARD</h4>
+                <span class="price">$120</span>
             </div>
-        </a>
 
-        
-        <a href="tutorials.html" class="slide">
-    <video autoplay muted loop playsinline class="slide-video">
-        <source src="./videos/vid1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="slide-content">
-        <h2>Learn to Skate Like a PRO</h2>
-        <p>Master new tricks with our step-by-step tutorials</p>
-    </div>
-</a>
+        </div>
 
-    
-        <a href="community.html" class="slide">
-           
-                 <video autoplay muted loop playsinline class="slide-video">
-        <source src="./videos/trick.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-            <div class="slide-content">
-                <h2>Share Your Best Tricks</h2> 
-                <p>Connect with skaters and show off your Moves!</p> 
+        <div class="p-card-small">
+
+            <div class="p-img-box">
+                <img src="./image/t-shirt1.webp" alt="Tee">
             </div>
-        </a>
+
+            <div class="p-details">
+                <h4>URBAN T-SHIRT</h4>
+                <span class="price">$25</span>
+            </div>
+
+        </div>
 
     </div>
 
-<div class="shop-preview">
-    <h2>Skater’s Choice</h2>
-    <div class="products">
-        <div class="product-card">
-            <img src="./image/skate1.png" alt="Skateboard">
-            <h3>Pro Skateboard</h3>
-            <p>$120</p>
-            <button>View</button>
-        </div>
-        <div class="product-card">
-            <img src="./image/t-shirt1.webp" alt="T-shirt">
-            <h3>Skate T-Shirt</h3>
-            <p>$25</p>
-            <button>View</button>
-        </div>
-        <div class="product-card">
-            <img src="./image/helmet1.jpg" alt="Helmet">
-            <h3>Safety Helmet</h3>
-            <p>$45</p>
-            <button>View</button>
-        </div>
-    </div>
-</div>
+</section>
 
-<div class="tutorial-section">
-    <h2>Learn Skating Basics</h2>
-    <div class="video-container">
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/p3NXd3DhH08?start=22" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/0wepmbVVgYQ" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/JwEfq-OafFA" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-    <p>
-        Your journey to pro skating starts here.<br>
-        <a href="tutorials.html">Click here</a> for more tutorials!
-    </p>
-</div>
+<section class="tutorials-home-section">
 
-<div class="community-section">
-    <h2>Our Community</h2>
-    <p>Join a vibrant community of skaters sharing tricks, events, and stories.</p>
-    <div class="community-grid">
-        <div class="comm-card">
-            <img src="community1.jpg" alt="Local Events">
-            <h3>Local Events</h3>
-        </div>
-        <div class="comm-card">
-            <img src="community2.jpg" alt="Skater Groups">
-            <h3>Skater Groups</h3>
-        </div>
-        <div class="comm-card">
-            <img src="community3.jpg" alt="Stories">
-            <h3>Success Stories</h3>
-        </div>
+    <div class="section-header">
+        <h2>LEARN_<span>SKATE</span></h2>
     </div>
-</div>
 
-<div class="about-section">
-    <h2>About SkateHub</h2>
-    <p>
-        SkateHub is more than just a website — it’s a space where skaters connect, learn, and grow.
-        Our mission is to make skating accessible, inspiring, and fun for everyone.
-    </p>
-</div>
-<!-- Footer المطور والنحيف -->
+    <div class="tutorial-featured-box">
+
+        <div class="vid-side">
+            <iframe src="https://www.youtube.com/embed/dF7T_f88vI4"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="text-side">
+
+            <h3>OLLIE_MASTERY</h3>
+
+            <p>
+                Learn the foundation of all technical street skating tricks.
+            </p>
+
+            <a href="tutorials.php" class="blue-link">
+                GO_TO_TUTORIALS
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
 <footer class="main-footer">
+
     <div class="footer-content">
+
         <div class="footer-column">
+
             <h4>SKATEHUB INFO</h4>
+
             <ul>
-                <li><a href="#" class="footer-link" data-type="about">About Us</a></li>
-                <li><a href="#" class="footer-link" data-type="team">Team Riders</a></li>
-                <li><a href="#" class="footer-link" data-type="privacy">Privacy Policy</a></li>
+                <li><a href="#" class="footer-link">About Us</a></li>
+                <li><a href="#" class="footer-link">Team Riders</a></li>
+                <li><a href="#" class="footer-link">Privacy Policy</a></li>
             </ul>
+
         </div>
 
         <div class="footer-column">
+
             <h4>CUSTOMER SERVICE</h4>
+
             <ul>
-                <li><a href="#" class="footer-link" data-type="faq">FAQ</a></li>
-                <li><a href="#" class="footer-link" data-type="contact">Contact Us</a></li>
-                <li><a href="#" class="footer-link" data-type="sizing">Sizing Chart</a></li>
+                <li><a href="#" class="footer-link">FAQ</a></li>
+                <li><a href="#" class="footer-link">Contact Us</a></li>
+                <li><a href="#" class="footer-link">Sizing Chart</a></li>
             </ul>
+
         </div>
 
         <div class="footer-column socials">
+
             <h4>FOLLOW THE FLOW</h4>
+
             <div class="social-icons">
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-tiktok"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
+
             <div class="payment-methods">
                 <i class="fab fa-cc-visa"></i>
                 <i class="fab fa-cc-paypal"></i>
                 <i class="fab fa-apple-pay"></i>
             </div>
+
         </div>
+
     </div>
+
     <div class="footer-bottom">
         <p>&copy; 2024 SKATEHUB. DESIGNED BY SKATERS FOR SKATERS</p>
     </div>
+
 </footer>
 
-<!-- المودال الخاص بالفوتر (نفس تصميم التيكت بس أكبر وبلون #222) -->
-<div id="footer-modal" class="modal-overlay">
-    <div class="modal-card footer-modal-card">
-        <!-- زر X العلوي -->
-        <button class="close-footer-modal">&times;</button>
-        
-        <div class="modal-header">
-            <!-- الأيقونة التي ستأخذ الإشعاع الوردي -->
-            <i id="footer-modal-icon" class="fas fa-history pulse-icon"></i>
-            <!-- العنوان الذي سيأخذ الإشعاع الأزرق -->
-            <h2 id="footer-modal-title">OUR STORY</h2>
-        </div>
-
-        <div id="footer-modal-body-content">
-            <!-- الحكي سيظهر هنا -->
-        </div>
-
-        <div class="modal-footer">
-            <button class="close-btn-bottom">GOT IT!</button>
-        </div>
-    </div>
-</div>
-<!-- Modal النافذة المنبثقة العامة -->
-<div id="generic-modal" class="modal-overlay">
-    <div class="modal-card">
-        <button class="close-modal"><i class="fas fa-times"></i></button>
-        
-        <div class="modal-header">
-            <i class="fas fa-bolt pulse-icon"></i>
-            <h2 id="modal-display-title">QUICK VIEW</h2>
-        </div>
-
-        <div class="modal-body">
-            <p id="modal-display-text">Details will appear here...</p>
-        </div>
-
-        <button class="modal-confirm-btn">CONFIRM</button>
-    </div>
-</div>
-<script src="./java/slider.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="./java/home.js"></script>
-    <!-- ملف الماوس المخصص الخاص بك -->
-    <script src="./java/cursor.js"></script>
+
+<script src="./java/slider.js"></script>
+<script src="./java/home.js"></script>
+<script src="./java/cursor.js"></script>
+
+<script>
+
+const notifBtn =
+document.getElementById("notifBtn");
+
+const notifPanel =
+document.getElementById("notifPanel");
+
+const notifList =
+document.getElementById("notifList");
+
+notifBtn.addEventListener("click", async () => {
+
+    notifPanel.classList.toggle("active");
+
+    if(notifPanel.classList.contains("active")){
+
+        try{
+
+            const response =
+            await fetch("fetch_notifications.php");
+
+            const data =
+            await response.json();
+
+            if(data.length === 0){
+
+                notifList.innerHTML = `
+                    <div class="notif-empty">
+                        NO NOTIFICATIONS YET
+                    </div>
+                `;
+
+                return;
+            }
+
+            notifList.innerHTML = "";
+
+            data.forEach(notif => {
+
+                notifList.innerHTML += `
+
+                <div class="notif-item">
+
+                    <div class="notif-message">
+                        ${notif.message}
+                    </div>
+
+                    <div class="notif-time">
+                        ${notif.created_at}
+                    </div>
+
+                </div>
+
+                `;
+            });
+
+        }catch(err){
+
+            notifList.innerHTML = `
+                <div class="notif-empty">
+                    ERROR LOADING NOTIFICATIONS
+                </div>
+            `;
+        }
+    }
+});
+
+document.addEventListener("click", (e)=>{
+
+    if(
+        !notifBtn.contains(e.target) &&
+        !notifPanel.contains(e.target)
+    ){
+        notifPanel.classList.remove("active");
+    }
+});
+
+</script>
+
 </body>
 </html>

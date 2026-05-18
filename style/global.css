@@ -80,8 +80,8 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(10, 25, 47, 0.95); /* كحلي شفاف */
-    height: 80px; /* زيادة الطول قليلاً للراحة */
+    background-color: rgba(10, 25, 47, 0.95);
+    height: 80px;
     padding: 0 5%;
     border-bottom: 2px solid var(--neon-blue);
     position: fixed;
@@ -90,6 +90,8 @@ a {
     width: 100%;
     z-index: 1000;
     backdrop-filter: blur(10px);
+
+    overflow: visible;
 }
 
 /* حل مشكلة صورة الذئب */
@@ -240,4 +242,170 @@ a {
     color: var(--neon-pink);
     filter: drop-shadow(0 0 15px var(--neon-pink));
     margin-bottom: 20px;
+}
+/* ================================
+   NOTIFICATIONS PANEL
+================================ */
+
+.notif-wrapper{
+    position: relative;
+    display:flex;
+    align-items:center;
+}
+
+.notif-btn{
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    position: relative;
+    transition: 0.3s;
+}
+
+.notif-btn:hover{
+    color: var(--neon-pink);
+    transform: scale(1.15);
+}
+
+.notif-dot{
+    position: absolute;
+    top: -3px;
+    right: -4px;
+
+    width: 10px;
+    height: 10px;
+
+    background: var(--neon-pink);
+
+    border-radius: 50%;
+
+    box-shadow:
+    0 0 10px var(--neon-pink);
+}
+
+.notif-panel{
+
+    position: absolute;
+
+    top: 65px;
+    right: -20px;
+
+    width: 360px;
+    max-height: 500px;
+
+    background: rgba(10,25,47,0.98);
+
+    border:
+    1px solid rgba(0,242,255,0.2);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(14px);
+
+    overflow: hidden;
+
+    display: none;
+
+    box-shadow:
+    0 0 30px rgba(0,242,255,0.15);
+
+    z-index: 99999;
+}
+
+.notif-panel.active{
+    display:block;
+
+    animation: notifSlide 0.25s ease;
+}
+
+@keyframes notifSlide{
+
+    from{
+        opacity:0;
+        transform:
+        translateY(-15px)
+        scale(0.96);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateY(0)
+        scale(1);
+    }
+}
+
+.notif-header{
+
+    padding:18px 20px;
+
+    font-family:'Bangers', cursive;
+
+    font-size:1.4rem;
+
+    letter-spacing:2px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.08);
+
+    color: var(--neon-blue);
+}
+
+.notif-list{
+
+    max-height:400px;
+
+    overflow-y:auto;
+}
+
+.notif-item{
+
+    padding:18px 20px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.06);
+
+    transition:0.3s;
+}
+
+.notif-item:hover{
+
+    background:
+    rgba(255,255,255,0.03);
+}
+
+.notif-message{
+
+    color:white;
+
+    font-size:0.92rem;
+
+    line-height:1.6;
+}
+
+.notif-time{
+
+    margin-top:8px;
+
+    color:#8892b0;
+
+    font-size:0.75rem;
+}
+
+.notif-empty{
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#8892b0;
+}
+
+.notif-loading{
+
+    padding:30px;
+
+    text-align:center;
+
+    color:var(--neon-blue);
 }
