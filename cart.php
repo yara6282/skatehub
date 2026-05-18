@@ -150,6 +150,7 @@ session_start();
 
             <label class="group-label">DROP_ZONE (Palestine)</label>
             <select id="governorate" class="skate-input">
+                
                 <option value="" disabled selected>Select Governorate</option>
                 <option value="Jerusalem">Jerusalem (القدس)</option>
                 <option value="Nablus">Nablus</option>
@@ -158,6 +159,14 @@ session_start();
                 <option value="Jenin">Jenin</option>
                 <option value="Bethlehem">Bethlehem</option>
             </select>
+            <button type="button" class="location-btn" onclick="getUserLocation()">
+    <i class="fas fa-location-crosshairs"></i>
+    Use My Current Location
+</button>
+
+<input type="hidden" id="latitude">
+<input type="hidden" id="longitude">
+<div id="location-preview"></div>
             <input type="text" id="address-details" class="skate-input" placeholder="Address Details (Street/Building)">
 
             <label class="group-label">PAYMENT_WAY</label>
@@ -339,5 +348,46 @@ document.addEventListener("click", (e)=>{
 });
 
 </script>
+<script>
+function getUserLocation() {
+    const preview = document.getElementById("location-preview");
+
+    if (!preview) {
+        alert("location-preview div not found");
+        return;
+    }
+
+    if (!navigator.geolocation) {
+        preview.innerHTML = "Geolocation is not supported by this browser.";
+        return;
+    }
+
+    preview.innerHTML = "Detecting your location...";
+
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            document.getElementById("latitude").value = lat;
+            document.getElementById("longitude").value = lng;
+
+            preview.innerHTML = `
+                📍 Location detected successfully<br>
+                Latitude: ${lat}<br>
+                Longitude: ${lng}<br>
+                <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">
+                    Open in Google Maps
+                </a>
+            `;
+        },
+        function(error) {
+            preview.innerHTML = "Location permission denied or unavailable.";
+            alert("Please allow location permission from the browser.");
+        }
+    );
+}
+</script>
+<?php include "ai-widget.php"; ?>
 </body>
 </html>

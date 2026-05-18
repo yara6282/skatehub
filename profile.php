@@ -323,5 +323,6 @@ function updateCartCount() {
     }
 }
 </script>
+<?php include "ai-widget.php"; ?>
 </body>
 </html>

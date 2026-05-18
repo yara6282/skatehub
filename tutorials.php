@@ -418,6 +418,6 @@ if (notifBtn) {
     });
 }
 </script>
-
+<?php include "ai-widget.php"; ?>
 </body>
 </html>

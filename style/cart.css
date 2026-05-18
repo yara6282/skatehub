@@ -438,3 +438,51 @@ input[type="radio"]:checked + .pay-box {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+.location-btn{
+
+    width:100%;
+
+    margin-top:12px;
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:15px;
+
+    background:
+    linear-gradient(135deg,#00f2ff,#00a8ff);
+
+    color:#00101c;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.location-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(0,242,255,.35);
+}
+
+#location-preview{
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.04);
+
+    color:#00f2ff;
+
+    font-size:14px;
+
+    line-height:1.6;
+}

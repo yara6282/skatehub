@@ -419,6 +419,6 @@ document.addEventListener("click", (e)=>{
 });
 
 </script>
-
+<?php include "ai-widget.php"; ?>
 </body>
 </html>

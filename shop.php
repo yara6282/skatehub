@@ -361,5 +361,6 @@ document.addEventListener("click", (e)=>{
 </script>
 <!-- حاوية إشعارات الشوب -->
 <div id="shop-toast-container" class="shop-toast-container"></div>
+<?php include "ai-widget.php"; ?>
 </body>
 </html>

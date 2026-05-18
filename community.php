@@ -1102,5 +1102,6 @@ document.getElementById("topUserSearch").addEventListener("input", async functio
     `).join("");
 });
 </script>
+<?php include "ai-widget.php"; ?>
 </body>
 </html>
