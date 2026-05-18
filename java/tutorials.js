@@ -1,29 +1,37 @@
-updateCartCount();
-document.addEventListener('DOMContentLoaded', () => {
-    // تشغيل أنيميشن الظهور
-    AOS.init({ duration: 1000, once: true });
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
 
-    // --- حركة الصور والأيقونات الطائرة (Mouse Parallax) ---
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+
+    if (typeof AOS !== "undefined") {
+        AOS.init({ duration: 1000, once: true });
+    }
+
     const floatObjs = document.querySelectorAll('.float-obj');
-    
+
     document.addEventListener('mousemove', (e) => {
         let x = (window.innerWidth - e.pageX * 2) / 40;
         let y = (window.innerHeight - e.pageY * 2) / 40;
 
         floatObjs.forEach(obj => {
-            let speed = obj.getAttribute('data-speed');
-            // حركة دوران خفيفة مع الإزاحة لزيادة الواقعية
+            let speed = obj.getAttribute('data-speed') || 1;
             obj.style.transform = `translateX(${x * speed / 5}px) translateY(${y * speed / 5}px) rotate(${x}deg)`;
         });
     });
 
-    // --- نظام الفلتر الذكي للفيديوهات ---
     const filterBtns = document.querySelectorAll('.filter-btn');
     const videoCards = document.querySelectorAll('.video-card');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // تحديث الزر النشط
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
@@ -32,10 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
             videoCards.forEach(card => {
                 card.style.opacity = '0';
                 card.style.transform = 'scale(0.8)';
-                
+
                 setTimeout(() => {
                     if (filterValue === 'all' || card.classList.contains(filterValue)) {
                         card.style.display = 'block';
+
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
@@ -47,14 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    initFooterModal();
 });
-document.addEventListener('DOMContentLoaded', () => {
+
+function initFooterModal() {
     const footerModal = document.getElementById('footer-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body-content');
     const modalIcon = document.getElementById('modal-icon');
-    
-    // بيانات المحتوى (القصة، التيم، الخ...)
+    const closeX = document.querySelector('.close-footer-modal');
+    const closeBottom = document.querySelector('.close-btn-bottom');
+
+    if (!footerModal || !modalTitle || !modalBody || !modalIcon) {
+        console.log("Footer modal elements missing");
+        return;
+    }
+
     const footerContent = {
         about: {
             title: "OUR STORY",
@@ -69,12 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sizing: {
             title: "SIZING CHART",
             icon: "fa-ruler-combined",
-            text: "Choosing the right deck is crucial. <br>• 7.75\" to 8.0\": Great for technical street tricks.<br>• 8.0\" to 8.5\": The all-rounder for park and street.<br>• 8.5\"+: Maximum stability for ramps and bowls."
+            text: "Choosing the right deck is crucial.<br><br>• 7.75&quot; to 8.0&quot;: Great for technical street tricks.<br>• 8.0&quot; to 8.5&quot;: The all-rounder for park and street.<br>• 8.5&quot;+: Maximum stability for ramps and bowls."
         },
         faq: {
             title: "F.A.Q",
             icon: "fa-question-circle",
-            text: "<b>How long is shipping?</b> Usually 2-4 business days. <br><b>Do you ship internationally?</b> Yes, we shred worldwide! <br><b>Can I return a used board?</b> Only if it has a manufacturing defect. Snapped boards from bad landings aren't covered!"
+            text: "<b>How long is shipping?</b> Usually 2-4 business days.<br><br><b>Do you ship internationally?</b> Yes, we shred worldwide!<br><br><b>Can I return a used board?</b> Only if it has a manufacturing defect. Snapped boards from bad landings aren't covered!"
         },
         contact: {
             title: "CONTACT US",
@@ -88,41 +106,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // فتح المودال عند الضغط
     document.querySelectorAll('.footer-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const type = link.getAttribute('data-type');
+
+            const type = link.dataset.type;
             const data = footerContent[type];
+
+            if (!data) return;
 
             modalTitle.innerText = data.title;
             modalBody.innerHTML = data.text;
             modalIcon.className = `fas ${data.icon} pulse-icon`;
 
             footerModal.style.display = 'flex';
-            gsap.fromTo(".footer-modal-card", 
-                { scale: 0.7, opacity: 0 }, 
-                { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }
-            );
+
+            if (typeof gsap !== "undefined") {
+                gsap.fromTo(
+                    ".footer-modal-card",
+                    { scale: 0.75, opacity: 0, y: 40 },
+                    { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }
+                );
+            }
         });
     });
 
-    // إغلاق المودال
-    const closeFooter = () => {
-        gsap.to(".footer-modal-card", { scale: 0.7, opacity: 0, duration: 0.3, onComplete: () => {
+    function closeFooterModal() {
+        if (typeof gsap !== "undefined") {
+            gsap.to(".footer-modal-card", {
+                scale: 0.75,
+                opacity: 0,
+                y: 40,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    footerModal.style.display = 'none';
+                }
+            });
+        } else {
             footerModal.style.display = 'none';
-        }});
-    };
-
-    document.querySelector('.close-footer-modal').addEventListener('click', closeFooter);
-    document.querySelector('.close-btn-bottom').addEventListener('click', closeFooter);
-});
-// وظيفة تحديث عداد السلة
-function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-    let count = cart.reduce((sum, item) => sum + item.qty, 0);
-    const cartCountElement = document.getElementById('cart-count');
-    if (cartCountElement) {
-        cartCountElement.innerText = count;
+        }
     }
+
+    if (closeX) closeX.addEventListener('click', closeFooterModal);
+    if (closeBottom) closeBottom.addEventListener('click', closeFooterModal);
+
+    footerModal.addEventListener('click', (e) => {
+        if (e.target === footerModal) {
+            closeFooterModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && footerModal.style.display === 'flex') {
+            closeFooterModal();
+        }
+    });
 }

@@ -343,21 +343,28 @@ $events_result = mysqli_query($conn, $events_query);
     </div>
 </footer>
 
-<div id="footer-modal" class="modal-overlay">
-    <div class="modal-card footer-modal-card">
-        <button class="close-footer-modal"><i class="fas fa-times"></i></button>
+<div id="footer-modal" class="footer-modal">
+  <div class="footer-modal-card">
 
-        <div class="modal-header">
-            <i id="modal-icon" class="fas fa-info-circle pulse-icon"></i>
-            <h2 id="modal-title" class="neon-text-blue">TITLE HERE</h2>
-        </div>
+    <button class="close-footer-modal" type="button">
+      <i class="fas fa-times"></i>
+    </button>
 
-        <div id="modal-body-content" class="modal-text-content"></div>
-
-        <div class="modal-footer">
-            <button class="close-btn-bottom">GOT IT!</button>
-        </div>
+    <div class="footer-modal-icon-box">
+      <i id="modal-icon" class="fas fa-lock pulse-icon"></i>
     </div>
+
+    <h2 id="modal-title">OUR STORY</h2>
+
+    <div class="footer-modal-text-box">
+      <p id="modal-body-content"></p>
+    </div>
+
+    <button class="close-btn-bottom" type="button">
+      GOT IT! ⚡
+    </button>
+
+  </div>
 </div>
 
 

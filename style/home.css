@@ -228,3 +228,193 @@ body {
     .p-card-small { flex-direction: column; text-align: center; }
     .section-header h2 { font-size: 2.5rem; }
 }
+/* ===== FOOTER MODAL FINAL FIX ===== */
+
+.footer-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 30, 54, 0.92);
+    backdrop-filter: blur(14px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.footer-modal-card {
+    position: relative;
+    width: 506px;
+    max-width: 88%;
+    background: #071d36;
+    border: 1px solid var(--neon-blue);
+    box-shadow: 0 0 35px rgba(0, 242, 255, 0.18);
+    padding: 55px 46px 46px;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+}
+
+/* يعمل القصّة الصغيرة بس بدون ما يخرب الشكل */
+.footer-modal-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 46px;
+    height: 46px;
+    background: #071d36;
+    border-left: 1px solid var(--neon-blue);
+    transform: skewX(-18deg) translateX(24px);
+    z-index: 2;
+}
+
+.close-footer-modal {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 900;
+    cursor: pointer !important;
+    transition: 0.25s;
+    z-index: 5;
+}
+
+.close-footer-modal:hover {
+    color: var(--neon-pink);
+    transform: rotate(90deg) scale(1.15);
+    text-shadow: 0 0 15px var(--neon-pink);
+}
+
+.footer-modal-icon-box {
+    width: 66px;
+    height: 46px;
+    margin: 0 auto 30px;
+    background: var(--neon-pink);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 20px var(--neon-pink),
+        0 0 45px rgba(255, 0, 122, 0.45);
+}
+
+.footer-modal-icon-box i {
+    color: #071d36 !important;
+    font-size: 1.65rem;
+}
+
+#modal-title {
+    font-size: 2.75rem;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: white;
+    text-align: left;
+}
+
+.footer-modal-text-box {
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 6px solid var(--neon-blue);
+    padding: 24px 28px;
+    margin-bottom: 36px;
+}
+
+#modal-body-content {
+    color: #dce9f7;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 700;
+    text-align: left;
+    margin: 0;
+}
+
+#modal-body-content b {
+    color: white;
+    font-weight: 900;
+}
+
+#modal-body-content br {
+    display: block;
+    margin-bottom: 10px;
+    content: "";
+}
+
+.close-btn-bottom {
+    width: 100%;
+    border: none;
+    padding: 20px;
+    background: var(--neon-pink);
+    color: black;
+    font-size: 1.4rem;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    cursor: pointer !important;
+    transition: 0.25s;
+    clip-path: polygon(6% 0, 100% 0, 94% 100%, 0% 100%);
+    box-shadow: 0 0 18px rgba(255, 0, 122, 0.35);
+}
+
+.close-btn-bottom:hover {
+    background: var(--neon-blue);
+    transform: scale(1.03);
+    box-shadow:
+        0 0 20px var(--neon-blue),
+        0 0 40px rgba(0, 242, 255, 0.45);
+}
+
+.pulse-icon {
+    animation: footerPulse 1.5s infinite;
+}
+
+@keyframes footerPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 3px var(--neon-pink));
+    }
+
+    50% {
+        transform: scale(1.18);
+        filter: drop-shadow(0 0 18px var(--neon-pink));
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 3px var(--neon-pink));
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-modal-card {
+        width: 92%;
+        padding: 50px 26px 34px;
+    }
+
+    #modal-title {
+        font-size: 2rem;
+    }
+
+    #modal-body-content {
+        font-size: 0.93rem;
+        line-height: 1.7;
+    }
+
+    .close-btn-bottom {
+        font-size: 1.15rem;
+        padding: 17px;
+    }
+
+    .close-footer-modal {
+        right: 22px;
+        top: 18px;
+    }
+}

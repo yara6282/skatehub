@@ -243,23 +243,28 @@ while ($row = mysqli_fetch_assoc($products_result)) {
 </footer>
 
 <!-- المودال الخاص بالفوتر (نفس تصميم التيكت بس أكبر وبلون #222) -->
-<div id="footer-modal" class="modal-overlay">
-    <div class="modal-card footer-modal-card">
-        <button class="close-footer-modal"><i class="fas fa-times"></i></button>
-        
-        <div class="modal-header">
-            <i id="modal-icon" class="fas fa-info-circle pulse-icon"></i>
-            <h2 id="modal-title" class="neon-text-blue">TITLE HERE</h2>
-        </div>
+<div id="footer-modal" class="footer-modal">
+  <div class="footer-modal-card">
 
-        <div id="modal-body-content" class="modal-text-content">
-            <!-- الحكي والشرح سيظهر هنا برمجياً -->
-        </div>
+    <button class="close-footer-modal" type="button">
+      <i class="fas fa-times"></i>
+    </button>
 
-        <div class="modal-footer">
-            <button class="close-btn-bottom">GOT IT!</button>
-        </div>
+    <div class="footer-modal-icon-box">
+      <i id="modal-icon" class="fas fa-lock pulse-icon"></i>
     </div>
+
+    <h2 id="modal-title">OUR STORY</h2>
+
+    <div class="footer-modal-text-box">
+      <p id="modal-body-content"></p>
+    </div>
+
+    <button class="close-btn-bottom" type="button">
+      GOT IT! ⚡
+    </button>
+
+  </div>
 </div>
 <!-- مكان عرض المنتجات -->
 <div id="products" class="products-section"></div>
@@ -277,8 +282,7 @@ const dbProducts = <?php echo json_encode($products); ?>;
 <!-- مكتبة تصوير العناصر -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="./js/shop.js"></script>
-
-<!-- أو -->
+<script src="./java/shop.js"></script><!-- أو -->
 <script src="/java/cart.js"></script> <!-- في صفحة الكارت -->
 <script>
 
