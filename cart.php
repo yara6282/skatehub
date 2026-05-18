@@ -1,41 +1,21 @@
 <?php
 session_start();
-require_once __DIR__ . "/includes/db.php";
-
-$products_query = "SELECT * FROM products ORDER BY id DESC";
-
-$products_result = mysqli_query($conn, $products_query);
-
-$products = [];
-
-while ($row = mysqli_fetch_assoc($products_result)) {
-
-    $products[] = [
-        "id" => $row["id"],
-        "name" => $row["name"],
-        "category" => $row["category"],
-        "price" => "$" . number_format($row["price"], 2),
-        "img" => $row["image"],
-        "sizes" => $row["sizes"]
-    ];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkateHub | Pro Shop</title>
-  
-  <!-- الروابط والخطوط -->
+  <title>SkateHub | Your Deck (Cart)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="./style/global.css">
-  <link rel="stylesheet" href="./style/shop.css">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style/global.css">
+  <link rel="stylesheet" href="./style/cart.css">
 </head>
-<body>
-
-<!-- الناف بار الخاص بك -->
+<body style="background-color: #000;"> <!-- إجبار الخلفية تكون سودة -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<div class="vhs-overlay"></div>
 
 <nav class="navbar">
 
@@ -76,7 +56,7 @@ while ($row = mysqli_fetch_assoc($products_result)) {
         <?php endif; ?>
 
         <div class="cart-btn">
-            <a href="cart.php">
+            <a href="cart.html">
                 <i class="fas fa-shopping-cart"></i>
             </a>
 
@@ -112,96 +92,112 @@ while ($row = mysqli_fetch_assoc($products_result)) {
     </div>
 
 </nav>
+<main class="cart-wrapper">
+    <!-- جهة اليسار تبدأ هنا -->
+    <div class="cart-top-section">
 
-<!-- قسم الهيرو السينمائي مع 3 صور -->
-<section class="hero-shop">
-    <div class="vhs-overlay"></div>
-    <div class="scanline"></div>
-    
-    <div class="image-wrapper" id="hero-slider">
-        <!-- الصورة الأولى (تكون نشطة في البداية) -->
-        <img src="./image/pexels-introspectivedsgn-5880093.jpg" class="slide active" alt="Store 1">
-        <!-- الصورة الثانية (ضع مسار صورتك الثانية هنا) -->
-        <img src="./image/pexels-aedrian-8117154.jpg" class="slide" alt="Store 2">
-        <!-- الصورة الثالثة (ضع مسار صورتك الثالثة هنا) -->
-        <img src="./image/pexels-badhon-35750806.jpg" class="slide" alt="Store 3">
+<header class="cart-header">
+    <h1 class="glitch" data-text="YOUR_DECK">YOUR_DECK</h1>
+
+    <div class="shipping-goal">
+        <p id="shipping-text">
+            Add <span class="neon-green">$34.00</span>
+            more for FREE SHIPPING
+        </p>
+
+        <div class="progress-track">
+            <div class="progress-bar" id="p-bar" style="width: 0%;"></div>
+
+            <i class="fas fa-skating skate-icon"
+               id="s-icon"
+               style="left: 0%;">
+            </i>
+        </div>
     </div>
+</header>
 
-    <div class="hero-title-area">
-        <h1 class="glitch" data-text="SKATE HUB">SKATE HUB</h1>
-        <p class="neon-text">EST. 2024 // PREMIUM SKATE GOODS</p>
-    </div>
-</section>
-
-<!-- أزرار التصنيفات على شكل ملصقات (Stickers) -->
-<div class="sticker-nav">
-    <button onclick="filterProducts('all')" class="sticker s1 active">#ALL_STUFF</button>
-    <button onclick="filterProducts('skates')" class="sticker s2">SKATES</button>
-    <button onclick="filterProducts('tshirts')" class="sticker s3">CLOTHING</button>
-    <button onclick="filterProducts('shoes')" class="sticker s4">KICKS</button>
-    <button onclick="filterProducts('accessories')" class="sticker s5">GEAR</button>
 </div>
 
-<!-- معرض المنتجات -->
-<main class="shop-main">
-    <div class="section-header">
-        <h2 id="category-title">FEATURED_ITEMS</h2>
-    </div>
+    <div class="cart-container">
+        <!-- قسم المنتجات المضافة -->
+        <section class="cart-items" id="cart-items-list">
+            <!-- المنتجات بتنزل هون من الـ JS -->
+        </section>
 
-    <div class="products-grid" id="products-grid">
-        <!-- المنتجات تظهر هنا عبر JS -->
+        <!-- صندوق الملخص (Order Summary) -->
+        <aside class="cart-summary sticker-style">
+            <h2 class="bangers-text">ORDER_SUMMARY</h2>
+            
+            <!-- تم إزالة سطر Subtotal من هنا -->
+
+            <label class="group-label">SHIPPING_METHOD</label>
+            <div class="payment-methods">
+                <label class="method-card">
+                    <input type="radio" name="shipping" value="0" checked onchange="updateTotal()">
+                    <div class="method-info">
+                        <span>Free Shipping</span>
+                        <small>$0.00</small>
+                    </div>
+                </label>
+                <label class="method-card">
+                    <input type="radio" name="shipping" value="15" onchange="updateTotal()">
+                    <div class="method-info">
+                        <span>Express Delivery</span>
+                        <small>+$15.00</small>
+                    </div>
+                </label>
+            </div>
+
+            <label class="group-label">DROP_ZONE (Palestine)</label>
+            <select id="governorate" class="skate-input">
+                <option value="" disabled selected>Select Governorate</option>
+                <option value="Jerusalem">Jerusalem (القدس)</option>
+                <option value="Nablus">Nablus</option>
+                <option value="Ramallah">Ramallah</option>
+                <option value="Hebron">Hebron</option>
+                <option value="Jenin">Jenin</option>
+                <option value="Bethlehem">Bethlehem</option>
+            </select>
+            <input type="text" id="address-details" class="skate-input" placeholder="Address Details (Street/Building)">
+
+            <label class="group-label">PAYMENT_WAY</label>
+            <div class="payment-grid">
+                <label class="pay-option">
+                    <input type="radio" name="payway" checked>
+                    <div class="pay-box"><i class="fas fa-money-bill-wave"></i><span>Cash</span></div>
+                </label>
+                <label class="pay-option">
+                    <input type="radio" name="payway">
+                    <div class="pay-box"><i class="fas fa-credit-card"></i><span>Card</span></div>
+                </label>
+            </div>
+
+            <label class="group-label">PROMO_CODE (Optional)</label>
+            <div class="promo-input-wrap">
+                <input type="text" id="coupon-input" placeholder="CODE">
+                <button type="button" class="apply-btn" onclick="applyCoupon()">APPLY</button>
+            </div>
+
+            <div class="summary-bottom-info">
+                 <div class="summary-row small">
+                    <span>Subtotal</span>
+                    <span id="subtotal-val">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>TOTAL</span>
+                    <span id="total-val">$0.00</span>
+                </div>
+            </div>
+
+           <!-- مكان ظهور الإشعارات فوق الزر -->
+<div id="cart-status-container" class="status-container"></div>
+
+<button class="checkout-btn" onclick="processOrder()">
+    KICKFLIP TO CHECKOUT <i class="fas fa-arrow-right"></i>
+</button>
+        </aside>
     </div>
 </main>
-<section class="custom-lab">
-    <div class="section-header">
-        <h2>CUSTOM_<span>LAB</span></h2>
-        <p>STREET_CREATIVITY_ACTIVE</p>
-    </div>
-
-    <div class="lab-container">
-        <!-- منطقة المعاينة (تتغير الـ Class الخاصة بها بين lab-deck و lab-shirt) -->
-        <div class="preview-side" id="preview-side">
-            <div class="preview-box lab-deck" id="design-area">
-                <!-- قالب المنتج الفارغ -->
-                <img src="./image/blank-deck.png" id="base-product-img" class="base-obj">
-                
-                <!-- طبقة تصميم المستخدم -->
-                <div class="user-overlay">
-                    <img id="user-uploaded-img" src="" class="custom-img-style">
-                    <span id="user-custom-text">YOUR_TEXT</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- أزرار التحكم -->
-        <div class="controls-side">
-            <div class="control-group">
-                <label>1. SELECT_BASE</label>
-                <div class="base-toggles">
-                    <button class="base-btn active" onclick="setBase('deck', './image/blank-deck.jpg')">DECK</button>
-                    <button class="base-btn" onclick="setBase('shirt', './image/blank-shirt.jpg')">SHIRT</button>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label>2. UPLOAD_ART</label>
-                <input type="file" id="lab-image-input" accept="image/*" class="custom-file-input">
-            </div>
-
-            <div class="control-group">
-                <label>3. CUSTOM_TEXT</label>
-                <input type="text" id="lab-text-input" placeholder="Enter text...">
-            </div>
-
-            <div class="control-group">
-                <label>4. CHOOSE_COLOR</label>
-                <input type="color" id="lab-color-input" value="#ff0055">
-            </div>
-
-            <button class="publish-btn" onclick="addCustomToCart()">ADD_CUSTOM_TO_DECK</button>
-        </div>
-    </div>
-</section>
 <!-- Footer المطور والنحيف -->
 <footer class="main-footer">
     <div class="footer-content">
@@ -261,25 +257,9 @@ while ($row = mysqli_fetch_assoc($products_result)) {
         </div>
     </div>
 </div>
-<!-- مكان عرض المنتجات -->
-<div id="products" class="products-section"></div>
-<!-- 1. مكتبة الأنميشن -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- Custom Cursor (Global) -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-<!-- ملف الماوس المخصص الخاص بك -->
 <script src="./java/cursor.js"></script>
-
-<script>
-const dbProducts = <?php echo json_encode($products); ?>;
-</script>
-<!-- مكتبة تصوير العناصر -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="./js/shop.js"></script>
-
-<!-- أو -->
-<script src="/java/cart.js"></script> <!-- في صفحة الكارت -->
+<script src="./java/cart.js"></script>
 <script>
 
 const notifBtn =
@@ -359,7 +339,5 @@ document.addEventListener("click", (e)=>{
 });
 
 </script>
-<!-- حاوية إشعارات الشوب -->
-<div id="shop-toast-container" class="shop-toast-container"></div>
 </body>
 </html>

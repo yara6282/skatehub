@@ -378,44 +378,83 @@ body {
     <div class="cursor"></div>
 
 <div class="cursor-follower"></div>
-<div class="navbar login-nav">
-    <div class="logo">
-        <a href="home.php" class="logo-link">
-            <img src="./image/9037278.png" alt="SkateHub Logo">
-            <span class="site-title">SkateHub</span>
-        </a>
+
+<nav class="navbar">
+
+    <a href="home.php" class="logo-link">
+       <div class="logo">
+                <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+            </div>
+        <span class="site-title">SkateHub</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="home.php" class="nav-item active-link">Home</a>
+        <a href="events.php" class="nav-item">Events</a>
+        <a href="shop.php" class="nav-item">Shop</a>
+        <a href="community.html" class="nav-item">Community</a>
+        <a href="tutorials.php" class="nav-item">Tutorials</a>
     </div>
-    
+
     <div class="nav-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
-        <a href="signup.html"><i class="fas fa-user-plus"></i></a>
-        <div class="notif-wrapper">
+<!-- التحقق من رتبة الأدمن -->
+    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <a href="admin-dashboard.php" class="admin-nav-icon" title="Admin Panel">
+            <i class="fas fa-user-shield"></i>
+        </a>
+    <?php endif; ?>
+        <?php if (isset($_SESSION["user_id"])): ?>
 
-    <button class="notif-btn" id="notifBtn">
-        <i class="fas fa-bell"></i>
+            <a href="profile.php">
+                <i class="fas fa-user-circle"></i>
+            </a>
 
-        <span class="notif-dot"></span>
-    </button>
+        <?php else: ?>
 
-    <div class="notif-panel" id="notifPanel">
+            <a href="login.html">
+                <i class="fas fa-user-circle"></i>
+            </a>
 
-        <div class="notif-header">
-            NOTIFICATIONS
+        <?php endif; ?>
+
+        <div class="cart-btn">
+            <a href="cart.php">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+
+            <span id="cart-count">0</span>
         </div>
 
-        <div class="notif-list" id="notifList">
+        <div class="notif-wrapper">
 
-            <div class="notif-loading">
-                Loading...
+            <button class="notif-btn" id="notifBtn">
+                <i class="fas fa-bell"></i>
+
+                <span class="notif-dot"></span>
+            </button>
+
+            <div class="notif-panel" id="notifPanel">
+
+                <div class="notif-header">
+                    NOTIFICATIONS
+                </div>
+
+                <div class="notif-list" id="notifList">
+
+                    <div class="notif-loading">
+                        Loading...
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-</div>
-    </div>
-</div>
+</nav>
+
     <main class="tickets-page">
 
         <section class="tickets-hero">

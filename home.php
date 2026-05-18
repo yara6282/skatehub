@@ -25,7 +25,9 @@ session_start();
 <nav class="navbar">
 
     <a href="home.php" class="logo-link">
-        <img src="./image/9037278.png" alt="Logo">
+       <div class="logo">
+                <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+            </div>
         <span class="site-title">SkateHub</span>
     </a>
 
@@ -38,7 +40,12 @@ session_start();
     </div>
 
     <div class="nav-icons">
-
+<!-- التحقق من رتبة الأدمن -->
+    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <a href="admin-dashboard.php" class="admin-nav-icon" title="Admin Panel">
+            <i class="fas fa-user-shield"></i>
+        </a>
+    <?php endif; ?>
         <?php if (isset($_SESSION["user_id"])): ?>
 
             <a href="profile.php">
@@ -54,7 +61,7 @@ session_start();
         <?php endif; ?>
 
         <div class="cart-btn">
-            <a href="cart.html">
+            <a href="cart.php">
                 <i class="fas fa-shopping-cart"></i>
             </a>
 
@@ -249,7 +256,7 @@ session_start();
     <div class="tutorial-featured-box">
 
         <div class="vid-side">
-            <iframe src="https://www.youtube.com/embed/dF7T_f88vI4"
+            <iframe src="https://www.youtube.com/embed/JNmUK9fvrAs"
                     frameborder="0"
                     allowfullscreen>
             </iframe>

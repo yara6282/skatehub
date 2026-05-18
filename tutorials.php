@@ -22,11 +22,11 @@ function styleClass($style) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkateHub | Professional Tutorials</title>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="./style/tutorials.css">
-    <link rel="stylesheet" href="./style/global.css">
+  <!-- الروابط والخطوط -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./style/global.css">
+  <link rel="stylesheet" href="./style/tutorials.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -35,46 +35,81 @@ function styleClass($style) {
 <div class="cursor-follower"></div>
 
 <nav class="navbar">
+
     <a href="home.php" class="logo-link">
-        <div class="logo">
-            <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
-        </div>
+       <div class="logo">
+                <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+            </div>
         <span class="site-title">SkateHub</span>
     </a>
 
     <div class="nav-links">
-        <a href="./home.php" class="nav-item">Home</a>
-        <a href="./events.php" class="nav-item">Events</a>
-        <a href="./community.html" class="nav-item">Community</a>
-        <a href="./shop.php" class="nav-item">Shop</a>
-        <a href="./tutorials.php" class="nav-item active-link">Tutorials</a>
+        <a href="home.php" class="nav-item active-link">Home</a>
+        <a href="events.php" class="nav-item">Events</a>
+        <a href="shop.php" class="nav-item">Shop</a>
+        <a href="community.html" class="nav-item">Community</a>
+        <a href="tutorials.php" class="nav-item">Tutorials</a>
     </div>
 
     <div class="nav-icons">
+<!-- التحقق من رتبة الأدمن -->
+    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <a href="admin-dashboard.php" class="admin-nav-icon" title="Admin Panel">
+            <i class="fas fa-user-shield"></i>
+        </a>
+    <?php endif; ?>
         <?php if (isset($_SESSION["user_id"])): ?>
-            <a href="profile.php"><i class="fas fa-user"></i></a>
+
+            <a href="profile.php">
+                <i class="fas fa-user-circle"></i>
+            </a>
+
         <?php else: ?>
-            <a href="login.html"><i class="fas fa-user"></i></a>
+
+            <a href="login.html">
+                <i class="fas fa-user-circle"></i>
+            </a>
+
         <?php endif; ?>
 
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <div class="cart-btn">
+            <a href="cart.php">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+
+            <span id="cart-count">0</span>
+        </div>
 
         <div class="notif-wrapper">
+
             <button class="notif-btn" id="notifBtn">
                 <i class="fas fa-bell"></i>
+
                 <span class="notif-dot"></span>
             </button>
 
             <div class="notif-panel" id="notifPanel">
-                <div class="notif-header">NOTIFICATIONS</div>
+
+                <div class="notif-header">
+                    NOTIFICATIONS
+                </div>
 
                 <div class="notif-list" id="notifList">
-                    <div class="notif-loading">Loading...</div>
+
+                    <div class="notif-loading">
+                        Loading...
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </nav>
+
 
 <header class="hero">
     <div class="floating-elements">

@@ -46,14 +46,52 @@ $total_tickets = $tickets_count_row["total_tickets"];
 <div class="cursor-follower"></div>
 
 <nav class="navbar">
-    <div class="navbar login-nav">
-        <div class="logo">
-            <a href="home.php" class="logo-link">
-                <img src="./image/9037278.png" alt="SkateHub Logo">
-                <span class="site-title">SkateHub</span>
+
+    <a href="home.php" class="logo-link">
+       <div class="logo">
+                <img src="./image/9037278.png" alt="SkateHub Logo" onerror="this.style.display='none'">
+            </div>
+        <span class="site-title">SkateHub</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="home.php" class="nav-item active-link">Home</a>
+        <a href="events.php" class="nav-item">Events</a>
+        <a href="shop.php" class="nav-item">Shop</a>
+        <a href="community.html" class="nav-item">Community</a>
+        <a href="tutorials.php" class="nav-item">Tutorials</a>
+    </div>
+
+    <div class="nav-icons">
+<!-- التحقق من رتبة الأدمن -->
+    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <a href="admin-dashboard.php" class="admin-nav-icon" title="Admin Panel">
+            <i class="fas fa-user-shield"></i>
+        </a>
+    <?php endif; ?>
+        <?php if (isset($_SESSION["user_id"])): ?>
+
+            <a href="profile.php">
+                <i class="fas fa-user-circle"></i>
             </a>
+
+        <?php else: ?>
+
+            <a href="login.html">
+                <i class="fas fa-user-circle"></i>
+            </a>
+
+        <?php endif; ?>
+
+        <div class="cart-btn">
+            <a href="cart.php">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+
+            <span id="cart-count">0</span>
         </div>
 
+<<<<<<< HEAD
         <div class="nav-links">
             <a href="home.php">Home</a>
             <a href="events.php">Events</a>
@@ -61,38 +99,38 @@ $total_tickets = $tickets_count_row["total_tickets"];
             <a href="shop.php">Shop</a>
             <a href="tutorials.php">Tutorials</a>
         </div>
+=======
+        <div class="notif-wrapper">
+>>>>>>> 41d201d981c4c9c12e388d7a7a1828eb040c98d7
 
-        <div class="nav-icons">
-            <a href="profile.php"><i class="fas fa-user"></i></a>
-            <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-           <div class="notif-wrapper">
+            <button class="notif-btn" id="notifBtn">
+                <i class="fas fa-bell"></i>
 
-    <button class="notif-btn" id="notifBtn">
-        <i class="fas fa-bell"></i>
+                <span class="notif-dot"></span>
+            </button>
 
-        <span class="notif-dot"></span>
-    </button>
+            <div class="notif-panel" id="notifPanel">
 
-    <div class="notif-panel" id="notifPanel">
+                <div class="notif-header">
+                    NOTIFICATIONS
+                </div>
 
-        <div class="notif-header">
-            NOTIFICATIONS
-        </div>
+                <div class="notif-list" id="notifList">
 
-        <div class="notif-list" id="notifList">
+                    <div class="notif-loading">
+                        Loading...
+                    </div>
 
-            <div class="notif-loading">
-                Loading...
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-</div>
-        </div>
-    </div>
 </nav>
+
 
 <main class="profile-page">
 
