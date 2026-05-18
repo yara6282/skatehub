@@ -1,5 +1,14 @@
+    updateCartCount();
+// وظيفة تحديث عداد السلة
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+    let count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.innerText = count;
+    }
+}
 document.addEventListener('DOMContentLoaded', renderCart);
-
 function renderCart() {
     let cartData = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
     const list = document.getElementById('cart-items-list');
