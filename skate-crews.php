@@ -11,7 +11,7 @@ if ($count == 0) {
     mysqli_query($conn, "
     INSERT INTO skate_crews (name, description, location, image) VALUES
     ('Nablus Street Riders', 'A crew for night rides, street tricks, and weekly concrete sessions.', 'Nablus', 'https://images.unsplash.com/photo-1547447134-cd3f5c716030?auto=format&fit=crop&w=1000'),
-    ('Ramallah Roll Squad', 'Roller and inline skaters building flow, balance, and urban routes.', 'Ramallah', 'https://images.unsplash.com/photo-1536318431364-5cc762cfc8ec?auto=format&fit=crop&w=1000'),
+    ('Ramallah Roll Squad', 'Roller and inline skaters building flow, balance, and urban routes.', 'Ramallah', 'https://images.pexels.com/photos/12919302/pexels-photo-12919302.jpeg'),
     ('Jerusalem Concrete Crew', 'Skateboarders chasing ledges, stairs, and creative street lines.', 'Jerusalem', 'https://images.unsplash.com/photo-1536318431364-5cc762cfc8ec?auto=format&fit=crop&w=1000')
     ");
 }

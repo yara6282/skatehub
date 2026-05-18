@@ -339,7 +339,7 @@ document.addEventListener("click", (e)=>{
 
 </script>
 <script>
-function getUserLocation() {
+ function getUserLocation() {
     const preview = document.getElementById("location-preview");
 
     if (!preview) {
