@@ -16,6 +16,7 @@ SELECT
     cp.*,
     u.fullname,
     u.email,
+    u.profile_img,
     (SELECT COUNT(*) FROM post_likes WHERE post_id = cp.id) AS likes_count,
     (SELECT COUNT(*) FROM post_comments WHERE post_id = cp.id) AS comments_count
 FROM community_posts cp
@@ -30,20 +31,68 @@ $followers_count = 0;
 $following_count = 0;
 
 if ($user_id) {
-    $pc = mysqli_query($conn, "SELECT COUNT(*) AS c FROM community_posts WHERE user_id='$user_id'");
-    $posts_count = mysqli_fetch_assoc($pc)["c"];
-
-    $fc = mysqli_query($conn, "SELECT COUNT(*) AS c FROM follows WHERE following_id='$user_id'");
-    $followers_count = mysqli_fetch_assoc($fc)["c"];
-
-    $fg = mysqli_query($conn, "SELECT COUNT(*) AS c FROM follows WHERE follower_id='$user_id'");
-    $following_count = mysqli_fetch_assoc($fg)["c"];
+    $posts_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS c FROM community_posts WHERE user_id='$user_id'"))["c"];
+    $followers_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS c FROM follows WHERE following_id='$user_id'"))["c"];
+    $following_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS c FROM follows WHERE follower_id='$user_id'"))["c"];
 }
 
-$my_img = "https://i.pravatar.cc/150?u=me";
+$my_img = "";
+if (isset($me["profile_img"]) && !empty($me["profile_img"])) {
+    $my_img = "image/" . $me["profile_img"];
+}
 
 $my_name = $me["fullname"] ?? "Guest Skater";
 $my_email = $me["email"] ?? "@guest";
+
+$stories_result = null;
+
+if ($user_id) {
+    $stories_result = mysqli_query($conn, "
+        SELECT s.*, u.fullname, u.profile_img
+        FROM stories s
+        JOIN users u ON s.user_id = u.id
+        WHERE s.expires_at > NOW()
+        AND (
+            s.user_id = '$user_id'
+            OR s.user_id IN (
+                SELECT following_id
+                FROM follows
+                WHERE follower_id = '$user_id'
+            )
+        )
+        ORDER BY s.created_at DESC
+    ");
+}
+
+$chat_users = null;
+
+if ($user_id) {
+    $chat_users = mysqli_query($conn, "
+        SELECT DISTINCT u.id, u.fullname, u.email, u.profile_img
+        FROM follows f
+        JOIN users u ON (
+            (u.id = f.following_id AND f.follower_id = '$user_id')
+            OR
+            (u.id = f.follower_id AND f.following_id = '$user_id')
+        )
+        WHERE u.id != '$user_id'
+        LIMIT 20
+    ");
+}
+
+function userAvatarBlock($img, $name, $className = "avatar-empty") {
+    if (!empty($img)) {
+        return "<img src='" . htmlspecialchars($img) . "' alt='user'>";
+    }
+
+    $letter = strtoupper(substr($name, 0, 1));
+
+    return "
+        <div class='$className'>
+            " . htmlspecialchars($letter) . "
+        </div>
+    ";
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +106,228 @@ $my_email = $me["email"] ?? "@guest";
 
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/community.css">
+
+    <style>
+        .avatar-empty,
+        .chat-avatar-empty,
+        .chat-main-avatar-empty {
+            border-radius: 50%;
+            background: rgba(0,242,255,0.12);
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .avatar-empty {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+        }
+
+        .chat-avatar-empty {
+            width: 58px;
+            height: 58px;
+            min-width: 58px;
+        }
+
+        .chat-main-avatar-empty {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+        }
+
+        .real-chat-holder {
+            width: 100%;
+        }
+
+        .real-chat-widget {
+            width: 100%;
+            margin-top: 0;
+            padding: 22px;
+        }
+
+        .chat-layout {
+            display: block;
+        }
+
+        .chat-sidebar {
+            width: 100%;
+            min-width: 100%;
+            max-height: 260px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-bottom: 18px;
+            padding-right: 6px;
+        }
+
+        .chat-user-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: .3s;
+            overflow: hidden;
+        }
+
+        .chat-user-card:hover {
+            transform: translateX(5px);
+            background: rgba(0,242,255,.08);
+        }
+
+        .chat-user-card img {
+            width: 58px !important;
+            height: 58px !important;
+            min-width: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--cyan);
+        }
+
+        .chat-user-card strong {
+            color: white;
+            display: block;
+        }
+
+        .chat-user-card p {
+            color: rgba(255,255,255,0.55);
+            margin-top: 3px;
+            font-size: 12px;
+        }
+
+        .chat-main {
+            width: 100%;
+        }
+
+        .chat-main-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 72px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            padding-bottom: 14px;
+        }
+
+        .chat-main-top img {
+            width: 52px !important;
+            height: 52px !important;
+            min-width: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--cyan);
+        }
+
+        .real-chat-messages {
+            height: 280px;
+            overflow-y: auto;
+            padding: 18px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-bubble {
+            max-width: 78%;
+            padding: 13px 15px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .chat-bubble.sent {
+            align-self: flex-end;
+            background: var(--cyan);
+            color: #00101c;
+        }
+
+        .chat-bubble.received {
+            align-self: flex-start;
+            background: rgba(255,255,255,.08);
+            color: white;
+        }
+
+        .real-chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .real-chat-input input {
+            flex: 1;
+            background: rgba(255,255,255,.05);
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 16px;
+            padding: 14px;
+        }
+
+        .real-chat-input button {
+            width: 55px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg,#00f2ff,#00a8ff);
+            color: #00101c;
+            font-size: 17px;
+        }
+
+        .chat-top-bar h3 {
+            color: var(--cyan);
+            margin-bottom: 15px;
+        }
+
+        .chat-search-wrap {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        #chatSearch {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            outline: none;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        #searchResults {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            background: #081423;
+            border-radius: 18px;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .search-user-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .search-user-item:hover {
+            background: rgba(255,255,255,.05);
+        }
+
+        .search-user-item img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--cyan);
+        }
+    </style>
 </head>
 
 <body>
@@ -114,7 +385,11 @@ $my_email = $me["email"] ?? "@guest";
 
                 <div class="user-data">
                     <div class="pfp-holder">
-                        <img src="<?php echo $my_img; ?>" alt="me">
+                        <?php if (!empty($my_img)): ?>
+                            <img src="<?php echo $my_img; ?>" alt="me">
+                        <?php else: ?>
+                            <div class="avatar-empty"><?php echo strtoupper(substr($my_name, 0, 1)); ?></div>
+                        <?php endif; ?>
                     </div>
 
                     <h3><?php echo htmlspecialchars($my_name); ?></h3>
@@ -151,25 +426,109 @@ $my_email = $me["email"] ?? "@guest";
         </aside>
 
         <main class="feed-area">
+            <div class="community-user-search">
+    <input type="text" id="topUserSearch" placeholder="Search skaters...">
+    <div id="topUserResults"></div>
+</div>
 
             <div class="stories-scroll">
-                <div class="story-item add">
-                    <div class="plus-icon"><i class="fa-solid fa-plus"></i></div>
-                    <span>Add Story</span>
+
+                <?php if ($user_id): ?>
+                    <div class="story-item add" onclick="openStoryPopup()">
+                        <div class="plus-icon">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <span>Add Story</span>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($stories_result && mysqli_num_rows($stories_result) > 0): ?>
+                    <?php while ($story = mysqli_fetch_assoc($stories_result)): ?>
+
+                        <?php
+                        $story_img = "";
+                        if (!empty($story["profile_img"])) {
+                            $story_img = "image/" . $story["profile_img"];
+                        }
+                        ?>
+
+                        <a href="view_story.php?id=<?php echo $story['id']; ?>" class="story-item">
+                            <?php if (!empty($story_img)): ?>
+                                <img src="<?php echo $story_img; ?>">
+                            <?php else: ?>
+                                <div class="story-avatar-empty">
+                                    <?php echo strtoupper(substr($story["fullname"], 0, 1)); ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <span><?php echo htmlspecialchars($story["fullname"]); ?></span>
+                        </a>
+
+                    <?php endwhile; ?>
+                <?php endif; ?>
+
+            </div>
+
+            <div class="story-popup" id="storyPopup">
+                <div class="story-popup-card">
+
+                    <button class="close-story-popup" onclick="closeStoryPopup()">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <h2>Create Story</h2>
+
+                    <form action="add_story.php" method="POST" enctype="multipart/form-data">
+
+                        <label class="story-upload-label">
+                            <i class="fas fa-image"></i>
+                            Choose Story Image
+
+                            <input
+                                type="file"
+                                name="story_media"
+                                id="storyFileInput"
+                                accept="image/*"
+                                required
+                                hidden
+                                onchange="previewStoryImage(event)"
+                            >
+                        </label>
+
+                        <img
+                            id="storyPreview"
+                            style="width:100%; margin-top:18px; border-radius:20px; display:none; max-height:260px; object-fit:cover;"
+                        >
+
+                        <textarea
+                            name="caption"
+                            placeholder="Write a caption..."
+                            maxlength="180"
+                        ></textarea>
+
+                        <button type="submit" class="publish-story-btn">
+                            Publish Story 🚀
+                        </button>
+
+                    </form>
                 </div>
-                <div class="story-item"><img src="https://i.pravatar.cc/150?u=1"><span>Tony</span></div>
-                <div class="story-item"><img src="https://i.pravatar.cc/150?u=2"><span>Sarah</span></div>
-                <div class="story-item"><img src="https://i.pravatar.cc/150?u=3"><span>Alex</span></div>
-                <div class="story-item"><img src="https://i.pravatar.cc/150?u=4"><span>Mike</span></div>
             </div>
 
             <div class="glass-card create-post-v4">
                 <form action="add_post.php" method="POST" enctype="multipart/form-data">
 
                     <div class="post-write-row">
-                        <img src="<?php echo $my_img; ?>" class="post-avatar">
+                        <?php if (!empty($my_img)): ?>
+                            <img src="<?php echo $my_img; ?>" class="post-avatar">
+                        <?php else: ?>
+                            <div class="post-avatar avatar-empty"><?php echo strtoupper(substr($my_name, 0, 1)); ?></div>
+                        <?php endif; ?>
 
-                        <textarea name="content" placeholder="Share your trick today, Legend..." required></textarea>
+                        <textarea
+                            name="content"
+                            placeholder="Share your trick today, Legend..."
+                            required
+                        ></textarea>
                     </div>
 
                     <div class="post-divider"></div>
@@ -209,14 +568,55 @@ $my_email = $me["email"] ?? "@guest";
                 <?php while ($post = mysqli_fetch_assoc($posts_result)): ?>
 
                     <?php
-                    $post_img = "https://i.pravatar.cc/150?u=" . $post["user_id"];
                     $post_id = $post["id"];
+
+                    $post_img = "";
+                    if (isset($post["profile_img"]) && !empty($post["profile_img"])) {
+                        $post_img = "image/" . $post["profile_img"];
+                    }
+
+                    $liked = false;
+                    if ($user_id) {
+                        $check_like = mysqli_query(
+                            $conn,
+                            "SELECT * FROM post_likes WHERE user_id='$user_id' AND post_id='$post_id'"
+                        );
+                        $liked = mysqli_num_rows($check_like) > 0;
+                    }
+
+                    $is_following = false;
+                    if ($user_id && $post["user_id"] != $user_id) {
+                        $follow_check = mysqli_query($conn, "
+                            SELECT * FROM follows
+                            WHERE follower_id='$user_id'
+                            AND following_id='{$post["user_id"]}'
+                        ");
+
+                        $is_following = mysqli_num_rows($follow_check) > 0;
+                    }
+
+                    $likes_users = mysqli_query($conn, "
+                        SELECT u.fullname
+                        FROM post_likes pl
+                        JOIN users u ON pl.user_id = u.id
+                        WHERE pl.post_id = '$post_id'
+                        LIMIT 8
+                    ");
+
+                    $liked_names = [];
+                    while ($lu = mysqli_fetch_assoc($likes_users)) {
+                        $liked_names[] = $lu["fullname"];
+                    }
                     ?>
 
                     <article class="glass-card post-v3 tilt-target">
 
                         <div class="post-head">
-                            <img src="<?php echo $post_img; ?>" class="mini-pfp">
+                            <?php if (!empty($post_img)): ?>
+                                <img src="<?php echo $post_img; ?>" class="mini-pfp">
+                            <?php else: ?>
+                                <div class="mini-pfp avatar-empty"><?php echo strtoupper(substr($post["fullname"], 0, 1)); ?></div>
+                            <?php endif; ?>
 
                             <div class="info">
                                 <h4>
@@ -230,6 +630,17 @@ $my_email = $me["email"] ?? "@guest";
                                     <?php echo htmlspecialchars($post["location"]); ?>
                                 </span>
                             </div>
+
+                            <?php if ($user_id && $post["user_id"] != $user_id): ?>
+
+                                <a
+                                    href="follow_user.php?user_id=<?php echo $post['user_id']; ?>&back=community.php"
+                                    class="follow-btn-small"
+                                >
+                                    <?php echo $is_following ? "Following" : "Follow"; ?>
+                                </a>
+
+                            <?php endif; ?>
 
                             <?php if ($user_id && ($post["user_id"] == $user_id || $role === "admin")): ?>
                                 <a
@@ -253,10 +664,17 @@ $my_email = $me["email"] ?? "@guest";
                         <?php endif; ?>
 
                         <div class="post-foot">
-                            <button class="interact-btn like" onclick="toggleLike(<?php echo $post['id']; ?>, this)">
-                                <i class="fa-regular fa-heart"></i>
+                            <a
+                                class="interact-btn like"
+                                href="toggle_like_redirect.php?post_id=<?php echo $post['id']; ?>&back=community.php"
+                            >
+                                <i
+                                    class="<?php echo $liked ? 'fa-solid' : 'fa-regular'; ?> fa-heart"
+                                    style="color: <?php echo $liked ? '#ff2d55' : 'white'; ?>;"
+                                ></i>
+
                                 <span><?php echo $post["likes_count"]; ?></span>
-                            </button>
+                            </a>
 
                             <button class="interact-btn" onclick="toggleComments(<?php echo $post['id']; ?>)">
                                 <i class="fa-regular fa-comment"></i>
@@ -267,6 +685,14 @@ $my_email = $me["email"] ?? "@guest";
                                 <i class="fa-solid fa-share"></i>
                             </button>
                         </div>
+
+                        <?php if (count($liked_names) > 0): ?>
+                            <div class="liked-by-box">
+                                <i class="fa-solid fa-heart"></i>
+                                Liked by
+                                <strong><?php echo htmlspecialchars(implode(", ", $liked_names)); ?></strong>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="comments-box" id="comments-<?php echo $post['id']; ?>">
 
@@ -337,6 +763,7 @@ $my_email = $me["email"] ?? "@guest";
         </main>
 
         <aside class="sidebar-right">
+
             <div class="glass-card widget-v3">
                 <h3 class="w-title">Leaderboard 🏆</h3>
 
@@ -346,43 +773,118 @@ $my_email = $me["email"] ?? "@guest";
                 </div>
             </div>
 
-            <div class="glass-card chat-widget-v4">
-                <div class="chat-header-v4">
-                    <h3>Messages</h3>
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </div>
+            <div class="real-chat-holder">
 
-                <div class="chat-body-v4">
-                    <div class="chat-users">
-                        <div class="chat-user active" onclick="selectChat(this, 'Tony')">
-                            <img src="https://i.pravatar.cc/150?u=tony">
-                            <span></span>
-                        </div>
+                <div class="glass-card real-chat-widget">
 
-                        <div class="chat-user" onclick="selectChat(this, 'Alex')">
-                            <img src="https://i.pravatar.cc/150?u=alex">
-                        </div>
-
-                        <div class="chat-user" onclick="selectChat(this, 'Sarah')">
-                            <img src="https://i.pravatar.cc/150?u=sarah">
-                        </div>
+                    <div class="chat-top-bar">
+                        <h3>Private Chat</h3>
                     </div>
 
-                    <div class="chat-panel">
-                        <div class="chat-with">Chatting with <strong id="chatName">Tony</strong></div>
+                    <div class="chat-search-wrap">
+                        <input
+                            type="text"
+                            id="chatSearch"
+                            placeholder="Search people..."
+                            autocomplete="off"
+                        >
 
-                        <div class="chat-messages" id="chatContainer">
-                            <div class="msg received">Yo! That flip was sick!</div>
-                            <div class="msg sent">Thanks bro! Appreciate it.</div>
-                        </div>
-
-                        <div class="chat-input-v4">
-                            <input type="text" placeholder="Type message...">
-                            <button><i class="fa-solid fa-paper-plane"></i></button>
-                        </div>
+                        <div id="searchResults"></div>
                     </div>
+
+                    <div class="chat-layout">
+
+                        <div class="chat-sidebar" id="chatSidebar">
+
+                            <?php if ($chat_users && mysqli_num_rows($chat_users) > 0): ?>
+
+                                <?php while($cu = mysqli_fetch_assoc($chat_users)): ?>
+
+                                    <?php
+                                    $cimg = "";
+                                    if(!empty($cu["profile_img"])){
+                                        $cimg = "image/" . $cu["profile_img"];
+                                    }
+                                    ?>
+
+                                    <div
+                                        class="chat-user-card"
+                                        onclick="openPrivateChat(
+                                            <?php echo $cu['id']; ?>,
+                                            '<?php echo htmlspecialchars($cu['fullname'], ENT_QUOTES); ?>',
+                                            '<?php echo htmlspecialchars($cimg, ENT_QUOTES); ?>'
+                                        )"
+                                    >
+                                        <?php if (!empty($cimg)): ?>
+                                            <img src="<?php echo $cimg; ?>">
+                                        <?php else: ?>
+                                            <div class="chat-avatar-empty">
+                                                <?php echo strtoupper(substr($cu["fullname"], 0, 1)); ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <div>
+                                            <strong><?php echo htmlspecialchars($cu["fullname"]); ?></strong>
+                                            <p>Following</p>
+                                        </div>
+                                    </div>
+
+                                <?php endwhile; ?>
+
+                            <?php else: ?>
+
+                                <p style="color:rgba(255,255,255,.6);">
+                                    Follow someone to start chatting.
+                                </p>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                        <div class="chat-main">
+
+                            <div class="chat-main-top">
+                                <div id="chatUserAvatar">
+                                    <div class="chat-main-avatar-empty">?</div>
+                                </div>
+
+                                <div>
+                                    <strong id="chatUserName">Select a chat</strong>
+                                    <p>Private conversation</p>
+                                </div>
+                            </div>
+
+                            <div class="real-chat-messages" id="realChatMessages">
+                                <div class="empty-chat">
+                                    Start chatting with your friends 🔥
+                                </div>
+                            </div>
+
+                            <form id="sendMessageForm" class="real-chat-input">
+
+                                <input type="hidden" id="receiverId">
+
+                                <input
+                                    type="text"
+                                    id="chatMessageInput"
+                                    placeholder="Type a message..."
+                                    autocomplete="off"
+                                >
+
+                                <button type="submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </aside>
 
     </div>
@@ -391,39 +893,6 @@ $my_email = $me["email"] ?? "@guest";
 <script src="./java/community.js"></script>
 
 <script>
-function toggleLike(postId, btn) {
-    fetch("toggle_like.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({post_id: postId})
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.login_required) {
-            window.location.href = "login.html";
-            return;
-        }
-
-        const icon = btn.querySelector("i");
-        const count = btn.querySelector("span");
-
-        count.innerText = data.likes;
-
-        if (data.status === "liked") {
-            icon.classList.remove("fa-regular");
-            icon.classList.add("fa-solid");
-            icon.style.color = "#ff2d55";
-        } else {
-            icon.classList.remove("fa-solid");
-            icon.classList.add("fa-regular");
-            icon.style.color = "white";
-        }
-
-        btn.style.transform = "scale(1.2)";
-        setTimeout(() => btn.style.transform = "scale(1)", 180);
-    });
-}
-
 function toggleComments(postId) {
     const box = document.getElementById("comments-" + postId);
 
@@ -443,7 +912,193 @@ function fakeShare(btn) {
 
     alert("Post link copied conceptually 🔗");
 }
-</script>
 
+function openStoryPopup(){
+    document.getElementById("storyPopup").classList.add("show-story-popup");
+    document.body.style.cursor = "none";
+}
+
+function closeStoryPopup(){
+    document.getElementById("storyPopup").classList.remove("show-story-popup");
+}
+
+function previewStoryImage(event){
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+        const preview = document.getElementById("storyPreview");
+
+        preview.src = e.target.result;
+        preview.style.display = "block";
+    }
+
+    reader.readAsDataURL(file);
+}
+
+let activeChatUser = null;
+
+function setChatAvatar(name, img){
+    const avatarBox = document.getElementById("chatUserAvatar");
+
+    if(img && img.trim() !== ""){
+        avatarBox.innerHTML = `<img src="${img}" alt="chat user">`;
+    } else {
+        const letter = name ? name.charAt(0).toUpperCase() : "?";
+        avatarBox.innerHTML = `<div class="chat-main-avatar-empty">${letter}</div>`;
+    }
+}
+
+async function openPrivateChat(id, name, img){
+    activeChatUser = id;
+
+    document.getElementById("receiverId").value = id;
+    document.getElementById("chatUserName").textContent = name;
+
+    setChatAvatar(name, img);
+
+    loadMessages();
+}
+
+async function loadMessages(){
+    if(!activeChatUser) return;
+
+    const res = await fetch(`fetch_chat.php?with_id=${activeChatUser}`);
+    const data = await res.json();
+
+    const box = document.getElementById("realChatMessages");
+
+    box.innerHTML = "";
+
+    data.forEach(msg => {
+        const div = document.createElement("div");
+
+        div.className =
+            "chat-bubble " +
+            (msg.sender_id == <?php echo intval($user_id ?? 0); ?>
+                ? "sent"
+                : "received");
+
+        div.innerText = msg.message;
+
+        box.appendChild(div);
+    });
+
+    box.scrollTop = box.scrollHeight;
+}
+
+document.getElementById("sendMessageForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const receiver = document.getElementById("receiverId").value;
+    const input = document.getElementById("chatMessageInput");
+
+    if(!receiver){
+        alert("Select a chat first.");
+        return;
+    }
+
+    if(input.value.trim() == "") return;
+
+    const formData = new FormData();
+
+    formData.append("receiver_id", receiver);
+    formData.append("message", input.value);
+
+    await fetch("send_message.php", {
+        method: "POST",
+        body: formData
+    });
+
+    input.value = "";
+
+    loadMessages();
+});
+
+setInterval(loadMessages, 2000);
+
+document.getElementById("chatSearch").addEventListener("input", async function(){
+    const q = this.value;
+
+    if(q.trim() == ""){
+        document.getElementById("searchResults").innerHTML = "";
+        return;
+    }
+
+    const res = await fetch(`search_users.php?q=${encodeURIComponent(q)}`);
+    const users = await res.json();
+
+    let html = "";
+
+    users.forEach(user => {
+        const safeName = user.fullname.replace(/'/g, "\\'");
+        const safeImg = user.profile_img ? user.profile_img.replace(/'/g, "\\'") : "";
+
+        html += `
+            <div
+                class="search-user-item"
+                onclick="
+                    openPrivateChat(
+                        ${user.id},
+                        '${safeName}',
+                        '${safeImg}'
+                    );
+                    document.getElementById('searchResults').innerHTML='';
+                    document.getElementById('chatSearch').value='';
+                "
+            >
+                ${
+                    user.profile_img
+                    ? `<img src="${user.profile_img}">`
+                    : `<div class="chat-avatar-empty">${user.fullname.charAt(0).toUpperCase()}</div>`
+                }
+
+                <div>
+                    <strong>${user.fullname}</strong>
+                    <p>${user.email}</p>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("searchResults").innerHTML = html;
+});
+</script>
+<script>
+document.getElementById("topUserSearch").addEventListener("input", async function(){
+    const q = this.value.trim();
+    const box = document.getElementById("topUserResults");
+
+    if(q === ""){
+        box.innerHTML = "";
+        return;
+    }
+
+    const res = await fetch(`search_users.php?q=${encodeURIComponent(q)}`);
+    const users = await res.json();
+
+    box.innerHTML = users.map(user => `
+        <div class="top-user-result">
+            ${
+                user.profile_img
+                ? `<img src="${user.profile_img}">`
+                : `<div class="story-avatar-empty">${user.fullname.charAt(0).toUpperCase()}</div>`
+            }
+
+            <div>
+                <strong>${user.fullname}</strong>
+                <p>${user.email}</p>
+            </div>
+
+            <a href="follow_user.php?user_id=${user.id}&back=community.php">
+                Follow
+            </a>
+        </div>
+    `).join("");
+});
+</script>
 </body>
 </html>

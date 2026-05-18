@@ -57,7 +57,7 @@ $total_tickets = $tickets_count_row["total_tickets"];
         <div class="nav-links">
             <a href="home.php">Home</a>
             <a href="events.php">Events</a>
-            <a href="community.html">Community</a>
+            <a href="community.php">Community</a>
             <a href="shop.php">Shop</a>
             <a href="tutorials.php">Tutorials</a>
         </div>

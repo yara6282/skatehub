@@ -2,14 +2,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
 
-    document.addEventListener('mousemove', (e) => {
+    if (!cursor || !follower) return;
+
+    document.body.style.cursor = 'none';
+
+    function moveCursor(e) {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
 
         follower.animate({
             left: `${e.clientX}px`,
             top: `${e.clientY}px`
-        }, { duration: 500, fill: "forwards" });
+        }, {
+            duration: 500,
+            fill: "forwards"
+        });
+    }
+
+    document.addEventListener('mousemove', moveCursor);
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.display = 'block';
+        follower.style.display = 'block';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.style.display = 'none';
+        follower.style.display = 'none';
+    });
+
+    window.addEventListener('focus', () => {
+        cursor.style.display = 'block';
+        follower.style.display = 'block';
+        document.body.style.cursor = 'none';
+    });
+
+    window.addEventListener('blur', () => {
+        cursor.style.display = 'none';
+        follower.style.display = 'none';
     });
 
     const cards = document.querySelectorAll('.tilt-target');
@@ -26,15 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const rotateX = (centerY - y) / 20;
             const rotateY = (x - centerX) / 20;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            card.style.transform =
+                `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+            card.style.transform =
+                `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
         });
     });
 
-    const interactables = document.querySelectorAll('a, button, .story-item, input, textarea, .chat-user');
+    const interactables = document.querySelectorAll(
+        'a, button, .story-item, input, textarea, .chat-user, label, select'
+    );
 
     interactables.forEach(item => {
         item.addEventListener('mouseenter', () => {
@@ -56,7 +90,6 @@ function animateLike(btn) {
     icon.classList.toggle('fa-solid');
 
     icon.style.color = icon.classList.contains('fa-solid') ? '#ff2d55' : 'white';
-
     btn.style.transform = 'scale(1.2)';
 
     setTimeout(() => {
@@ -71,9 +104,12 @@ function selectChat(user, name) {
 
     user.classList.add('active');
 
-    document.getElementById('chatName').textContent = name;
-
+    const chatName = document.getElementById('chatName');
     const chatContainer = document.getElementById('chatContainer');
+
+    if (!chatName || !chatContainer) return;
+
+    chatName.textContent = name;
 
     if (name === 'Tony') {
         chatContainer.innerHTML = `
