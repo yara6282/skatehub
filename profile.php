@@ -63,64 +63,54 @@ $total_tickets = $tickets_count_row["total_tickets"];
     </div>
 
     <div class="nav-icons">
-<!-- التحقق من رتبة الأدمن -->
+
+    <!-- التحقق من رتبة الأدمن -->
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
         <a href="admin-dashboard.php" class="admin-nav-icon" title="Admin Panel">
             <i class="fas fa-user-shield"></i>
         </a>
     <?php endif; ?>
-        <?php if (isset($_SESSION["user_id"])): ?>
 
-            <a href="profile.php">
-                <i class="fas fa-user-circle"></i>
-            </a>
+    <?php if (isset($_SESSION["user_id"])): ?>
 
-        <?php else: ?>
+        <a href="profile.php">
+            <i class="fas fa-user-circle"></i>
+        </a>
 
-            <a href="login.html">
-                <i class="fas fa-user-circle"></i>
-            </a>
+    <?php else: ?>
 
-        <?php endif; ?>
+        <a href="login.html">
+            <i class="fas fa-user-circle"></i>
+        </a>
 
-        <div class="cart-btn">
-            <a href="cart.php">
-                <i class="fas fa-shopping-cart"></i>
-            </a>
+    <?php endif; ?>
 
-            <span id="cart-count">0</span>
-        </div>
+    <div class="cart-btn">
+        <a href="cart.php">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
 
-<<<<<<< HEAD
-        <div class="nav-links">
-            <a href="home.php">Home</a>
-            <a href="events.php">Events</a>
-            <a href="community.php">Community</a>
-            <a href="shop.php">Shop</a>
-            <a href="tutorials.php">Tutorials</a>
-        </div>
-=======
-        <div class="notif-wrapper">
->>>>>>> 41d201d981c4c9c12e388d7a7a1828eb040c98d7
+        <span id="cart-count">0</span>
+    </div>
 
-            <button class="notif-btn" id="notifBtn">
-                <i class="fas fa-bell"></i>
+    <div class="notif-wrapper">
 
-                <span class="notif-dot"></span>
-            </button>
+        <button class="notif-btn" id="notifBtn">
+            <i class="fas fa-bell"></i>
 
-            <div class="notif-panel" id="notifPanel">
+            <span class="notif-dot"></span>
+        </button>
 
-                <div class="notif-header">
-                    NOTIFICATIONS
-                </div>
+        <div class="notif-panel" id="notifPanel">
 
-                <div class="notif-list" id="notifList">
+            <div class="notif-header">
+                NOTIFICATIONS
+            </div>
 
-                    <div class="notif-loading">
-                        Loading...
-                    </div>
+            <div class="notif-list" id="notifList">
 
+                <div class="notif-loading">
+                    Loading...
                 </div>
 
             </div>
@@ -128,6 +118,8 @@ $total_tickets = $tickets_count_row["total_tickets"];
         </div>
 
     </div>
+
+</div>
 
 </nav>
 

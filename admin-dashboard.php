@@ -57,6 +57,7 @@ $total_orders = mysqli_fetch_assoc($count_result)["total_orders"];
             <button class="nav-btn active" onclick="showSection('shop-mgmt')">
                 <i class="fas fa-shopping-cart"></i> SHOP_GEAR
             </button>
+            
 
             <button class="nav-btn" onclick="showSection('events-mgmt')">
                 <i class="fas fa-calendar-alt"></i> EVENTS_MGMT
@@ -70,6 +71,9 @@ $total_orders = mysqli_fetch_assoc($count_result)["total_orders"];
                 <i class="fas fa-box"></i> ORDERS_QUEUE
                 <span class="order-badge"><?php echo $total_orders; ?></span>
             </button>
+            <button class="nav-btn" onclick="showSection('community-mgmt')">
+    <i class="fas fa-users"></i> COMMUNITY_CONTROL
+</button>
 
             <hr class="nav-divider">
 
@@ -492,6 +496,173 @@ $total_orders = mysqli_fetch_assoc($count_result)["total_orders"];
                 </table>
             </div>
         </section>
+        <?php
+$community_posts = mysqli_query($conn, "
+SELECT cp.*, u.fullname
+FROM community_posts cp
+JOIN users u ON cp.user_id = u.id
+ORDER BY cp.created_at DESC
+");
+
+$community_comments = mysqli_query($conn, "
+SELECT pc.*, u.fullname
+FROM post_comments pc
+JOIN users u ON pc.user_id = u.id
+ORDER BY pc.created_at DESC
+");
+
+$community_stories = mysqli_query($conn, "
+SELECT s.*, u.fullname
+FROM stories s
+JOIN users u ON s.user_id = u.id
+ORDER BY s.created_at DESC
+");
+
+$total_users =
+mysqli_fetch_assoc(
+mysqli_query($conn,
+"SELECT COUNT(*) AS c FROM users")
+)["c"];
+
+$total_posts =
+mysqli_fetch_assoc(
+mysqli_query($conn,
+"SELECT COUNT(*) AS c FROM community_posts")
+)["c"];
+
+$total_stories =
+mysqli_fetch_assoc(
+mysqli_query($conn,
+"SELECT COUNT(*) AS c FROM stories")
+)["c"];
+?>
+
+<section id="community-mgmt" class="mgmt-section">
+
+    <div class="action-bar">
+        <h2 class="sub-title">
+            <i class="fas fa-shield-alt"></i>
+            COMMUNITY_MODERATION
+        </h2>
+    </div>
+
+    <div class="community-stats-admin">
+
+        <div class="community-admin-box">
+            <h3><?php echo $total_users; ?></h3>
+            <p>TOTAL_USERS</p>
+        </div>
+
+        <div class="community-admin-box">
+            <h3><?php echo $total_posts; ?></h3>
+            <p>TOTAL_POSTS</p>
+        </div>
+
+        <div class="community-admin-box">
+            <h3><?php echo $total_stories; ?></h3>
+            <p>TOTAL_STORIES</p>
+        </div>
+
+    </div>
+
+    <div class="community-admin-grid">
+
+        <div class="community-admin-card">
+
+            <h3>COMMUNITY POSTS</h3>
+
+            <?php while($post = mysqli_fetch_assoc($community_posts)): ?>
+
+                <div class="community-admin-item">
+
+                    <div>
+                        <strong>
+                            <?php echo htmlspecialchars($post["fullname"]); ?>
+                        </strong>
+
+                        <p>
+                            <?php echo htmlspecialchars($post["content"]); ?>
+                        </p>
+                    </div>
+
+                    <a
+                        href="delete_post.php?id=<?php echo $post['id']; ?>"
+                        class="content-delete"
+                    >
+                        <i class="fas fa-trash"></i>
+                    </a>
+
+                </div>
+
+            <?php endwhile; ?>
+
+        </div>
+
+        <div class="community-admin-card">
+
+            <h3>COMMENTS</h3>
+
+            <?php while($comment = mysqli_fetch_assoc($community_comments)): ?>
+
+                <div class="community-admin-item">
+
+                    <div>
+                        <strong>
+                            <?php echo htmlspecialchars($comment["fullname"]); ?>
+                        </strong>
+
+                        <p>
+                            <?php echo htmlspecialchars($comment["comment"]); ?>
+                        </p>
+                    </div>
+
+                    <a
+                        href="delete_comment.php?id=<?php echo $comment['id']; ?>"
+                        class="content-delete"
+                    >
+                        <i class="fas fa-trash"></i>
+                    </a>
+
+                </div>
+
+            <?php endwhile; ?>
+
+        </div>
+
+        <div class="community-admin-card">
+
+            <h3>STORIES</h3>
+
+            <?php while($story = mysqli_fetch_assoc($community_stories)): ?>
+
+                <div class="community-admin-item">
+
+                    <div>
+                        <strong>
+                            <?php echo htmlspecialchars($story["fullname"]); ?>
+                        </strong>
+
+                        <p>
+                            <?php echo htmlspecialchars($story["caption"]); ?>
+                        </p>
+                    </div>
+
+                    <a
+                        href="delete_story.php?id=<?php echo $story['id']; ?>"
+                        class="content-delete"
+                    >
+                        <i class="fas fa-trash"></i>
+                    </a>
+
+                </div>
+
+            <?php endwhile; ?>
+
+        </div>
+
+    </div>
+
+</section>
 
     </main>
 </div>

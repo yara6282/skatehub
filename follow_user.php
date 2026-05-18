@@ -23,12 +23,15 @@ $check = mysqli_query($conn, "
 ");
 
 if (mysqli_num_rows($check) > 0) {
+
     mysqli_query($conn, "
         DELETE FROM follows
         WHERE follower_id='$follower_id'
         AND following_id='$following_id'
     ");
+
 } else {
+
     mysqli_query($conn, "
         INSERT INTO follows (follower_id, following_id)
         VALUES ('$follower_id', '$following_id')
@@ -38,7 +41,8 @@ if (mysqli_num_rows($check) > 0) {
         SELECT fullname FROM users WHERE id='$follower_id'
     "));
 
-    $message = $me["fullname"] . " started following you.";
+    $name = mysqli_real_escape_string($conn, $me["fullname"]);
+    $message = "$name started following you.";
 
     mysqli_query($conn, "
         INSERT INTO notifications (user_id, message)

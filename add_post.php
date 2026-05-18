@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_id"])) {
     exit();
 }
 
-$user_id = $_SESSION["user_id"];
+$user_id = intval($_SESSION["user_id"]);
 $content = mysqli_real_escape_string($conn, $_POST["content"]);
 $location = mysqli_real_escape_string($conn, $_POST["location"]);
 
@@ -22,10 +22,30 @@ if (!empty($_FILES["post_img"]["name"])) {
     }
 }
 
-$sql = "INSERT INTO community_posts (user_id, content, image, location)
-        VALUES ('$user_id', '$content', '$image_path', '$location')";
+mysqli_query($conn, "
+    INSERT INTO community_posts (user_id, content, image, location)
+    VALUES ('$user_id', '$content', '$image_path', '$location')
+");
 
-mysqli_query($conn, $sql);
+$me = mysqli_fetch_assoc(mysqli_query($conn, "
+    SELECT fullname FROM users WHERE id='$user_id'
+"));
+
+$name = mysqli_real_escape_string($conn, $me["fullname"]);
+$notif = "$name shared a new post.";
+
+$followers = mysqli_query($conn, "
+    SELECT follower_id
+    FROM follows
+    WHERE following_id='$user_id'
+");
+
+while ($f = mysqli_fetch_assoc($followers)) {
+    mysqli_query($conn, "
+        INSERT INTO notifications (user_id, message)
+        VALUES ('{$f["follower_id"]}', '$notif')
+    ");
+}
 
 header("Location: community.php");
 exit();
