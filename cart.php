@@ -148,17 +148,7 @@ session_start();
                 </label>
             </div>
 
-            <label class="group-label">DROP_ZONE (Palestine)</label>
-            <select id="governorate" class="skate-input">
-                
-                <option value="" disabled selected>Select Governorate</option>
-                <option value="Jerusalem">Jerusalem (القدس)</option>
-                <option value="Nablus">Nablus</option>
-                <option value="Ramallah">Ramallah</option>
-                <option value="Hebron">Hebron</option>
-                <option value="Jenin">Jenin</option>
-                <option value="Bethlehem">Bethlehem</option>
-            </select>
+            
             <button type="button" class="location-btn" onclick="getUserLocation()">
     <i class="fas fa-location-crosshairs"></i>
     Use My Current Location
