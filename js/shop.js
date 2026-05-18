@@ -94,108 +94,142 @@ function selectSize(productId, size, btn) {
 
     document.getElementById(`size-error-${productId}`).innerText = "";
 }
+// --- 1. دالة الإشعارات الجديدة ---
+function showShopToast(msg, type = 'blue') {
+    const container = document.getElementById('shop-toast-container');
+    const toast = document.createElement('div');
+    toast.className = `shop-toast ${type === 'pink' ? 'toast-pink' : 'toast-blue'}`;
+    toast.innerText = msg;
 
+    container.appendChild(toast);
+
+    // إزالة الإشعار بعد 3 ثوانٍ
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = '0.5s';
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+// --- 2. تحديث دالة addToCart ---
 function addToCart(productId) {
-
     fetch("check_login.php")
-
     .then(response => response.json())
-
     .then(data => {
-
-        // إذا مش عامل login
         if (!data.loggedIn) {
-
-            alert("Please login first.");
-
-            window.location.href = "login.html";
-
+            showShopToast("LOGIN REQUIRED TO GRAB GEAR!", "pink");
+            setTimeout(() => { window.location.href = "login.html"; }, 2000);
             return;
         }
 
-        // إذا عامل login
         const product = products.find(p => p.id === productId);
-
         const sizeBox = document.getElementById(`sizes-${productId}`);
-
         const selectedSize = sizeBox.dataset.selectedSize;
 
         if (!selectedSize) {
-
-            document.getElementById(`size-error-${productId}`).innerText =
-                "Please choose a size.";
-
+            showShopToast("CHOOSE A SIZE FIRST!", "pink");
+            // إضافة رعشة بسيطة لصندوق المقاسات للتنبيه
+            gsap.to(`#sizes-${productId}`, {x: 10, repeat: 3, yoyo: true, duration: 0.05});
             return;
         }
 
         const cartItem = {
-
             id: Date.now(),
-
             productId: product.id,
-
             name: product.name,
-
             price: parseFloat(product.price.replace('$', '')),
-
             img: product.img,
-
             size: selectedSize,
-
             qty: 1
         };
 
-        let cart =
-            JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
-
+        let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
         cart.push(cartItem);
+        localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
 
-        localStorage.setItem(
-            'skateHub_FinalCart',
-            JSON.stringify(cart)
-        );
-
-        window.location.href = "cart.html";
+        showShopToast(`${product.name.toUpperCase()} ADDED TO DECK!`, "blue");
     });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
     filterProducts('all');
 });
+
+// --- 3. تحديث دالة toggleWishlist ---
 function toggleWishlist(productId) {
     fetch("check_login.php")
-        .then(response => response.json())
-        .then(login => {
-            if (!login.loggedIn) {
-                alert("Please login first to add wishlist.");
-                window.location.href = "login.html";
-                return;
-            }
+    .then(response => response.json())
+    .then(login => {
+        if (!login.loggedIn) {
+            showShopToast("LOGIN TO SAVE FAVORITES!", "pink");
+            return;
+        }
 
-            const product = products.find(p => p.id === productId);
+        const product = products.find(p => p.id === productId);
 
-            fetch("toggle_wishlist.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    product_id: product.id,
-                    product_name: product.name,
-                    product_img: product.img,
-                    product_price: parseFloat(product.price.replace("$", ""))
-                })
+        fetch("toggle_wishlist.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                product_id: product.id,
+                product_name: product.name,
+                product_img: product.img,
+                product_price: parseFloat(product.price.replace("$", ""))
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "added") {
-                    alert("Added to wishlist ❤️");
-                } else {
-                    alert("Removed from wishlist");
-                }
-            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "added") {
+                showShopToast("ADDED TO WISHLIST ❤️", "blue");
+            } else {
+                showShopToast("REMOVED FROM WISHLIST", "pink");
+            }
         });
+    });
 }
+
+// --- 4. تحديث دالة addCustomToCart ---
+window.addCustomToCart = function() {
+    fetch("check_login.php")
+    .then(response => response.json())
+    .then(data => {
+        if (!data.loggedIn) {
+            showShopToast("LOGIN TO DESIGN YOUR GEAR!", "pink");
+            return;
+        }
+
+        const btn = document.querySelector('.publish-btn');
+        showShopToast("CAPTURING YOUR ART...", "blue");
+
+        const designArea = document.getElementById('design-area');
+
+        html2canvas(designArea, {
+            backgroundColor: null,
+            useCORS: true
+        }).then(canvas => {
+            const capturedImage = canvas.toDataURL("image/png");
+            const baseType = document.querySelector('.base-btn.active').innerText;
+            const customPrice = (baseType === "DECK") ? 85.00 : 35.00;
+
+            const customCartItem = {
+                id: Date.now(),
+                productId: "CUSTOM-" + Date.now(),
+                name: `CUSTOM_${baseType}`,
+                price: customPrice,
+                img: capturedImage,
+                size: "CUSTOM",
+                qty: 1
+            };
+
+            let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
+            cart.push(customCartItem);
+            localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
+
+            showShopToast("CUSTOM GEAR ADDED TO DECK! 🛹", "blue");
+            setTimeout(() => { window.location.href = "cart.php"; }, 1500);
+        });
+    });
+};
 // =========================================
 // 2. منطق مختبر التصميم (Custom Lab Logic)
 // =========================================
@@ -262,33 +296,24 @@ if (labImageInput) {
     });
 }
 window.addCustomToCart = function() {
-    // 1. التأكد من تسجيل الدخول
     fetch("check_login.php")
     .then(response => response.json())
     .then(data => {
         if (!data.loggedIn) {
-            alert("Please login first.");
-            window.location.href = "login.html";
+            showShopToast("LOGIN TO DESIGN YOUR GEAR!", "pink");
             return;
         }
 
-        // إظهار رسالة "جاري التجهيز" لأن التصوير يأخذ ثانية
         const btn = document.querySelector('.publish-btn');
-        const originalText = btn.innerText;
-        btn.innerText = "CAPTURING_DESIGN...";
+        showShopToast("CAPTURING YOUR ART...", "blue");
 
-        // 2. استخدام html2canvas لتصوير منطقة التصميم فقط
         const designArea = document.getElementById('design-area');
 
         html2canvas(designArea, {
-            backgroundColor: null, // يجعل الخلفية شفافة إذا أمكن
-            logging: false,
-            useCORS: true // للسماح بتصوير الصور من روابط خارجية
+            backgroundColor: null,
+            useCORS: true
         }).then(canvas => {
-            // تحويل اللوحة (Canvas) إلى صورة نصية (Base64)
             const capturedImage = canvas.toDataURL("image/png");
-
-            // 3. جمع البيانات
             const baseType = document.querySelector('.base-btn.active').innerText;
             const customPrice = (baseType === "DECK") ? 85.00 : 35.00;
 
@@ -297,18 +322,17 @@ window.addCustomToCart = function() {
                 productId: "CUSTOM-" + Date.now(),
                 name: `CUSTOM_${baseType}`,
                 price: customPrice,
-                img: capturedImage, // هنا السحر! حفظنا صورة التصميم كاملة
+                img: capturedImage,
                 size: "CUSTOM",
                 qty: 1
             };
 
-            // 4. الحفظ في localStorage
             let cart = JSON.parse(localStorage.getItem('skateHub_FinalCart')) || [];
             cart.push(customCartItem);
             localStorage.setItem('skateHub_FinalCart', JSON.stringify(cart));
 
-            // 5. الذهاب للسلة
-            window.location.href = "cart.php";
+            showShopToast("CUSTOM GEAR ADDED TO DECK! 🛹", "blue");
+            setTimeout(() => { window.location.href = "cart.php"; }, 1500);
         });
     });
 };

@@ -359,5 +359,7 @@ document.addEventListener("click", (e)=>{
 });
 
 </script>
+<!-- حاوية إشعارات الشوب -->
+<div id="shop-toast-container" class="shop-toast-container"></div>
 </body>
 </html>

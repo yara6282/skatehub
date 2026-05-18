@@ -135,17 +135,17 @@ function processOrder() {
     ) || 0;
 
     if (cart.length === 0) {
-        alert("Your cart is empty.");
+        showNotification("Your cart is empty.");
         return;
     }
 
     if (!governorate) {
-        alert("Please select your Governorate!");
+        showNotification("Please select your Governorate!");
         return;
     }
 
     if (address === "") {
-        alert("Please enter your address details.");
+        showNotification("Please enter your address details.");
         return;
     }
 
@@ -171,11 +171,30 @@ function processOrder() {
             localStorage.removeItem('skateHub_FinalCart');
            window.location.href = "orders.php";
         } else {
-            alert(data.message);
+            showNotification(data.message);
         }
     })
     .catch(error => {
         console.error(error);
-        alert("Something went wrong while placing the order.");
+        showNotification("Something went wrong while placing the order.");
     });
+}
+// دالة الإشعارات الجديدة بدل الـ alert
+function showNotification(msg, type = 'error') {
+    const container = document.getElementById('cart-status-container');
+    
+    // إنشاء عنصر الإشعار
+    const toast = document.createElement('div');
+    toast.className = `toast-msg ${type === 'error' ? 'toast-error' : 'toast-success'}`;
+    toast.innerText = msg;
+
+    // مسح الإشعارات القديمة وإضافة الجديد
+    container.innerHTML = "";
+    container.appendChild(toast);
+
+    // حذف الإشعار تلقائياً بعد 3 ثوانٍ
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }

@@ -189,9 +189,12 @@ session_start();
                 </div>
             </div>
 
-            <button class="checkout-btn" onclick="processOrder()">
-                KICKFLIP TO CHECKOUT <i class="fas fa-arrow-right"></i>
-            </button>
+           <!-- مكان ظهور الإشعارات فوق الزر -->
+<div id="cart-status-container" class="status-container"></div>
+
+<button class="checkout-btn" onclick="processOrder()">
+    KICKFLIP TO CHECKOUT <i class="fas fa-arrow-right"></i>
+</button>
         </aside>
     </div>
 </main>
